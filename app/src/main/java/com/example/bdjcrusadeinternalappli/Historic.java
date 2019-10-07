@@ -5,7 +5,7 @@ import java.util.Date;
 public class Historic {
 
     protected int idHistoric;
-    protected int idUser;
+    protected User user;
     protected String origin;
     protected String action;
     protected Date date;
@@ -14,8 +14,8 @@ public class Historic {
     public int getIdHistoric() {
         return idHistoric;
     }
-    public int getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
     public String getOrigin() {
         return origin;
@@ -31,8 +31,8 @@ public class Historic {
     public void setIdHistoric(int idHistoric) {
         this.idHistoric = idHistoric;
     }
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
     public void setOrigin(String origin) {
         this.origin = origin;

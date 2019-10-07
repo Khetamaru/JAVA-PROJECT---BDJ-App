@@ -2,19 +2,19 @@ package com.example.bdjcrusadeinternalappli;
 
 import java.util.Date;
 
-public class User_X_Game {
+public class Borrow {
 
-    protected int idUser;
-    protected int idGame;
+    protected User user;
+    protected Game game;
     protected Date startDate;
     protected Date endDate;
 
 
-    public int getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
-    public int getIdGame() {
-        return idGame;
+    public Game getGame() {
+        return game;
     }
     public Date getStartDate() {
         return startDate;
@@ -24,11 +24,11 @@ public class User_X_Game {
     }
 
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
-    public void setIdGame(int idGame) {
-        this.idGame = idGame;
+    public void setGame(Game game) {
+        this.game = game;
     }
     public void setStartDate(Date startDate) {
         this.startDate = startDate;

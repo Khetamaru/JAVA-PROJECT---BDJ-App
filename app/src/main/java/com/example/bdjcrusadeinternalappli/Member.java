@@ -5,7 +5,7 @@ import java.util.Date;
 public class Member {
 
     protected int idMemeber;
-    protected int idUser;
+    protected User user;
     protected String place;
     protected Date startDate;
     protected Date endDate;
@@ -14,8 +14,8 @@ public class Member {
     public int getIdMemeber() {
         return idMemeber;
     }
-    public int getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
     public String getPlace() {
         return place;
@@ -31,8 +31,8 @@ public class Member {
     public void setIdMemeber(int idMemeber) {
         this.idMemeber = idMemeber;
     }
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setIdUser(User user) {
+        this.user = user;
     }
     public void setPlace(String place) {
         this.place = place;
