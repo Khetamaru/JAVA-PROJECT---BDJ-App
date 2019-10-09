@@ -11,6 +11,8 @@ public class Historic {
     private Date date;
 
 
+    public Historic() {
+    }
     public Historic(int _idHistoric, User _user, String _origin, String _action, Date _date) {
 
         idHistoric = _idHistoric;

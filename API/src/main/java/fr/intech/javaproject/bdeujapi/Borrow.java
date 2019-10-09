@@ -10,6 +10,8 @@ public class Borrow {
     private Date endDate;
 
 
+    public Borrow() {
+    }
     public Borrow(User _user, Game _game, Date _startDate, Date _endDate) {
 
         user = _user;

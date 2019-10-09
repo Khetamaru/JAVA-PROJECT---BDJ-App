@@ -11,6 +11,8 @@ public class Member {
     private Date endDate;
 
 
+    public Member() {
+    }
     public Member(int _idMember, User _user, String _place, Date _startDate, Date _endDate) {
 
         idMember = _idMember;

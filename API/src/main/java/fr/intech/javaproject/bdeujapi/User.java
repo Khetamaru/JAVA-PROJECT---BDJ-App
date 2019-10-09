@@ -12,6 +12,8 @@ public class User {
     private String mail;
 
 
+    public User() {
+    }
     public User(int _idUser, String _pseudo, String _login, String _password, String _mail) {
 
         idUser = _idUser;

@@ -7,6 +7,8 @@ public class Game {
     private String state;
 
 
+    public Game() {
+    }
     public Game(int _idGame, String _name, String _state) {
 
         idGame = _idGame;
