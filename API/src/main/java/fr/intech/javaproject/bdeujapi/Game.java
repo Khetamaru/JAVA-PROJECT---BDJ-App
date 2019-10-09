@@ -1,7 +1,14 @@
 package fr.intech.javaproject.bdeujapi;
 
-public class Game {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class Game {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idGame;
     private String name;
     private String state;

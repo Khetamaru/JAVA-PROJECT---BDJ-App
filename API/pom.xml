@@ -29,11 +29,19 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
+        <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.zsoltfabok/sqlite-dialect -->
+		<dependency>
+			<groupId>com.zsoltfabok</groupId>
+			<artifactId>sqlite-dialect</artifactId>
+			<version>1.0</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springdoc</groupId>

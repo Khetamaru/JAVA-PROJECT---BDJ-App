@@ -2,9 +2,17 @@ package fr.intech.javaproject.bdeujapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.annotation.processing.Generated;
+import javax.persistence.*;
+
+@Entity
+@Access(AccessType.FIELD)
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idUser;
+
     private String pseudo;
     private String login;
     @JsonProperty("motdepasse")

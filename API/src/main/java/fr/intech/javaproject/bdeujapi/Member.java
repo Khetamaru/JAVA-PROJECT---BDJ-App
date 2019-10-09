@@ -1,10 +1,14 @@
 package fr.intech.javaproject.bdeujapi;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Member {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idMember;
+    @OneToOne
     private User user;
     private String place;
     private Date startDate;

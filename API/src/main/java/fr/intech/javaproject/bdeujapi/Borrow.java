@@ -1,10 +1,16 @@
 package fr.intech.javaproject.bdeujapi;
 
+import javax.persistence.*;
 import java.util.Date;
-
+@Entity
 public class Borrow {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int idBorrow;
+    @OneToOne
     private User user;
+    @OneToOne
     private Game game;
     private Date startDate;
     private Date endDate;
@@ -21,6 +27,10 @@ public class Borrow {
     }
 
 
+    public int getIdBorrow() {
+        return idBorrow;
+    }
+
     public User getUser() {
         return user;
     }
@@ -35,6 +45,9 @@ public class Borrow {
     }
 
 
+    public void setIdBorrow(int idBorrow) {
+        this.idBorrow = idBorrow;
+    }
     public void setUser(User user) {
         this.user = user;
     }
@@ -47,4 +60,6 @@ public class Borrow {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
+
 }

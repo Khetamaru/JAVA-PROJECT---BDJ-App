@@ -1,10 +1,13 @@
 package fr.intech.javaproject.bdeujapi;
 
+import javax.persistence.*;
 import java.util.Date;
-
+@Entity
 public class Historic {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idHistoric;
+    @OneToOne
     private User user;
     private String origin;
     private String action;
