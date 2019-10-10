@@ -13,9 +13,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idUser;
 
+    @JsonProperty("surname")
     private String pseudo;
     private String login;
-    @JsonProperty("motdepasse")
     private String password;
     private String mail;
 
