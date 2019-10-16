@@ -3,17 +3,18 @@ package com.example.bdjcrusadeinternalappli;
 public class User {
 
     protected int idUser;
-    protected String pseudo;
+    protected String surname;
     protected String login;
     protected String password;
     protected String mail;
+    protected String level;
 
 
     public int getIdUser() {
         return idUser;
     }
-    public String getPseudo() {
-        return pseudo;
+    public String getSurname() {
+        return surname;
     }
     public String getLogin() {
         return login;
@@ -24,13 +25,16 @@ public class User {
     public String getMail() {
         return mail;
     }
+    public String getLevel() {
+        return level;
+    }
 
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
     public void setLogin(String login) {
         this.login = login;
@@ -40,5 +44,8 @@ public class User {
     }
     public void setMail(String mail) {
         this.mail = mail;
+    }
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

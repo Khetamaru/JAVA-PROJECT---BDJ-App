@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface UserRepository extends CrudRepository<User, Integer> {
 
     @Query("UPDATE User SET login = :login WHERE idUser = :idUser")
@@ -17,4 +19,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     @Query("UPDATE User SET mail = :mail WHERE idUser = :idUser")
     public void updateMail( @Param("mail") String mail, @Param("idUser") int idUser);
+
+    public Optional<User> findByLoginAndPassword(String login, String password);
 }

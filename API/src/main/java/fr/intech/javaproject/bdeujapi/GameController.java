@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
@@ -24,7 +21,7 @@ public class GameController {
     @Autowired
     GameRepository gameRepository;
 
-    @GetMapping
+    @PutMapping
     public void saveGame(Game game) throws Exception {
 
         gameRepository.save(game);
@@ -53,19 +50,19 @@ public class GameController {
         gameRepository.deleteAll();
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable int id) throws Exception {
 
         gameRepository.deleteById(id);
     }
 
-    @GetMapping("/updateName/{id}/{name}")
+    @PatchMapping("/updateName/{id}/{name}")
     public void updateName(@PathVariable int id, @PathVariable String name) throws Exception {
 
         gameRepository.updateName(name, id);
     }
 
-    @GetMapping("/updateState/{id}/{state}")
+    @PatchMapping("/updateState/{id}/{state}")
     public void updateState(@PathVariable int id, @PathVariable String state) throws Exception {
 
         gameRepository.updateState(state, id);

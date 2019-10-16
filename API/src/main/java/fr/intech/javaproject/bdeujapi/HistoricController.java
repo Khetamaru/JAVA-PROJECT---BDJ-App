@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
@@ -24,7 +21,7 @@ public class HistoricController {
     @Autowired
     HistoricRepository historicRepository;
 
-    @GetMapping
+    @PutMapping
     public void saveHistoric(Historic historic) throws Exception {
 
         historicRepository.save(historic);
@@ -53,25 +50,25 @@ public class HistoricController {
 
         historicRepository.deleteAll();
     }
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable int id) throws Exception {
 
         historicRepository.deleteById(id);
     }
 
-    @GetMapping("/updateOrigin/{id}/{origin}")
+    @PatchMapping("/updateOrigin/{id}/{origin}")
     public void updateOrigin(@PathVariable int id, @PathVariable String origin) throws Exception {
 
         historicRepository.updateOrigin(origin, id);
     }
 
-    @GetMapping("/updateAction/{id}/{action}")
+    @PatchMapping("/updateAction/{id}/{action}")
     public void updateAction(@PathVariable int id, @PathVariable String action) throws Exception {
 
         historicRepository.updateAction(action, id);
     }
 
-    @GetMapping("/updateDate/{id}/{date}")
+    @PatchMapping("/updateDate/{id}/{date}")
     public void updateDate(@PathVariable int id, @PathVariable String date) throws Exception {
 
         historicRepository.updateDate(date, id);

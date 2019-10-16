@@ -1,13 +1,11 @@
 package fr.intech.javaproject.bdeujapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
@@ -24,10 +22,10 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping
-    public void saveUser(String path) throws Exception {
+    @PutMapping
+    public void saveUser(@RequestBody String data) throws Exception {
 
-        User user = mapper.mapperUserRead(path);
+        User user = new ObjectMapper().readValue(data, User.class);
         userRepository.save(user);
     }
 
@@ -50,37 +48,59 @@ public class UserController {
         }
     }
 
+    @DeleteMapping
     public void deleteAllUsers() throws Exception {
 
         userRepository.deleteAll();
     }
-    @GetMapping("/delete/{id}")
+
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable int id) throws Exception {
 
         userRepository.deleteById(id);
     }
 
-    @GetMapping("/updateLogin/{id}/{login}")
+    @PatchMapping("/updateLogin/{id}/{login}")
     public void updateLogin(@PathVariable int id, @PathVariable String login) throws Exception {
 
         userRepository.updateLogin(login, id);
     }
 
-    @GetMapping("/updateSurname/{id}/{surname}")
+    @PatchMapping("/updateSurname/{id}/{surname}")
     public void updateSurname(@PathVariable int id, @PathVariable String surname) throws Exception {
 
         userRepository.updateLogin(surname, id);
     }
 
-    @GetMapping("/updatePassword/{id}/{password}")
+    @PatchMapping("/updatePassword/{id}/{password}")
     public void updatePassword(@PathVariable int id, @PathVariable String password) throws Exception {
 
         userRepository.updateLogin(password, id);
     }
 
-    @GetMapping("/updateMail/{id}/{mail}")
+    @PatchMapping("/updateMail/{id}/{mail}")
     public void updateMail(@PathVariable int id, @PathVariable String mail) throws Exception {
 
         userRepository.updateLogin(mail, id);
+    }
+
+    @PostMapping("/login")
+    public User login(@RequestBody String data) throws Exception {
+
+        Login login = new ObjectMapper().readValue(data, Login.class);
+        
+        Optional<User> user = userRepository.findByLoginAndPassword(login.getLog(), login.getPassword());
+
+
+        if (user.isPresent()) {
+
+            System.out.println(user.get().getLogin());
+            System.out.println(user.get().getPassword());
+            return user.get();
+        }
+        else {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Bad login or Password");
+        }
     }
 }

@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
@@ -25,7 +22,7 @@ public class MemberController {
     @Autowired
     MemberRepository memberRepository;
 
-    @GetMapping
+    @PutMapping
     public void saveMember(Member member) throws Exception {
 
         memberRepository.save(member);
@@ -54,25 +51,25 @@ public class MemberController {
 
         memberRepository.deleteAll();
     }
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable int id) throws Exception {
 
         memberRepository.deleteById(id);
     }
 
-    @GetMapping("/updatePlace/{id}/{place}")
+    @PatchMapping("/updatePlace/{id}/{place}")
     public void updatePlace(@PathVariable int id, @PathVariable String place) throws Exception {
 
         memberRepository.updatePlace(place, id);
     }
 
-    @GetMapping("/updateStartDate/{id}/{startDate}")
+    @PatchMapping("/updateStartDate/{id}/{startDate}")
     public void updateStartDate(@PathVariable int id, @PathVariable Date startDate) throws Exception {
 
         memberRepository.updateStartDate(startDate, id);
     }
 
-    @GetMapping("/updateEndDate/{id}/{endDate}")
+    @PatchMapping("/updateEndDate/{id}/{endDate}")
     public void updateEndDate(@PathVariable int id, @PathVariable Date endDate) throws Exception {
 
         memberRepository.updateEndDate(endDate, id);

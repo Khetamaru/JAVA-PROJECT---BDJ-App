@@ -8,9 +8,4 @@ import java.util.Date;
 
 public interface BorrowRepository extends CrudRepository<Borrow, Integer> {
 
-    @Query("UPDATE User SET startDate = :startDate WHERE idBorrow = :idBorrow")
-    public void updateStartDate(@Param("startDate") Date startDate, @Param("idBorrow") int idBorrow);
-
-    @Query("UPDATE User SET endDate = :endDate WHERE idBorrow = :idBorrow")
-    public void updateEndDate( @Param("endDate") Date endDate, @Param("idBorrow") int idBorrow);
 }

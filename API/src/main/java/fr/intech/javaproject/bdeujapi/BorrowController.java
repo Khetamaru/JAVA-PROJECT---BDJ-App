@@ -1,13 +1,11 @@
 package fr.intech.javaproject.bdeujapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
@@ -25,7 +23,7 @@ public class BorrowController {
     @Autowired
     BorrowRepository borrowRepository;
 
-    @GetMapping
+    @PutMapping
     public void saveBorrow(Borrow borrow) throws Exception {
 
         borrowRepository.save(borrow);
@@ -54,21 +52,17 @@ public class BorrowController {
 
         borrowRepository.deleteAll();
     }
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable int id) throws Exception {
 
         borrowRepository.deleteById(id);
     }
 
-    @GetMapping("/updateStartDate/{id}/{startDate}")
-    public void updateStartDate(@PathVariable int id, @PathVariable Date startDate) throws Exception {
+    @PostMapping
+    public Borrow update(@RequestBody Borrow borrow) throws Exception {
+        //Borrow borrow = mapper.mapperBorrowRead(data);
 
-        borrowRepository.updateStartDate(startDate, id);
-    }
-
-    @GetMapping("/updateEndDate/{id}/{endDate}")
-    public void updateEndDate(@PathVariable int id, @PathVariable Date endDate) throws Exception {
-
-        borrowRepository.updateEndDate(endDate, id);
+        //borrowRepository.save(borrow);
+        return borrow;
     }
 }

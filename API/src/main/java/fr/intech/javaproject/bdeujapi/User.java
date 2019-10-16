@@ -15,20 +15,23 @@ public class User {
 
     @JsonProperty("surname")
     private String pseudo;
+    @Column(unique = true)
     private String login;
     private String password;
     private String mail;
+    private String level;
 
 
     public User() {
     }
-    public User(int _idUser, String _pseudo, String _login, String _password, String _mail) {
+    public User(int _idUser, String _pseudo, String _login, String _password, String _mail, String _level) {
 
         idUser = _idUser;
         pseudo = _pseudo;
         login = _login;
         password = _password;
         mail = _mail;
+        level = _level;
     }
 
 
@@ -47,6 +50,9 @@ public class User {
     public String getMail() {
         return mail;
     }
+    public String getLevel() {
+        return level;
+    }
 
 
     public void setIdUser(int idUser) {
@@ -63,5 +69,8 @@ public class User {
     }
     public void setMail(String mail) {
         this.mail = mail;
+    }
+    public void setLevel(String level) {
+        this.level = level;
     }
 }
