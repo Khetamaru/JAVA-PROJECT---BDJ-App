@@ -60,7 +60,7 @@
         android:id="@+id/location"
         android:text="LOCATION"
         app:layout_constraintTop_toBottomOf="@id/borrow"
-        app:layout_constraintBottom_toTopOf="@+id/historic"
+        app:layout_constraintBottom_toTopOf="@+id/levelUp"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintRight_toRightOf="@id/parent"
         />
@@ -68,8 +68,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/historic"
-        android:text="HISTORIC"
+        android:id="@+id/levelUp"
+        android:text="LEVEL UP"
         app:layout_constraintTop_toBottomOf="@id/location"
         app:layout_constraintBottom_toBottomOf="@+id/parent"
         app:layout_constraintLeft_toLeftOf="@id/parent"

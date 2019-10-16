@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Text;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -33,6 +34,11 @@ public class LoginPage extends Activity {
     EditText login;
     EditText passw;
     ObjectMapper mapper;
+
+    //Login logs;
+    //File logsJSON;
+    //FileOutputStream logsStream;
+    String logsString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +62,27 @@ public class LoginPage extends Activity {
                 String log = login.getText().toString();
                 String pass = passw.getText().toString();
 
+                /*logsJSON = new File("./logs.json");
+                try {
+                    logs = mapper.readValue(logsJSON, Login.class);
+                    login.setText(logs.getLog());
+                    passw.setText(logs.getPassword());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    logsStream = new FileOutputStream("./logs.json");
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }*/
+
                 MediaType JSON
                         = MediaType.get("application/json; charset=utf-8");
                 OkHttpClient client = new OkHttpClient();
 
-                RequestBody body = RequestBody.create(JSON, "{\"log\" : \"" + log + "\", \"password\" : \"" + pass + "\"}");
+                logsString = "{\"log\" : \"" + log + "\", \"password\" : \"" + pass + "\"}";
+
+                RequestBody body = RequestBody.create(JSON, logsString);
 
                 Request request = new Request.Builder()
                         .url("http://192.168.43.110:8080/user/login")
@@ -81,6 +103,8 @@ public class LoginPage extends Activity {
                         if (response.code() == 200) {
                             Log.i("LoginPage", "après 200");
                             User user = mapper.readValue(response.body().string(), User.class);
+                            //mapper.writeValue(logsStream, logs);
+                            Log.i("LoginPage", "après writeValue");
 
                            runOnUiThread(new Runnable() {
                                 @Override
@@ -99,11 +123,9 @@ public class LoginPage extends Activity {
                                     Log.i("LoginPage", "wrong try");
                                 }
                             });
-
                         }
                     }
                 });
-
             }
         });
 

@@ -3,6 +3,8 @@ package com.example.bdjcrusadeinternalappli;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,7 +29,15 @@ public class MainPage extends Activity {
     TextView login;
     TextView password;
     TextView mail;
+
+    Button inventory;
+    Button historic;
+    Button borrow;
+    Button location;
+    Button levelUp;
+
     ObjectMapper mapper;
+
     User user;
 
     @Override
@@ -40,8 +50,8 @@ public class MainPage extends Activity {
         mapper = new ObjectMapper();
 
         /*id = findViewById(R.id.id);
-        */surname = findViewById(R.id.surname);
-        /*login = findViewById(R.id.login);
+        surname = findViewById(R.id.surname);
+        login = findViewById(R.id.login);
         password = findViewById(R.id.password);
         mail = findViewById(R.id.mail);*/
 
@@ -76,5 +86,192 @@ public class MainPage extends Activity {
                 });
             }
         });
+    }
+
+    protected void levelChoice() {
+
+        switch (user.level) {
+
+            case("student"):
+
+                setContentView(R.layout.main_page_student);
+                inventory = findViewById(R.id.inventory);
+                inventory.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToInventory();
+                    }
+                });
+
+                borrow = findViewById(R.id.borrow);
+                borrow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToBorrow();
+                    }
+                });
+
+                location = findViewById(R.id.location);
+                location.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToLocation();
+                    }
+                });
+
+                levelUp = findViewById(R.id.levelUp);
+                levelUp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToLevelUp();
+                    }
+                });
+
+            case("cotisant"):
+
+                setContentView(R.layout.main_page_student);
+                inventory = findViewById(R.id.inventory);
+                inventory.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToInventory();
+                    }
+                });
+
+                borrow = findViewById(R.id.borrow);
+                borrow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToBorrow();
+                    }
+                });
+
+                location = findViewById(R.id.location);
+                location.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToLocation();
+                    }
+                });
+
+                levelUp = findViewById(R.id.levelUp);
+                levelUp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToLevelUp();
+                    }
+                });
+
+            case("bdjMember"):
+
+                setContentView(R.layout.main_page_student);
+                inventory = findViewById(R.id.inventory);
+                inventory.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToInventory();
+                    }
+                });
+
+                borrow = findViewById(R.id.borrow);
+                borrow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToBorrow();
+                    }
+                });
+
+                location = findViewById(R.id.location);
+                location.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToLocation();
+                    }
+                });
+
+                historic = findViewById(R.id.historic);
+                historic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToHistoric();
+                    }
+                });
+
+            case("admin"):
+
+                setContentView(R.layout.main_page_student);
+                inventory = findViewById(R.id.inventory);
+                inventory.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToInventory();
+                    }
+                });
+
+                borrow = findViewById(R.id.borrow);
+                borrow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToBorrow();
+                    }
+                });
+
+                location = findViewById(R.id.location);
+                location.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToLocation();
+                    }
+                });
+
+                historic = findViewById(R.id.historic);
+                historic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToHistoric();
+                    }
+                });
+        }
+    }
+
+    protected void goToInventory() {
+
+
+    }
+
+    protected void goToBorrow() {
+
+
+    }
+
+    protected void goToLocation() {
+
+
+    }
+
+    protected void goToLevelUp() {
+
+
+    }
+
+    protected void goToHistoric() {
+
+
     }
 }
