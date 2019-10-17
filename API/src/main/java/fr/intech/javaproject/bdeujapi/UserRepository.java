@@ -21,4 +21,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     public void updateMail( @Param("mail") String mail, @Param("idUser") int idUser);
 
     public Optional<User> findByLoginAndPassword(String login, String password);
+
+    public Optional<User> findByLogin(String login);
 }

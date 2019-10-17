@@ -48,6 +48,21 @@ public class UserController {
         }
     }
 
+    @GetMapping("/byLogin")
+    public User getUserByLogin(@RequestBody String data) throws Exception {
+
+        User user = new ObjectMapper().readValue(data, User.class);
+
+        Optional<User> optionalUser = userRepository.findByLogin(user.getLogin());
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
+        }
+        else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "User Not Found");
+        }
+    }
+
     @DeleteMapping
     public void deleteAllUsers() throws Exception {
 

@@ -1,6 +1,7 @@
 package com.example.bdjcrusadeinternalappli;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -100,7 +101,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToInventory();
+                        goToInventory(v);
                     }
                 });
 
@@ -109,7 +110,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToBorrow();
+                        goToBorrow(v);
                     }
                 });
 
@@ -118,7 +119,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToLocation();
+                        goToLocation(v);
                     }
                 });
 
@@ -127,7 +128,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToLevelUp();
+                        goToLevelUp(v);
                     }
                 });
 
@@ -139,7 +140,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToInventory();
+                        goToInventory(v);
                     }
                 });
 
@@ -148,7 +149,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToBorrow();
+                        goToBorrow(v);
                     }
                 });
 
@@ -157,7 +158,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToLocation();
+                        goToLocation(v);
                     }
                 });
 
@@ -166,7 +167,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToLevelUp();
+                        goToLevelUp(v);
                     }
                 });
 
@@ -178,7 +179,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToInventory();
+                        goToInventory(v);
                     }
                 });
 
@@ -187,7 +188,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToBorrow();
+                        goToBorrow(v);
                     }
                 });
 
@@ -196,7 +197,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToLocation();
+                        goToLocation(v);
                     }
                 });
 
@@ -205,7 +206,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToHistoric();
+                        goToHistoric(v);
                     }
                 });
 
@@ -217,7 +218,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToInventory();
+                        goToInventory(v);
                     }
                 });
 
@@ -226,7 +227,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToBorrow();
+                        goToBorrow(v);
                     }
                 });
 
@@ -235,7 +236,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToLocation();
+                        goToLocation(v);
                     }
                 });
 
@@ -244,34 +245,45 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToHistoric();
+                        goToHistoric(v);
                     }
                 });
         }
     }
 
-    protected void goToInventory() {
+    protected void goToInventory(View v) {
 
+        Intent intent = new Intent(v.getContext(), InventoryView.class);
+        intent.putExtra("idUser", user.idUser);
+        startActivity(intent);
+    }
+
+    protected void goToBorrow(View v) {
+
+        Intent intent = new Intent(v.getContext(), BorrowView.class);
+        intent.putExtra("idUser", user.idUser);
+        startActivity(intent);
+    }
+
+    protected void goToLocation(View v) {
+
+        Intent intent = new Intent(v.getContext(), LocationView.class);
+        intent.putExtra("idUser", user.idUser);
+        startActivity(intent);
+    }
+
+    protected void goToHistoric(View v) {
+
+        Intent intent = new Intent(v.getContext(), HistoricView.class);
+        intent.putExtra("idUser", user.idUser);
+        startActivity(intent);
+    }
+
+    protected void goToLevelUp(View v) {
 
     }
 
-    protected void goToBorrow() {
-
-
-    }
-
-    protected void goToLocation() {
-
-
-    }
-
-    protected void goToLevelUp() {
-
-
-    }
-
-    protected void goToHistoric() {
-
+    protected void disconected() {
 
     }
 }
