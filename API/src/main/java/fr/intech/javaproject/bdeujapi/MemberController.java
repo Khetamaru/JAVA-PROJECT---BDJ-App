@@ -1,6 +1,7 @@
 package fr.intech.javaproject.bdeujapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,9 @@ public class MemberController {
     MemberRepository memberRepository;
 
     @PutMapping
-    public void saveMember(Member member) throws Exception {
+    public void saveMember(@RequestBody String data) throws Exception {
 
+        Member member = new ObjectMapper().readValue(data, Member.class);
         memberRepository.save(member);
     }
 
@@ -47,6 +49,7 @@ public class MemberController {
         }
     }
 
+    @DeleteMapping
     public void deleteAllMembers() throws Exception {
 
         memberRepository.deleteAll();

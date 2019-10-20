@@ -4,12 +4,26 @@ import java.util.Date;
 
 public class Borrow {
 
+    protected int idBorrow;
     protected User user;
     protected Game game;
     protected Date startDate;
     protected Date endDate;
 
+    public Borrow() {
 
+    }
+
+    public Borrow(int _idBorrow, User _user, Game _game, Date _startDate, Date _endDate) {
+
+        idBorrow = _idBorrow;
+        user = _user;
+        game = _game;
+        startDate = _startDate;
+        endDate = _endDate;
+    }
+
+    public int getIdBorrow() { return idBorrow; }
     public User getUser() {
         return user;
     }
@@ -24,6 +38,7 @@ public class Borrow {
     }
 
 
+    public void setIdBorrow(int idBorrow) { this.idBorrow = idBorrow; }
     public void setUser(User user) {
         this.user = user;
     }

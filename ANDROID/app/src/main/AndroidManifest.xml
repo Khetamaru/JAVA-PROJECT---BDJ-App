@@ -18,7 +18,40 @@
         <activity android:name=".CreateAccountPage">
         </activity>
 
+        <activity android:name=".HistoricView">
+        </activity>
+
+        <activity android:name=".InventoryView">
+        </activity>
+
+        <activity android:name=".LocationView">
+        </activity>
+
+        <activity android:name=".BorrowView">
+        </activity>
+
         <activity android:name=".MainPage">
+        </activity>
+
+        <activity android:name=".levelUpView">
+        </activity>
+
+        <activity android:name=".stuffView">
+        </activity>
+
+        <activity android:name=".stuffViewEnd">
+        </activity>
+
+        <activity android:name=".BorrowViewAll">
+        </activity>
+
+        <activity android:name=".LocationPlaceView">
+        </activity>
+
+        <activity android:name=".LocationStartView">
+        </activity>
+
+        <activity android:name=".LocationEndView">
         </activity>
 
     </application>

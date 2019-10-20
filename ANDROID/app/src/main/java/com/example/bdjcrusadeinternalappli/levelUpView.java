@@ -1,11 +1,13 @@
 package com.example.bdjcrusadeinternalappli;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class HistoricView extends Activity {
+public class levelUpView extends Activity {
 
     ObjectMapper mapper;
 
@@ -13,8 +15,9 @@ public class HistoricView extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mapper = new ObjectMapper();
 
-        setContentView(R.layout.historic);
+        Intent intent = new Intent(this, MainPage.class);
+        intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
+        startActivity(intent);
     }
 }

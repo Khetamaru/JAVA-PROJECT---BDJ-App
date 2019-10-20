@@ -1,15 +1,15 @@
 package fr.intech.javaproject.bdeujapi;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Access(AccessType.FIELD)
 public class Game {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idGame;
+    @Column(unique = true)
     private String name;
     private String state;
 

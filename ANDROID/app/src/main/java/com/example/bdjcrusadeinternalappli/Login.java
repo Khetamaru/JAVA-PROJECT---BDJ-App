@@ -1,6 +1,5 @@
 package com.example.bdjcrusadeinternalappli;
 
-@DatabaseTable
 public class Login {
 
     private String log;

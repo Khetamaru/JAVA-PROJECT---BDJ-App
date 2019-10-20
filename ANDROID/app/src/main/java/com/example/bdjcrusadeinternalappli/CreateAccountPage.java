@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -30,6 +32,8 @@ public class CreateAccountPage extends Activity {
     EditText confirmPassword;
     Button creation;
 
+    ObjectMapper mapper;
+
     OkHttpClient client;
     MediaType JSON;
 
@@ -40,6 +44,8 @@ public class CreateAccountPage extends Activity {
 
         OkHttpClient client = new OkHttpClient();
         JSON = MediaType.get("application/json; charset=utf-8");
+
+        mapper = new ObjectMapper();
 
         setContentView(R.layout.create_account_page);
 
@@ -62,7 +68,7 @@ public class CreateAccountPage extends Activity {
 
                             if (verifConfirmPassword()) {
 
-                                verifLogin();
+                                verifLogin(v);
                             }
                         }
                     }
@@ -97,19 +103,18 @@ public class CreateAccountPage extends Activity {
         }
     }
 
-    protected void verifLogin() {
+    protected void verifLogin(View v) {
 
         if (login.length() > 3) {
 
             if (login.length() < 15) {
 
-                String req = "{\"login\" : \"" + login + "\"";
+                System.out.println(login.getText().toString());
 
-                RequestBody body = RequestBody.create(JSON, req);
+                OkHttpClient client = new OkHttpClient();
 
                 Request request = new Request.Builder()
-                        .url("http://192.168.43.110:8080/user/findByLogin")
-                        .post(body)
+                        .url("http://192.168.43.110:8080/user/byLogin/" + login.getText().toString())
                         .build();
 
                 client.newCall(request).enqueue(new Callback() {
@@ -135,9 +140,9 @@ public class CreateAccountPage extends Activity {
                                 }
                             });
 
-                        } else if (response.code() == 401) {
+                        } else if (response.code() == 404) {
 
-                            createAccount();
+                            createAccount(v);
 
                         } else {
 
@@ -186,7 +191,10 @@ public class CreateAccountPage extends Activity {
 
     protected boolean verifConfirmPassword() {
 
-        if (password == confirmPassword) {
+        System.out.println(password.getText());
+        System.out.println(confirmPassword.getText());
+
+        if (password.getText().toString().equals(confirmPassword.getText().toString())) {
 
             return true;
         }
@@ -197,24 +205,23 @@ public class CreateAccountPage extends Activity {
         }
     }
 
-    protected void createAccount() {
+    protected void createAccount(View v) {
 
-        goToMainPage();
-    }
+        String req =    "{" +
+                "\"surname\" : \"" + surname.getText().toString() + "\"," +
+                " \"login\" : \"" + login.getText().toString() + "\"," +
+                " \"password\" : \"" + password.getText().toString() + "\"," +
+                " \"mail\" : \"" + mail.getText().toString() + "\"," +
+                " \"level\" : \"student\"" +
+                "}";
 
-    protected void goToMainPage() {
+        RequestBody body = RequestBody.create(JSON, req);
 
-        /*MediaType JSON
-                = MediaType.get("application/json; charset=utf-8");
         OkHttpClient client = new OkHttpClient();
 
-        logsString = "{\"log\" : \"" + log + "\", \"password\" : \"" + pass + "\"}";
-
-        RequestBody body = RequestBody.create(JSON, logsString);
-
         Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/user/login")
-                .post(body)
+                .url("http://192.168.43.110:8080/user")
+                .put(body)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -228,31 +235,55 @@ public class CreateAccountPage extends Activity {
 
                 Log.i("LoginPage", "" + response.code());
 
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        goToMainPage(v);
+                    }
+                });
+            }
+        });
+    }
+
+    protected void goToMainPage(View v) {
+
+        String req = "{\"login\" : \"" + login.getText().toString() + "\"";
+
+        RequestBody body = RequestBody.create(JSON, req);
+
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("http://192.168.43.110:8080/user/byLogin/" + login.getText().toString())
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("CreateAccountPage", "fail", e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                Log.i("CreateAccountPage", "" + response.code());
+
                 if (response.code() == 200) {
-                    Log.i("LoginPage", "après 200");
+
                     User user = mapper.readValue(response.body().string(), User.class);
-                    //mapper.writeValue(logsStream, logs);
-                    Log.i("LoginPage", "après writeValue");
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+
                             Intent intent = new Intent(v.getContext(), MainPage.class);
                             intent.putExtra("idUser", user.idUser);
                             startActivity(intent);
                         }
                     });
                 }
-                else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(LoginPage.this, "Connection failed -- Login : " + log + " Password : " + pass, Toast.LENGTH_LONG).show();
-                            Log.i("LoginPage", "wrong try");
-                        }
-                    });
-                }
             }
-        });*/
+        });
     }
 }

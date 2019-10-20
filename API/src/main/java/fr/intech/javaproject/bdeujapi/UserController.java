@@ -48,12 +48,45 @@ public class UserController {
         }
     }
 
-    @GetMapping("/byLogin")
-    public User getUserByLogin(@RequestBody String data) throws Exception {
+    @GetMapping("/unable")
+    public User getUserById(int id) throws Exception {
 
-        User user = new ObjectMapper().readValue(data, User.class);
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
+        }
+        else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "User Not Found");
+        }
+    }
 
-        Optional<User> optionalUser = userRepository.findByLogin(user.getLogin());
+    @PatchMapping("/levelUp/{id}")
+    public void levelUp(@PathVariable int id) throws Exception {
+
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            String userString = "{" +
+                                    "\"idUser\" : \"" + user.getIdUser() + "\"," +
+                                    "\"surname\" : \"" + user.getPseudo() + "\"," +
+                                    "\"login\" : \"" + user.getLogin() + "\"," +
+                                    "\"password\" : \"" + user.getPassword() + "\"," +
+                                    "\"mail\" : \"" + user.getMail() + "\"," +
+                                    "\"level\" : \"admin\""  +
+                                "}";
+            saveUser(userString);
+        }
+        else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "User Not Found");
+        }
+    }
+
+    @GetMapping("/byLogin/{login}")
+    public User getUserByLogin(@PathVariable String login) throws Exception {
+
+        Optional<User> optionalUser = userRepository.findByLogin(login);
         if (optionalUser.isPresent()) {
             return optionalUser.get();
         }
@@ -75,7 +108,7 @@ public class UserController {
         userRepository.deleteById(id);
     }
 
-    @PatchMapping("/updateLogin/{id}/{login}")
+    /*@PatchMapping("/updateLogin/{id}/{login}")
     public void updateLogin(@PathVariable int id, @PathVariable String login) throws Exception {
 
         userRepository.updateLogin(login, id);
@@ -97,7 +130,7 @@ public class UserController {
     public void updateMail(@PathVariable int id, @PathVariable String mail) throws Exception {
 
         userRepository.updateLogin(mail, id);
-    }
+    }*/
 
     @PostMapping("/login")
     public User login(@RequestBody String data) throws Exception {

@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class Member {
 
-    protected int idMemeber;
+    protected int idMember;
     protected User user;
     protected String place;
     protected Date startDate;
     protected Date endDate;
 
 
-    public int getIdMemeber() {
-        return idMemeber;
+    public int getIdMember() {
+        return idMember;
     }
     public User getUser() {
         return user;
@@ -28,8 +28,8 @@ public class Member {
     }
 
 
-    public void setIdMemeber(int idMemeber) {
-        this.idMemeber = idMemeber;
+    public void setIdMember(int idMember) {
+        this.idMember = idMember;
     }
     public void setIdUser(User user) {
         this.user = user;

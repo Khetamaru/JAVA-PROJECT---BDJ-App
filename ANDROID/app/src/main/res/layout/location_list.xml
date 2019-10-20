@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/parent"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/user"
+        android:text="default"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toLeftOf="@id/place"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/place"
+        android:text="default"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintLeft_toRightOf="@id/user"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/startDates"
+        app:layout_constraintTop_toBottomOf="@id/place"
+        app:layout_constraintBottom_toTopOf="@id/endDates"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="StartDate -- "
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:text="default"
+            android:id="@+id/startDate"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/endDates"
+        app:layout_constraintTop_toBottomOf="@id/startDates"
+        app:layout_constraintBottom_toBottomOf="@id/parent"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EndDate -- "
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:text="default"
+            android:id="@+id/endDate"
+            />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

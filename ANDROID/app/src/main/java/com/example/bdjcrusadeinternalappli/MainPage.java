@@ -30,12 +30,14 @@ public class MainPage extends Activity {
     TextView login;
     TextView password;
     TextView mail;
+    TextView level;
 
     Button inventory;
     Button historic;
     Button borrow;
     Button location;
     Button levelUp;
+    Button deco;
 
     ObjectMapper mapper;
 
@@ -72,17 +74,28 @@ public class MainPage extends Activity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                User user = mapper.readValue(response.body().string(), User.class);
+                user = mapper.readValue(response.body().string(), User.class);
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
+                        levelChoice();
                         //id.setText(String.valueOf(user.idUser));
+                        surname = findViewById(R.id.surname);
                         surname.setText(user.surname);
                         /*login.setText(user.login);
                         password.setText(user.password);
                         mail.setText(user.mail);*/
+
+                        deco = findViewById(R.id.disconnection);
+                        deco.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                disconected(v);
+                            }
+                        });
                     }
                 });
             }
@@ -94,43 +107,6 @@ public class MainPage extends Activity {
         switch (user.level) {
 
             case("student"):
-
-                setContentView(R.layout.main_page_student);
-                inventory = findViewById(R.id.inventory);
-                inventory.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        goToInventory(v);
-                    }
-                });
-
-                borrow = findViewById(R.id.borrow);
-                borrow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        goToBorrow(v);
-                    }
-                });
-
-                location = findViewById(R.id.location);
-                location.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        goToLocation(v);
-                    }
-                });
-
-                levelUp = findViewById(R.id.levelUp);
-                levelUp.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        goToLevelUp(v);
-                    }
-                });
 
             case("cotisant"):
 
@@ -171,48 +147,15 @@ public class MainPage extends Activity {
                     }
                 });
 
+                level = findViewById(R.id.level);
+                level.setText(user.level);
+                break;
+
             case("bdjMember"):
-
-                setContentView(R.layout.main_page_student);
-                inventory = findViewById(R.id.inventory);
-                inventory.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        goToInventory(v);
-                    }
-                });
-
-                borrow = findViewById(R.id.borrow);
-                borrow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        goToBorrow(v);
-                    }
-                });
-
-                location = findViewById(R.id.location);
-                location.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        goToLocation(v);
-                    }
-                });
-
-                historic = findViewById(R.id.historic);
-                historic.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        goToHistoric(v);
-                    }
-                });
 
             case("admin"):
 
-                setContentView(R.layout.main_page_student);
+                setContentView(R.layout.main_page_bdj_member);
                 inventory = findViewById(R.id.inventory);
                 inventory.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -248,6 +191,8 @@ public class MainPage extends Activity {
                         goToHistoric(v);
                     }
                 });
+                break;
+
         }
     }
 
@@ -281,9 +226,38 @@ public class MainPage extends Activity {
 
     protected void goToLevelUp(View v) {
 
+        OkHttpClient client = new OkHttpClient();
+        String sbody = "{}";
+
+        MediaType JSON
+                = MediaType.get("application/json; charset=utf-8");
+        RequestBody body = RequestBody.create(JSON, sbody);
+
+        Request request = new Request.Builder()
+                .url("http://192.168.43.110:8080/user/levelUp/" + user.idUser)
+                .patch(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+                Log.e("MainPage", "fail", e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                Intent intent = new Intent(v.getContext(), levelUpView.class);
+                intent.putExtra("idUser", user.idUser);
+                startActivity(intent);
+            }
+        });
     }
 
-    protected void disconected() {
+    protected void disconected(View v) {
 
+        Intent intent = new Intent(v.getContext(), LoginPage.class);
+        startActivity(intent);
     }
 }

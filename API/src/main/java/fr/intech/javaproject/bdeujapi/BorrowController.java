@@ -24,8 +24,9 @@ public class BorrowController {
     BorrowRepository borrowRepository;
 
     @PutMapping
-    public void saveBorrow(Borrow borrow) throws Exception {
+    public void saveBorrow(@RequestBody String data) throws Exception {
 
+        Borrow borrow = new ObjectMapper().readValue(data, Borrow.class);
         borrowRepository.save(borrow);
     }
 
@@ -33,6 +34,21 @@ public class BorrowController {
     public Iterable<Borrow> getAllBorrows() throws Exception {
 
         return borrowRepository.findAll();
+    }
+
+    @PostMapping("/startDate")
+    public int getValidStartDate(@RequestBody String data) throws Exception {
+
+        DateStartEnd date = new ObjectMapper().readValue(data, DateStartEnd.class);
+
+        Optional<Integer> optionalBorrow = borrowRepository.goodStartDate(date.getDate());
+        if (optionalBorrow.isPresent()) {
+            return optionalBorrow.get();
+        }
+        else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "User Not Found");
+        }
     }
 
     @GetMapping("/{id}")
@@ -48,10 +64,27 @@ public class BorrowController {
         }
     }
 
+    @PostMapping("/all")
+    public Iterable<Borrow> getBorrowsByIDUser(@RequestBody String data) throws Exception {
+
+        User user = new ObjectMapper().readValue(data, User.class);
+
+        Optional<Iterable<Borrow>> optionalBorrow = borrowRepository.findAllByUser(user);
+        if (optionalBorrow.isPresent()) {
+            return optionalBorrow.get();
+        }
+        else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "User Not Found");
+        }
+    }
+
+    @DeleteMapping
     public void deleteAllBorrows() throws Exception {
 
         borrowRepository.deleteAll();
     }
+
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable int id) throws Exception {
 

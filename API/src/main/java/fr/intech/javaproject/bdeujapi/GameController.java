@@ -1,6 +1,7 @@
 package fr.intech.javaproject.bdeujapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,9 @@ public class GameController {
     GameRepository gameRepository;
 
     @PutMapping
-    public void saveGame(Game game) throws Exception {
+    public void saveGame(@RequestBody String data) throws Exception {
 
+        Game game = new ObjectMapper().readValue(data, Game.class);
         gameRepository.save(game);
     }
 
