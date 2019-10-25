@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-public interface HistoricRepository extends CrudRepository<Historic, Integer> {
+public interface UserHistoricRepository extends CrudRepository<UserHistoric, Integer> {
 
     @Query("UPDATE User SET origin = :origin WHERE idHistoric = :idHistoric")
     public void updateOrigin( @Param("origin") String origin, @Param("idHistoric") int idHistoric);

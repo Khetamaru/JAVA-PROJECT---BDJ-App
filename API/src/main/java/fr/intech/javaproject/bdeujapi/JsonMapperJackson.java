@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 
 @Service
 public class JsonMapperJackson implements IMapper {
@@ -28,54 +27,54 @@ public class JsonMapperJackson implements IMapper {
     }
 
     @Override
-    public void mapperMemberWrite(Member member, String path) throws IOException {
+    public void mapperMemberWrite(Location location, String path) throws IOException {
 
-        mapper.writeValue(new File(path), member);
+        mapper.writeValue(new File(path), location);
     }
     @Override
-    public Member mapperMemberRead(String path) throws IOException {
+    public Location mapperMemberRead(String path) throws IOException {
 
-        Member member = mapper.readValue(new File(path), Member.class);
+        Location location = mapper.readValue(new File(path), Location.class);
 
-        return member;
-    }
-
-    @Override
-    public void mapperHistoricWrite(Historic historic, String path) throws IOException {
-
-        mapper.writeValue(new File(path), historic);
-    }
-    @Override
-    public Historic mapperHistoricRead(String path) throws IOException {
-
-        Historic historic = mapper.readValue(new File(path), Historic.class);
-
-        return historic;
+        return location;
     }
 
     @Override
-    public void mapperGameWrite(Game game, String path) throws IOException {
+    public void mapperHistoricWrite(UserHistoric userHistoric, String path) throws IOException {
 
-        mapper.writeValue(new File(path), game);
+        mapper.writeValue(new File(path), userHistoric);
     }
     @Override
-    public Game mapperGameRead(String path) throws IOException {
+    public UserHistoric mapperHistoricRead(String path) throws IOException {
 
-        Game game = mapper.readValue(new File(path), Game.class);
+        UserHistoric userHistoric = mapper.readValue(new File(path), UserHistoric.class);
 
-        return game;
+        return userHistoric;
     }
 
     @Override
-    public void mapperBorrowWrite(Borrow borrow, String path) throws IOException {
+    public void mapperGameWrite(Equipment equipment, String path) throws IOException {
 
-        mapper.writeValue(new File(path), borrow);
+        mapper.writeValue(new File(path), equipment);
     }
     @Override
-    public Borrow mapperBorrowRead(String path) throws IOException {
+    public Equipment mapperGameRead(String path) throws IOException {
 
-        Borrow borrow = mapper.readValue(new File(path), Borrow.class);
+        Equipment equipment = mapper.readValue(new File(path), Equipment.class);
 
-        return borrow;
+        return equipment;
+    }
+
+    @Override
+    public void mapperBorrowWrite(Loaning loaning, String path) throws IOException {
+
+        mapper.writeValue(new File(path), loaning);
+    }
+    @Override
+    public Loaning mapperBorrowRead(String path) throws IOException {
+
+        Loaning loaning = mapper.readValue(new File(path), Loaning.class);
+
+        return loaning;
     }
 }

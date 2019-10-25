@@ -1,41 +1,42 @@
 package fr.intech.javaproject.bdeujapi;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.Date;
-@Entity
-public class Borrow {
 
+@Entity
+public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idBorrow;
+    private int idLocation;
     @OneToOne
     private User user;
-    @OneToOne
-    private Game game;
-    private Date startDate;
-    private Date endDate;
+    private String place;
+    private Date date;
+    private Time startHour;
+    private Time endHour;
 
 
-    public Borrow() {
+    public Location() {
     }
-    public Borrow(User _user, Game _game, Date _startDate, Date _endDate) {
+    public Location(int _idMember, User _user, String _place, Date _startDate, Date _endDate) {
 
+        idLocation = _idMember;
         user = _user;
-        game = _game;
+        place = _place;
         startDate = _startDate;
         endDate = _endDate;
     }
 
 
-    public int getIdBorrow() {
-        return idBorrow;
+    public int getIdLocation() {
+        return idLocation;
     }
-
     public User getUser() {
         return user;
     }
-    public Game getGame() {
-        return game;
+    public String getPlace() {
+        return place;
     }
     public Date getStartDate() {
         return startDate;
@@ -45,14 +46,14 @@ public class Borrow {
     }
 
 
-    public void setIdBorrow(int idBorrow) {
-        this.idBorrow = idBorrow;
+    public void setIdLocation(int idLocation) {
+        this.idLocation = idLocation;
     }
-    public void setUser(User user) {
+    public void setIdUser(User user) {
         this.user = user;
     }
-    public void setGame(Game game) {
-        this.game = game;
+    public void setPlace(String place) {
+        this.place = place;
     }
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
@@ -60,6 +61,4 @@ public class Borrow {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-
-
 }

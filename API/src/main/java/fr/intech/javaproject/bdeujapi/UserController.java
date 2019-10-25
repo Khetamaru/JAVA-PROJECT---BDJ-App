@@ -39,10 +39,13 @@ public class UserController {
     public User getUserByID(@PathVariable int id) throws Exception {
 
         Optional<User> optionalUser = userRepository.findById(id);
+
         if (optionalUser.isPresent()) {
+
             return optionalUser.get();
         }
         else {
+
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "User Not Found");
         }
@@ -52,10 +55,13 @@ public class UserController {
     public User getUserById(int id) throws Exception {
 
         Optional<User> optionalUser = userRepository.findById(id);
+
         if (optionalUser.isPresent()) {
+
             return optionalUser.get();
         }
         else {
+
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "User Not Found");
         }
@@ -65,8 +71,11 @@ public class UserController {
     public void levelUp(@PathVariable int id) throws Exception {
 
         Optional<User> optionalUser = userRepository.findById(id);
+
         if (optionalUser.isPresent()) {
+
             User user = optionalUser.get();
+
             String userString = "{" +
                                     "\"idUser\" : \"" + user.getIdUser() + "\"," +
                                     "\"surname\" : \"" + user.getPseudo() + "\"," +
@@ -75,9 +84,11 @@ public class UserController {
                                     "\"mail\" : \"" + user.getMail() + "\"," +
                                     "\"level\" : \"admin\""  +
                                 "}";
+
             saveUser(userString);
         }
         else {
+
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "User Not Found");
         }
@@ -87,10 +98,13 @@ public class UserController {
     public User getUserByLogin(@PathVariable String login) throws Exception {
 
         Optional<User> optionalUser = userRepository.findByLogin(login);
+
         if (optionalUser.isPresent()) {
+
             return optionalUser.get();
         }
         else {
+
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "User Not Found");
         }
@@ -147,6 +161,7 @@ public class UserController {
             return user.get();
         }
         else {
+
             throw new ResponseStatusException(
                     HttpStatus.UNAUTHORIZED, "Bad login or Password");
         }

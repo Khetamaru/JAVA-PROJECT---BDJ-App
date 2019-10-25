@@ -12,7 +12,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idUser;
-
     @JsonProperty("surname")
     private String pseudo;
     @Column(unique = true)

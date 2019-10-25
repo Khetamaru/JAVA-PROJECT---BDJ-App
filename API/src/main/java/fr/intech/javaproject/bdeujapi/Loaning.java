@@ -2,39 +2,41 @@ package fr.intech.javaproject.bdeujapi;
 
 import javax.persistence.*;
 import java.util.Date;
-
 @Entity
-public class Member {
+public class Loaning {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idMember;
+    private int idBorrow;
     @OneToOne
     private User user;
-    private String place;
+    @OneToOne
+    private Equipment equipment;
     private Date startDate;
     private Date endDate;
+    String valid;
 
 
-    public Member() {
+    public Loaning() {
     }
-    public Member(int _idMember, User _user, String _place, Date _startDate, Date _endDate) {
+    public Loaning(User _user, Equipment _equipment, Date _startDate, Date _endDate, String _valid) {
 
-        idMember = _idMember;
         user = _user;
-        place = _place;
+        equipment = _equipment;
         startDate = _startDate;
         endDate = _endDate;
+        valid = _valid;
     }
 
 
-    public int getIdMember() {
-        return idMember;
+    public int getIdBorrow() {
+        return idBorrow;
     }
     public User getUser() {
         return user;
     }
-    public String getPlace() {
-        return place;
+    public Equipment getEquipment() {
+        return equipment;
     }
     public Date getStartDate() {
         return startDate;
@@ -42,16 +44,17 @@ public class Member {
     public Date getEndDate() {
         return endDate;
     }
+    public String getValid() { return valid; }
 
 
-    public void setIdMember(int idMember) {
-        this.idMember = idMember;
+    public void setIdBorrow(int idBorrow) {
+        this.idBorrow = idBorrow;
     }
-    public void setIdUser(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
-    public void setPlace(String place) {
-        this.place = place;
+    public void setEquipment(Equipment equipment) {
+        this.equipment = equipment;
     }
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
@@ -59,4 +62,9 @@ public class Member {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+    public void setValid(String valid) {
+        this.valid = valid;
+    }
+
+
 }

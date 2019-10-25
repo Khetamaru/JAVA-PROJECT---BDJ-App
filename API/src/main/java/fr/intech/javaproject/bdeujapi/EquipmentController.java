@@ -1,72 +1,80 @@
 package fr.intech.javaproject.bdeujapi;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/game")
-public class GameController {
+public class EquipmentController {
 
     @Autowired
     private IMapper mapper;
     @Autowired
-    GameRepository gameRepository;
+    EquipmentRepository equipmentRepository;
+
+    /////////////////////////////// PUT //////////////////////////////////
 
     @PutMapping
     public void saveGame(@RequestBody String data) throws Exception {
 
-        Game game = new ObjectMapper().readValue(data, Game.class);
-        gameRepository.save(game);
+        Equipment equipment = new ObjectMapper().readValue(data, Equipment.class);
+        equipmentRepository.save(equipment);
     }
 
-    @GetMapping
-    public Iterable<Game> getAllGames() throws Exception {
+    /////////////////////////////// GET //////////////////////////////////
 
-        return gameRepository.findAll();
+    @GetMapping
+    public Iterable<Equipment> getAllGames() throws Exception {
+
+        return equipmentRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Game getGameByID(@PathVariable int id) throws Exception {
+    public Equipment getGameByID(@PathVariable int id) throws Exception {
 
-        Optional<Game> optionalGame = gameRepository.findById(id);
+        Optional<Equipment> optionalGame = equipmentRepository.findById(id);
+
         if (optionalGame.isPresent()) {
+
             return optionalGame.get();
-        } else {
+        }
+        else {
+
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "User Not Found");
         }
     }
 
+    /////////////////////////////// DELETE //////////////////////////////////
+
+    @DeleteMapping
     public void deleteAllGames() throws Exception {
 
-        gameRepository.deleteAll();
+        equipmentRepository.deleteAll();
     }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable int id) throws Exception {
 
-        gameRepository.deleteById(id);
+        equipmentRepository.deleteById(id);
     }
+
+    /////////////////////////////// PATCH //////////////////////////////////
 
     @PatchMapping("/updateName/{id}/{name}")
     public void updateName(@PathVariable int id, @PathVariable String name) throws Exception {
 
-        gameRepository.updateName(name, id);
+        equipmentRepository.updateName(name, id);
     }
 
     @PatchMapping("/updateState/{id}/{state}")
     public void updateState(@PathVariable int id, @PathVariable String state) throws Exception {
 
-        gameRepository.updateState(state, id);
+        equipmentRepository.updateState(state, id);
     }
 }
