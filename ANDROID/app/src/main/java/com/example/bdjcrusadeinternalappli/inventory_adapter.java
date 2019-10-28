@@ -1,6 +1,5 @@
 package com.example.bdjcrusadeinternalappli;
 
-import android.app.LauncherActivity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +11,10 @@ import java.util.ArrayList;
 
 public class inventory_adapter extends BaseAdapter {
 
-    private ArrayList<Game> listData;
+    private ArrayList<Equipment> listData;
     private LayoutInflater layoutInflater;
 
-    public inventory_adapter(Context aContext, ArrayList<Game> listData) {
+    public inventory_adapter(Context aContext, ArrayList<Equipment> listData) {
 
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);

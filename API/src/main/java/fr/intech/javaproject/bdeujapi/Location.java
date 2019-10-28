@@ -19,13 +19,14 @@ public class Location {
 
     public Location() {
     }
-    public Location(int _idMember, User _user, String _place, Date _startDate, Date _endDate) {
+    public Location(int _idMember, User _user, String _place, Date _date, Time _startHour, Time _endHour) {
 
         idLocation = _idMember;
         user = _user;
         place = _place;
-        startDate = _startDate;
-        endDate = _endDate;
+        date = _date;
+        startHour = _startHour;
+        endHour = _endHour;
     }
 
 
@@ -38,27 +39,18 @@ public class Location {
     public String getPlace() {
         return place;
     }
-    public Date getStartDate() {
-        return startDate;
-    }
-    public Date getEndDate() {
-        return endDate;
-    }
-
+    public Date getDate() { return date; }
+    public Time getStartHour() { return startHour; }
+    public Time getEndHour() { return endHour; }
 
     public void setIdLocation(int idLocation) {
         this.idLocation = idLocation;
     }
-    public void setIdUser(User user) {
-        this.user = user;
-    }
+    public void setUser(User user) { this.user = user; }
     public void setPlace(String place) {
         this.place = place;
     }
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
+    public void setDate(Date date) { this.date = date; }
+    public void setStartHour(Time startHour) { this.startHour = startHour; }
+    public void setEndHour(Time endHour) { this.endHour = endHour; }
 }

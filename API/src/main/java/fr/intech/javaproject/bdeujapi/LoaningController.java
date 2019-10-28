@@ -6,10 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/borrow")
+@RequestMapping("/loaning")
 public class LoaningController {
 
     @Autowired
@@ -20,7 +21,7 @@ public class LoaningController {
     /////////////////////////////// PUT //////////////////////////////////
 
     @PutMapping
-    public void saveBorrow(@RequestBody String data) throws Exception {
+    public void saveLoaning(@RequestBody String data) throws Exception {
 
         Loaning loaning = new ObjectMapper().readValue(data, Loaning.class);
         loaningRepository.save(loaning);
@@ -29,13 +30,13 @@ public class LoaningController {
     /////////////////////////////// GET //////////////////////////////////
 
     @GetMapping
-    public Iterable<Loaning> getAllBorrows() throws Exception {
+    public Iterable<Loaning> getAllLoaning() throws Exception {
 
         return loaningRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Loaning getBorrowByID(@PathVariable int id) throws Exception {
+    public Loaning getLoaningByID(@PathVariable int id) throws Exception {
 
         Optional<Loaning> optionalBorrow = loaningRepository.findById(id);
 
@@ -46,18 +47,18 @@ public class LoaningController {
         else {
 
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "User Not Found");
+                    HttpStatus.NOT_FOUND, "Loaning Not Found");
         }
     }
 
     /////////////////////////////// POST //////////////////////////////////
 
-    /*@PostMapping("/startDate")
+    @PostMapping("/startDate")
     public int getValidStartDate(@RequestBody String data) throws Exception {
 
-        DateStartEnd date = new ObjectMapper().readValue(data, DateStartEnd.class);
+        Date date = new ObjectMapper().readValue(data, Date.class);
 
-        Optional<Integer> optionalBorrow = borrowRepository.goodStartDate(date.getDate());
+        Optional<Integer> optionalBorrow = loaningRepository.goodStartDate(date);
 
         if (optionalBorrow.isPresent()) {
 
@@ -66,12 +67,12 @@ public class LoaningController {
         else {
 
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "User Not Found");
+                    HttpStatus.NOT_FOUND, "No date found");
         }
-    }*/
+    }
 
     @PostMapping("/all")
-    public Iterable<Loaning> getBorrowsByIDUser(@RequestBody String data) throws Exception {
+    public Iterable<Loaning> getLoaningByIDUser(@RequestBody String data) throws Exception {
 
         User user = new ObjectMapper().readValue(data, User.class);
 
@@ -84,22 +85,14 @@ public class LoaningController {
         else {
 
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "User Not Found");
+                    HttpStatus.NOT_FOUND, "Loaning Not Found");
         }
-    }
-
-    @PostMapping
-    public Loaning update(@RequestBody Loaning loaning) throws Exception {
-        //Borrow borrow = mapper.mapperBorrowRead(data);
-
-        //borrowRepository.save(borrow);
-        return loaning;
     }
 
     /////////////////////////////// DELETE //////////////////////////////////
 
     @DeleteMapping
-    public void deleteAllBorrows() throws Exception {
+    public void deleteAllLoaning() throws Exception {
 
         loaningRepository.deleteAll();
     }

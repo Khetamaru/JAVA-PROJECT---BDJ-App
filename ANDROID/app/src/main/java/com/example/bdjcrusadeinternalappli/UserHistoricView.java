@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class HistoricView extends Activity {
+public class UserHistoricView extends Activity {
 
     ObjectMapper mapper;
 

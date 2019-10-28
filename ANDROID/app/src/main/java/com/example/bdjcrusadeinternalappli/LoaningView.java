@@ -1,16 +1,14 @@
 package com.example.bdjcrusadeinternalappli;
 
 import android.app.Activity;
-import android.app.LauncherActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,19 +25,22 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class BorrowViewAll extends Activity {
+public class LoaningView extends Activity {
 
     ObjectMapper mapper;
     ListView listView;
-    ArrayAdapter<Borrow> arrayAdapter;
+    ArrayAdapter<Loaning> arrayAdapter;
     Context context;
     User user;
+    Button borrowViewAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         context = this;
+
+        setContentView(R.layout.borrow);
 
         mapper = new ObjectMapper();
 
@@ -61,9 +62,23 @@ public class BorrowViewAll extends Activity {
 
                 user = mapper.readValue(response.body().string(), User.class);
 
+                MediaType JSON
+                        = MediaType.get("application/json; charset=utf-8");
+
+                String userString = "{" +
+                                        "\"idUser\" : \"" + user.getIdUser() + "\", " +
+                                        "\"surname\" : \"" + user.getSurname() + "\", " +
+                                        "\"login\" : \"" + user.getLogin() + "\", " +
+                                        "\"password\" : \"" + user.getPassword() + "\", " +
+                                        "\"mail\" : \"" + user.getMail() + "\", " +
+                                        "\"level\" : \"" + user.getMail() + "\"" +
+                                    "}";
+
+                RequestBody body = RequestBody.create(JSON, userString);
+
                 Request request = new Request.Builder()
-                        .url("http://192.168.43.110:8080/borrow")
-                        .get()
+                        .url("http://192.168.43.110:8080/borrow/all")
+                        .post(body)
                         .build();
 
                 client.newCall(request).enqueue(new Callback() {
@@ -76,27 +91,25 @@ public class BorrowViewAll extends Activity {
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                        Borrow[] borrows = new ObjectMapper().readValue(response.body().string(), Borrow[].class);
+                        Loaning[] loanings = new ObjectMapper().readValue(response.body().string(), Loaning[].class);
 
-                        ArrayList<Borrow> borrowsList = getListData(borrows);
+                        ArrayList<Loaning> borrowsList = getListData(loanings);
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
 
-                                setContentView(R.layout.borrow_all);
-
                                 listView = (ListView) findViewById(R.id.BorrowListView);
 
-                                listView.setAdapter(new Borrow_adapter(context, borrowsList));
+                                listView.setAdapter(new Loaning_adapter(context, borrowsList));
 
                                 /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                                        Game game = (Game) listView.getItemAtPosition(position);
-                                        Intent intent = new Intent(v.getContext(), stuffView.class);
+                                        Equipment equipment = (Equipment) listView.getItemAtPosition(position);
+                                        Intent intent = new Intent(v.getContext(), EquipmentDetail.class);
                                         intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                                        intent.putExtra("idGame", game.idGame);
+                                        intent.putExtra("idGame", equipment.idGame);
                                         startActivity(intent);
                                     }
                                 });*/
@@ -106,14 +119,25 @@ public class BorrowViewAll extends Activity {
                 });
             }
         });
+
+        borrowViewAll = findViewById(R.id.fullBorrow);
+        borrowViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), LoaningViewAll.class);
+                intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
+                startActivity(intent);
+            }
+        });
     }
 
-    private ArrayList getListData(Borrow[] borrows) {
-        ArrayList<Borrow> results = new ArrayList<>();
+    private ArrayList getListData(Loaning[] loanings) {
+        ArrayList<Loaning> results = new ArrayList<>();
 
-        for (Borrow borrow: borrows) {
+        for (Loaning loaning : loanings) {
 
-            results.add(borrow);
+            results.add(loaning);
         }
 
         return results;

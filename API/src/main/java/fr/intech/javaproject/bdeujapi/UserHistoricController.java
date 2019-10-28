@@ -27,7 +27,7 @@ public class UserHistoricController {
     /////////////////////////////// GET //////////////////////////////////
 
     @GetMapping
-    public Iterable<UserHistoric> getAllHistorics() throws Exception {
+    public Iterable<UserHistoric> getAllHistoric() throws Exception {
 
         return userHistoricRepository.findAll();
     }
@@ -56,25 +56,5 @@ public class UserHistoricController {
     public void deleteById(@PathVariable int id) throws Exception {
 
         userHistoricRepository.deleteById(id);
-    }
-
-    /////////////////////////////// PATCH //////////////////////////////////
-
-    @PatchMapping("/updateOrigin/{id}/{origin}")
-    public void updateOrigin(@PathVariable int id, @PathVariable String origin) throws Exception {
-
-        userHistoricRepository.updateOrigin(origin, id);
-    }
-
-    @PatchMapping("/updateAction/{id}/{action}")
-    public void updateAction(@PathVariable int id, @PathVariable String action) throws Exception {
-
-        userHistoricRepository.updateAction(action, id);
-    }
-
-    @PatchMapping("/updateDate/{id}/{date}")
-    public void updateDate(@PathVariable int id, @PathVariable String date) throws Exception {
-
-        userHistoricRepository.updateDate(date, id);
     }
 }

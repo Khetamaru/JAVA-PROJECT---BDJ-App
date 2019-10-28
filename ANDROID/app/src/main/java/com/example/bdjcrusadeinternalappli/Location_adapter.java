@@ -1,6 +1,5 @@
 package com.example.bdjcrusadeinternalappli;
 
-import android.app.LauncherActivity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Location_adapter extends BaseAdapter {
 
-    private ArrayList<Member> listData;
+    private ArrayList<Location> listData;
     private LayoutInflater layoutInflater;
 
-    public Location_adapter(Context aContext, ArrayList<Member> listData) {
+    public Location_adapter(Context aContext, ArrayList<Location> listData) {
 
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);

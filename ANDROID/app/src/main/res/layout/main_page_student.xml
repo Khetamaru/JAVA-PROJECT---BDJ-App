@@ -71,7 +71,7 @@
         android:id="@+id/inventory"
         android:text="INVENTORY"
         app:layout_constraintTop_toBottomOf="@id/name"
-        app:layout_constraintBottom_toTopOf="@+id/borrow"
+        app:layout_constraintBottom_toTopOf="@+id/loaning"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintRight_toRightOf="@id/parent"
         />
@@ -79,7 +79,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/borrow"
+        android:id="@+id/loaning"
         android:text="BORROW"
         app:layout_constraintTop_toBottomOf="@id/inventory"
         app:layout_constraintBottom_toTopOf="@+id/location"
@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/location"
         android:text="LOCATION"
-        app:layout_constraintTop_toBottomOf="@id/borrow"
+        app:layout_constraintTop_toBottomOf="@id/loaning"
         app:layout_constraintBottom_toTopOf="@+id/levelUp"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintRight_toRightOf="@id/parent"

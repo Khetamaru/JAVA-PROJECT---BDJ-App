@@ -1,16 +1,11 @@
 package fr.intech.javaproject.bdeujapi;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -22,12 +17,16 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    /////////////////////////////// PUT //////////////////////////////////
+
     @PutMapping
     public void saveUser(@RequestBody String data) throws Exception {
 
         User user = new ObjectMapper().readValue(data, User.class);
         userRepository.save(user);
     }
+
+    /////////////////////////////// GET //////////////////////////////////
 
     @GetMapping
     public Iterable<User> getAllUsers() throws Exception {
@@ -67,33 +66,6 @@ public class UserController {
         }
     }
 
-    @PatchMapping("/levelUp/{id}")
-    public void levelUp(@PathVariable int id) throws Exception {
-
-        Optional<User> optionalUser = userRepository.findById(id);
-
-        if (optionalUser.isPresent()) {
-
-            User user = optionalUser.get();
-
-            String userString = "{" +
-                                    "\"idUser\" : \"" + user.getIdUser() + "\"," +
-                                    "\"surname\" : \"" + user.getPseudo() + "\"," +
-                                    "\"login\" : \"" + user.getLogin() + "\"," +
-                                    "\"password\" : \"" + user.getPassword() + "\"," +
-                                    "\"mail\" : \"" + user.getMail() + "\"," +
-                                    "\"level\" : \"admin\""  +
-                                "}";
-
-            saveUser(userString);
-        }
-        else {
-
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "User Not Found");
-        }
-    }
-
     @GetMapping("/byLogin/{login}")
     public User getUserByLogin(@PathVariable String login) throws Exception {
 
@@ -110,6 +82,37 @@ public class UserController {
         }
     }
 
+    /////////////////////////////// PATCH //////////////////////////////////
+
+    @PatchMapping("/levelUp/{id}")
+    public void levelUp(@PathVariable int id) throws Exception {
+
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (optionalUser.isPresent()) {
+
+            User user = optionalUser.get();
+
+            String userString = "{" +
+                                    "\"idUser\" : \"" + user.getIdUser() + "\"," +
+                                    "\"surname\" : \"" + user.getSurname() + "\"," +
+                                    "\"login\" : \"" + user.getLogin() + "\"," +
+                                    "\"password\" : \"" + user.getPassword() + "\"," +
+                                    "\"mail\" : \"" + user.getMail() + "\"," +
+                                    "\"level\" : \"admin\""  +
+                                "}";
+
+            saveUser(userString);
+        }
+        else {
+
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "User Not Found");
+        }
+    }
+
+    /////////////////////////////// DELETE //////////////////////////////////
+
     @DeleteMapping
     public void deleteAllUsers() throws Exception {
 
@@ -122,29 +125,7 @@ public class UserController {
         userRepository.deleteById(id);
     }
 
-    /*@PatchMapping("/updateLogin/{id}/{login}")
-    public void updateLogin(@PathVariable int id, @PathVariable String login) throws Exception {
-
-        userRepository.updateLogin(login, id);
-    }
-
-    @PatchMapping("/updateSurname/{id}/{surname}")
-    public void updateSurname(@PathVariable int id, @PathVariable String surname) throws Exception {
-
-        userRepository.updateLogin(surname, id);
-    }
-
-    @PatchMapping("/updatePassword/{id}/{password}")
-    public void updatePassword(@PathVariable int id, @PathVariable String password) throws Exception {
-
-        userRepository.updateLogin(password, id);
-    }
-
-    @PatchMapping("/updateMail/{id}/{mail}")
-    public void updateMail(@PathVariable int id, @PathVariable String mail) throws Exception {
-
-        userRepository.updateLogin(mail, id);
-    }*/
+    /////////////////////////////// POST //////////////////////////////////
 
     @PostMapping("/login")
     public User login(@RequestBody String data) throws Exception {
@@ -156,8 +137,7 @@ public class UserController {
 
         if (user.isPresent()) {
 
-            System.out.println(user.get().getLogin());
-            System.out.println(user.get().getPassword());
+            System.out.println("User is ok");
             return user.get();
         }
         else {

@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -205,7 +204,7 @@ public class MainPage extends Activity {
 
     protected void goToBorrow(View v) {
 
-        Intent intent = new Intent(v.getContext(), BorrowView.class);
+        Intent intent = new Intent(v.getContext(), LoaningView.class);
         intent.putExtra("idUser", user.idUser);
         startActivity(intent);
     }
@@ -219,7 +218,7 @@ public class MainPage extends Activity {
 
     protected void goToHistoric(View v) {
 
-        Intent intent = new Intent(v.getContext(), HistoricView.class);
+        Intent intent = new Intent(v.getContext(), UserHistoricView.class);
         intent.putExtra("idUser", user.idUser);
         startActivity(intent);
     }

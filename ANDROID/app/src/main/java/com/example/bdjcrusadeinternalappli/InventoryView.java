@@ -1,7 +1,6 @@
 package com.example.bdjcrusadeinternalappli;
 
 import android.app.Activity;
-import android.app.LauncherActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,7 +27,7 @@ public class InventoryView extends Activity {
 
     ObjectMapper mapper;
     ListView listView;
-    ArrayAdapter<Game> arrayAdapter;
+    ArrayAdapter<Equipment> arrayAdapter;
     Context context;
 
     @Override
@@ -57,9 +55,9 @@ public class InventoryView extends Activity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                Game[] games = new ObjectMapper().readValue(response.body().string(), Game[].class);
+                Equipment[] equipment = new ObjectMapper().readValue(response.body().string(), Equipment[].class);
 
-                ArrayList<Game> gamesList = getListData(games);
+                ArrayList<Equipment> gamesList = getListData(equipment);
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -74,10 +72,10 @@ public class InventoryView extends Activity {
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                                Game game = (Game) listView.getItemAtPosition(position);
-                                Intent intent = new Intent(v.getContext(), stuffView.class);
+                                Equipment equipment = (Equipment) listView.getItemAtPosition(position);
+                                Intent intent = new Intent(v.getContext(), EquipmentDetail.class);
                                 intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                                intent.putExtra("idGame", game.idGame);
+                                intent.putExtra("idGame", equipment.idGame);
                                 startActivity(intent);
                             }
                         });
@@ -87,12 +85,12 @@ public class InventoryView extends Activity {
         });
     }
 
-    private ArrayList getListData(Game[] games) {
-        ArrayList<Game> results = new ArrayList<>();
+    private ArrayList getListData(Equipment[] equipments) {
+        ArrayList<Equipment> results = new ArrayList<>();
 
-        for (Game game: games) {
+        for (Equipment equipment : equipments) {
 
-            results.add(game);
+            results.add(equipment);
         }
 
         return results;

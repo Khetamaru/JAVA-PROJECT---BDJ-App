@@ -2,7 +2,7 @@ package com.example.bdjcrusadeinternalappli;
 
 import java.util.Date;
 
-public class Historic {
+public class UserHistoric {
 
     protected int idHistoric;
     protected User user;

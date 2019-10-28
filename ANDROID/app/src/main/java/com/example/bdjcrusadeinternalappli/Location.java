@@ -2,7 +2,7 @@ package com.example.bdjcrusadeinternalappli;
 
 import java.util.Date;
 
-public class Member {
+public class Location {
 
     protected int idMember;
     protected User user;

@@ -24,13 +24,13 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class stuffViewEnd extends Activity {
+public class EquipmentDetailEnd extends Activity {
 
     User user;
-    Game game;
+    Equipment equipment;
     Date startDate;
     ObjectMapper mapper;
-    Borrow borrow;
+    Loaning loaning;
 
     CalendarView date;
     Button valid;
@@ -79,7 +79,7 @@ public class stuffViewEnd extends Activity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                game = mapper.readValue(response.body().string(), Game.class);
+                equipment = mapper.readValue(response.body().string(), Equipment.class);
             }
         });
 
@@ -96,28 +96,28 @@ public class stuffViewEnd extends Activity {
 
                 if (startDate.getTime() > dateText.getTime()) {
 
-                    Toast.makeText(stuffViewEnd.this, "Can't go back to the future", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EquipmentDetailEnd.this, "Can't go back to the future", Toast.LENGTH_LONG).show();
                 }
                 else {
 
-                    borrow = new Borrow(0, user, game, startDate, dateText);
+                    loaning = new Loaning(0, user, equipment, startDate, dateText);
 
                     String req = "{" +
                                     "\"user\": {" +
-                                                "\"idUser\": \"" + borrow.user.idUser + "\"," +
-                                                "\"surname\": \"" + borrow.user.surname + "\"," +
-                                                "\"login\": \"" + borrow.user.login + "\"," +
-                                                "\"password\": \"" + borrow.user.password + "\"," +
-                                                "\"mail\": \"" + borrow.user.mail + "\"," +
-                                                "\"level\": \"" + borrow.user.level + "\"" +
+                                                "\"idUser\": \"" + loaning.user.idUser + "\"," +
+                                                "\"surname\": \"" + loaning.user.surname + "\"," +
+                                                "\"login\": \"" + loaning.user.login + "\"," +
+                                                "\"password\": \"" + loaning.user.password + "\"," +
+                                                "\"mail\": \"" + loaning.user.mail + "\"," +
+                                                "\"level\": \"" + loaning.user.level + "\"" +
                                                 "}," +
-                                    "\"game\": {" +
-                                                "\"idGame\": \"" + borrow.game.idGame + "\"," +
-                                                "\"name\": \"" + borrow.game.name + "\"," +
-                                                "\"state\": \"" + borrow.game.state + "\"" +
+                                    "\"equipment\": {" +
+                                                "\"idGame\": \"" + loaning.equipment.idGame + "\"," +
+                                                "\"name\": \"" + loaning.equipment.name + "\"," +
+                                                "\"state\": \"" + loaning.equipment.state + "\"" +
                                                 "}," +
-                                    "\"startDate\": \"" + borrow.startDate.getTime() + "\"," +
-                                    "\"endDate\": \"" + borrow.endDate.getTime() + "\"" +
+                                    "\"startDate\": \"" + loaning.startDate.getTime() + "\"," +
+                                    "\"endDate\": \"" + loaning.endDate.getTime() + "\"" +
                                 "}";
 
                     MediaType JSON = MediaType.get("application/json; charset=utf-8");

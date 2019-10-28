@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/location")
 public class LocationController {
 
     @Autowired
@@ -21,7 +21,7 @@ public class LocationController {
     /////////////////////////////// PUT //////////////////////////////////
 
     @PutMapping
-    public void saveMember(@RequestBody String data) throws Exception {
+    public void saveLocation(@RequestBody String data) throws Exception {
 
         Location location = new ObjectMapper().readValue(data, Location.class);
         locationRepository.save(location);
@@ -30,13 +30,13 @@ public class LocationController {
     /////////////////////////////// GET //////////////////////////////////
 
     @GetMapping
-    public Iterable<Location> getAllMembers() throws Exception {
+    public Iterable<Location> getAllLocations() throws Exception {
 
         return locationRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Location getMemberByID(@PathVariable int id) throws Exception {
+    public Location getLocationByID(@PathVariable int id) throws Exception {
 
         Optional<Location> optionalMember = locationRepository.findById(id);
         if (optionalMember.isPresent()) {
@@ -51,7 +51,7 @@ public class LocationController {
     /////////////////////////////// DELETE //////////////////////////////////
 
     @DeleteMapping
-    public void deleteAllMembers() throws Exception {
+    public void deleteAllLocations() throws Exception {
 
         locationRepository.deleteAll();
     }
@@ -59,25 +59,5 @@ public class LocationController {
     public void deleteById(@PathVariable int id) throws Exception {
 
         locationRepository.deleteById(id);
-    }
-
-    /////////////////////////////// PATCH //////////////////////////////////
-
-    @PatchMapping("/updatePlace/{id}/{place}")
-    public void updatePlace(@PathVariable int id, @PathVariable String place) throws Exception {
-
-        locationRepository.updatePlace(place, id);
-    }
-
-    @PatchMapping("/updateStartDate/{id}/{startDate}")
-    public void updateStartDate(@PathVariable int id, @PathVariable Date startDate) throws Exception {
-
-        locationRepository.updateStartDate(startDate, id);
-    }
-
-    @PatchMapping("/updateEndDate/{id}/{endDate}")
-    public void updateEndDate(@PathVariable int id, @PathVariable Date endDate) throws Exception {
-
-        locationRepository.updateEndDate(endDate, id);
     }
 }

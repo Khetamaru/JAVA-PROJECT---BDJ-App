@@ -18,7 +18,7 @@
         <activity android:name=".CreateAccountPage">
         </activity>
 
-        <activity android:name=".HistoricView">
+        <activity android:name=".UserHistoricView">
         </activity>
 
         <activity android:name=".InventoryView">
@@ -27,7 +27,7 @@
         <activity android:name=".LocationView">
         </activity>
 
-        <activity android:name=".BorrowView">
+        <activity android:name=".LoaningView">
         </activity>
 
         <activity android:name=".MainPage">
@@ -36,13 +36,13 @@
         <activity android:name=".levelUpView">
         </activity>
 
-        <activity android:name=".stuffView">
+        <activity android:name=".EquipmentDetail">
         </activity>
 
-        <activity android:name=".stuffViewEnd">
+        <activity android:name=".EquipmentDetailEnd">
         </activity>
 
-        <activity android:name=".BorrowViewAll">
+        <activity android:name=".LoaningViewAll">
         </activity>
 
         <activity android:name=".LocationPlaceView">

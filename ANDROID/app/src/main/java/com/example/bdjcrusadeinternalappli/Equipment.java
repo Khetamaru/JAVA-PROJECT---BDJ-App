@@ -1,6 +1,6 @@
 package com.example.bdjcrusadeinternalappli;
 
-public class Game {
+public class Equipment {
 
     protected int idGame;
     protected String name;

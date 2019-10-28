@@ -2,7 +2,6 @@ package fr.intech.javaproject.bdeujapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.annotation.processing.Generated;
 import javax.persistence.*;
 
 @Entity
@@ -12,8 +11,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idUser;
-    @JsonProperty("surname")
-    private String pseudo;
+    private String surname;
     @Column(unique = true)
     private String login;
     private String password;
@@ -26,7 +24,7 @@ public class User {
     public User(int _idUser, String _pseudo, String _login, String _password, String _mail, String _level) {
 
         idUser = _idUser;
-        pseudo = _pseudo;
+        surname = _pseudo;
         login = _login;
         password = _password;
         mail = _mail;
@@ -37,8 +35,8 @@ public class User {
     public int getIdUser() {
         return idUser;
     }
-    public String getPseudo() {
-        return pseudo;
+    public String getSurname() {
+        return surname;
     }
     public String getLogin() {
         return login;
@@ -57,8 +55,8 @@ public class User {
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
     public void setLogin(String login) {
         this.login = login;

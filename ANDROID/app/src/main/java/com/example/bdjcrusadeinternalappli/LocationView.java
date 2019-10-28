@@ -1,17 +1,14 @@
 package com.example.bdjcrusadeinternalappli;
 
 import android.app.Activity;
-import android.app.LauncherActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -22,17 +19,15 @@ import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class LocationView extends Activity {
 
     ObjectMapper mapper;
     ListView listView;
-    ArrayAdapter<Member> arrayAdapter;
+    ArrayAdapter<Location> arrayAdapter;
     Context context;
     User user;
     Button addLocation;
@@ -79,9 +74,9 @@ public class LocationView extends Activity {
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                        Member[] members = new ObjectMapper().readValue(response.body().string(), Member[].class);
+                        Location[] locations = new ObjectMapper().readValue(response.body().string(), Location[].class);
 
-                        ArrayList<Member> membersList = getListData(members);
+                        ArrayList<Location> membersList = getListData(locations);
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -109,12 +104,12 @@ public class LocationView extends Activity {
         });
     }
 
-    private ArrayList getListData(Member[] members) {
-        ArrayList<Member> results = new ArrayList<>();
+    private ArrayList getListData(Location[] locations) {
+        ArrayList<Location> results = new ArrayList<>();
 
-        for (Member member: members) {
+        for (Location location : locations) {
 
-            results.add(member);
+            results.add(location);
         }
 
         return results;
