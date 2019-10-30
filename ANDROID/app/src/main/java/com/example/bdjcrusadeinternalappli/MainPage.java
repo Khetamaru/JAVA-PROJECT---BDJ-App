@@ -24,19 +24,16 @@ import okhttp3.Response;
 
 public class MainPage extends Activity {
 
-    TextView id;
-    TextView surname;
-    TextView login;
-    TextView password;
-    TextView mail;
-    TextView level;
+    TextView textView_id;
+    TextView textView_surname;
+    TextView textView_level;
 
-    Button inventory;
-    Button historic;
-    Button borrow;
-    Button location;
-    Button levelUp;
-    Button deco;
+    Button button_inventory;
+    Button button_historic;
+    Button button_loaning;
+    Button button_location;
+    Button button_levelUp;
+    Button button_logOut;
 
     ObjectMapper mapper;
 
@@ -45,17 +42,11 @@ public class MainPage extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("LoginPage", ":)");
+        Log.i("MainPage", "creation");
 
         setContentView(R.layout.main_page);
 
         mapper = new ObjectMapper();
-
-        /*id = findViewById(R.id.id);
-        surname = findViewById(R.id.surname);
-        login = findViewById(R.id.login);
-        password = findViewById(R.id.password);
-        mail = findViewById(R.id.mail);*/
 
         OkHttpClient client = new OkHttpClient();
 
@@ -67,7 +58,7 @@ public class MainPage extends Activity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("LoginPage", "fail",e);
+                Log.e("MainPage", "fail",e);
             }
 
             @Override
@@ -80,19 +71,19 @@ public class MainPage extends Activity {
                     public void run() {
 
                         levelChoice();
-                        //id.setText(String.valueOf(user.idUser));
-                        surname = findViewById(R.id.surname);
-                        surname.setText(user.surname);
-                        /*login.setText(user.login);
-                        password.setText(user.password);
-                        mail.setText(user.mail);*/
+                        //textView_id.setText(String.valueOf(user.idUser));
+                        textView_surname = findViewById(R.id.surname);
+                        textView_surname.setText(user.surname);
+                        /*editText_login.setText(user.editText_login);
+                        editText_password.setText(user.editText_password);
+                        editText_mail.setText(user.editText_mail);*/
 
-                        deco = findViewById(R.id.disconnection);
-                        deco.setOnClickListener(new View.OnClickListener() {
+                        button_logOut = findViewById(R.id.disconnection);
+                        button_logOut.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                disconected(v);
+                                logOut(v);
                             }
                         });
                     }
@@ -110,8 +101,8 @@ public class MainPage extends Activity {
             case("cotisant"):
 
                 setContentView(R.layout.main_page_student);
-                inventory = findViewById(R.id.inventory);
-                inventory.setOnClickListener(new View.OnClickListener() {
+                button_inventory = findViewById(R.id.inventory);
+                button_inventory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -119,8 +110,8 @@ public class MainPage extends Activity {
                     }
                 });
 
-                borrow = findViewById(R.id.borrow);
-                borrow.setOnClickListener(new View.OnClickListener() {
+                button_loaning = findViewById(R.id.loaning);
+                button_loaning.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -128,8 +119,8 @@ public class MainPage extends Activity {
                     }
                 });
 
-                location = findViewById(R.id.location);
-                location.setOnClickListener(new View.OnClickListener() {
+                button_location = findViewById(R.id.location);
+                button_location.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -137,8 +128,8 @@ public class MainPage extends Activity {
                     }
                 });
 
-                levelUp = findViewById(R.id.levelUp);
-                levelUp.setOnClickListener(new View.OnClickListener() {
+                button_levelUp = findViewById(R.id.levelUp);
+                button_levelUp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -146,8 +137,8 @@ public class MainPage extends Activity {
                     }
                 });
 
-                level = findViewById(R.id.level);
-                level.setText(user.level);
+                textView_level = findViewById(R.id.level);
+                textView_level.setText(user.level);
                 break;
 
             case("bdjMember"):
@@ -155,8 +146,8 @@ public class MainPage extends Activity {
             case("admin"):
 
                 setContentView(R.layout.main_page_bdj_member);
-                inventory = findViewById(R.id.inventory);
-                inventory.setOnClickListener(new View.OnClickListener() {
+                button_inventory = findViewById(R.id.inventory);
+                button_inventory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -164,8 +155,8 @@ public class MainPage extends Activity {
                     }
                 });
 
-                borrow = findViewById(R.id.borrow);
-                borrow.setOnClickListener(new View.OnClickListener() {
+                button_loaning = findViewById(R.id.loaning);
+                button_loaning.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -173,8 +164,8 @@ public class MainPage extends Activity {
                     }
                 });
 
-                location = findViewById(R.id.location);
-                location.setOnClickListener(new View.OnClickListener() {
+                button_location = findViewById(R.id.location);
+                button_location.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -182,8 +173,8 @@ public class MainPage extends Activity {
                     }
                 });
 
-                historic = findViewById(R.id.historic);
-                historic.setOnClickListener(new View.OnClickListener() {
+                button_historic = findViewById(R.id.historic);
+                button_historic.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -226,11 +217,11 @@ public class MainPage extends Activity {
     protected void goToLevelUp(View v) {
 
         OkHttpClient client = new OkHttpClient();
-        String sbody = "{}";
+        String stringBody = "{}";
 
         MediaType JSON
                 = MediaType.get("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(JSON, sbody);
+        RequestBody body = RequestBody.create(JSON, stringBody);
 
         Request request = new Request.Builder()
                 .url("http://192.168.43.110:8080/user/levelUp/" + user.idUser)
@@ -254,7 +245,7 @@ public class MainPage extends Activity {
         });
     }
 
-    protected void disconected(View v) {
+    protected void logOut(View v) {
 
         Intent intent = new Intent(v.getContext(), LoginPage.class);
         startActivity(intent);

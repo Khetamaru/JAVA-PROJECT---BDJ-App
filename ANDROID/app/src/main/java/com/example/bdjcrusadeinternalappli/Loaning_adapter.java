@@ -1,6 +1,5 @@
 package com.example.bdjcrusadeinternalappli;
 
-import android.app.LauncherActivity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-public class Borrow_adapter extends BaseAdapter {
+public class Loaning_adapter extends BaseAdapter {
 
-    private ArrayList<Borrow> listData;
+    private ArrayList<Loaning> listData;
     private LayoutInflater layoutInflater;
 
-    public Borrow_adapter(Context aContext, ArrayList<Borrow> listData) {
+    public Loaning_adapter(Context aContext, ArrayList<Loaning> listData) {
 
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);
@@ -58,7 +56,7 @@ public class Borrow_adapter extends BaseAdapter {
         }
 
         holder.uUserName.setText(listData.get(position).user.getSurname());
-        holder.uGameName.setText(listData.get(position).game.getName());
+        holder.uGameName.setText(listData.get(position).equipment.getName());
         String startDate = listData.get(position).getStartDate().toString();
         holder.uStartDate.setText(startDate);
         String endDate = listData.get(position).getEndDate().toString();

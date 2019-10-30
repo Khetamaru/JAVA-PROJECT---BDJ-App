@@ -12,11 +12,7 @@ import android.widget.Toast;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -29,44 +25,45 @@ import okhttp3.Response;
 
 public class LoginPage extends Activity {
 
-    Button co;
-    Button insc;
-    EditText login;
-    EditText passw;
+    Button button_connection;
+    Button button_validation;
+    EditText editText_login;
+    EditText editText_password;
     ObjectMapper mapper;
 
     //Login logs;
     //File logsJSON;
     //FileOutputStream logsStream;
-    String logsString;
+    String stringRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("LoginPage", ":)");
+        
+        Log.i("LoginPage", "Login Page button_creation");
 
         mapper = new ObjectMapper();
 
         setContentView(R.layout.login_page);
 
-        co = findViewById(R.id.connect);
-        insc = findViewById(R.id.create);
-        login = findViewById(R.id.login);
-        passw = findViewById(R.id.password);
+        button_connection = findViewById(R.id.connect);
+        button_validation = findViewById(R.id.create);
+        editText_login = findViewById(R.id.login);
+        editText_password = findViewById(R.id.password);
 
-        co.setOnClickListener(new View.OnClickListener() {
+        button_connection.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                String log = login.getText().toString();
-                String pass = passw.getText().toString();
+                String login = editText_login.getText().toString();
+                String password = editText_password.getText().toString();
 
                 /*logsJSON = new File("./logs.json");
                 try {
                     logs = mapper.readValue(logsJSON, Login.class);
-                    login.setText(logs.getLog());
-                    passw.setText(logs.getPassword());
+                    editText_login.setText(logs.getLog());
+                    editText_password.setText(logs.getPassword());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -80,9 +77,9 @@ public class LoginPage extends Activity {
                         = MediaType.get("application/json; charset=utf-8");
                 OkHttpClient client = new OkHttpClient();
 
-                logsString = "{\"log\" : \"" + log + "\", \"password\" : \"" + pass + "\"}";
+                stringRequest = "{\"log\" : \"" + login + "\", \"editText_password\" : \"" + password + "\"}";
 
-                RequestBody body = RequestBody.create(JSON, logsString);
+                RequestBody body = RequestBody.create(JSON, stringRequest);
 
                 Request request = new Request.Builder()
                         .url("http://192.168.43.110:8080/user/login")
@@ -92,23 +89,24 @@ public class LoginPage extends Activity {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
                         Log.e("LoginPage", "fail",e);
                     }
 
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                        Log.i("LoginPage", "" + response.code());
+                        Log.i("LoginPage", "response : " + response.code());
 
                         if (response.code() == 200) {
-                            Log.i("LoginPage", "après 200");
+
                             User user = mapper.readValue(response.body().string(), User.class);
                             //mapper.writeValue(logsStream, logs);
-                            Log.i("LoginPage", "après writeValue");
 
                            runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+
                                     Intent intent = new Intent(v.getContext(), MainPage.class);
                                     intent.putExtra("idUser", user.idUser);
                                     startActivity(intent);
@@ -119,7 +117,8 @@ public class LoginPage extends Activity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(LoginPage.this, "Connection failed -- Login : " + log + " Password : " + pass, Toast.LENGTH_LONG).show();
+
+                                    Toast.makeText(LoginPage.this, "Wrong editText_login or editText_password", Toast.LENGTH_LONG).show();
                                     Log.i("LoginPage", "wrong try");
                                 }
                             });
@@ -129,24 +128,13 @@ public class LoginPage extends Activity {
             }
         });
 
-        insc.setOnClickListener(new View.OnClickListener() {
+        button_validation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(v.getContext(), CreateAccountPage.class);
                 startActivity(intent);
             }
         });
-    }
-
-    protected boolean verifConnect(String login, String password) {
-
-        if (login.equals("oui") && password.equals("non")) {
-
-            return true;
-        }
-        else {
-
-            return false;
-        }
     }
 }

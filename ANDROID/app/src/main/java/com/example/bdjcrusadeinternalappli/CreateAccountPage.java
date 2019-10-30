@@ -25,12 +25,12 @@ import okhttp3.Response;
 
 public class CreateAccountPage extends Activity {
 
-    EditText surname;
-    EditText mail;
-    EditText login;
-    EditText password;
-    EditText confirmPassword;
-    Button creation;
+    EditText editText_surname;
+    EditText editText_mail;
+    EditText editText_login;
+    EditText editText_password;
+    EditText editText_confirm_password;
+    Button button_creation;
 
     ObjectMapper mapper;
 
@@ -40,35 +40,36 @@ public class CreateAccountPage extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("LoginPage", ":)");
 
-        OkHttpClient client = new OkHttpClient();
+        Log.i("CreateAccountPage", "creation");
+
+        client = new OkHttpClient();
         JSON = MediaType.get("application/json; charset=utf-8");
 
         mapper = new ObjectMapper();
 
         setContentView(R.layout.create_account_page);
 
-        surname = findViewById(R.id.pseudo);
-        mail = findViewById(R.id.mail);
-        login = findViewById(R.id.login);
-        password = findViewById(R.id.password);
-        confirmPassword = findViewById(R.id.confirmPassword);
-        creation = findViewById(R.id.submit);
+        editText_surname = findViewById(R.id.pseudo);
+        editText_mail = findViewById(R.id.mail);
+        editText_login = findViewById(R.id.login);
+        editText_password = findViewById(R.id.password);
+        editText_confirm_password = findViewById(R.id.confirmPassword);
+        button_creation = findViewById(R.id.submit);
 
-        creation.setOnClickListener(new View.OnClickListener() {
+        button_creation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (verifSurname()) {
 
-                    if (verifMail()) {
+                    if (verificationMail()) {
 
-                        if (verifPassword()) {
+                        if (verificationPassword()) {
 
-                            if (verifConfirmPassword()) {
+                            if (verificationConfirmPassword()) {
 
-                                verifLogin(v);
+                                verificationLogin(v);
                             }
                         }
                     }
@@ -79,7 +80,7 @@ public class CreateAccountPage extends Activity {
 
     protected boolean verifSurname() {
 
-        if (surname.length() > 3) {
+        if (editText_surname.length() > 3) {
 
             return true;
         }
@@ -90,43 +91,44 @@ public class CreateAccountPage extends Activity {
         }
     }
 
-    protected boolean verifMail() {
+    protected boolean verificationMail() {
 
-        if (!mail.equals("")) {
+        if (!editText_mail.equals("")) {
 
             return true;
         }
         else {
 
-            Toast.makeText(CreateAccountPage.this, "You have to write a mail address", Toast.LENGTH_LONG).show();
+            Toast.makeText(CreateAccountPage.this, "You have to write a editText_mail address", Toast.LENGTH_LONG).show();
             return false;
         }
     }
 
-    protected void verifLogin(View v) {
+    protected void verificationLogin(View v) {
 
-        if (login.length() > 3) {
+        if (editText_login.length() > 3) {
 
-            if (login.length() < 15) {
+            if (editText_login.length() < 15) {
 
-                System.out.println(login.getText().toString());
+                System.out.println(editText_login.getText().toString());
 
                 OkHttpClient client = new OkHttpClient();
 
                 Request request = new Request.Builder()
-                        .url("http://192.168.43.110:8080/user/byLogin/" + login.getText().toString())
+                        .url("http://192.168.43.110:8080/user/byLogin/" + editText_login.getText().toString())
                         .build();
 
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
                         Log.e("CreateAccountPage", "fail", e);
                     }
 
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                        Log.i("CreateAccountPage", "" + response.code());
+                        Log.i("CreateAccountPage", "response : " + response.code());
 
                         if (response.code() == 200) {
 
@@ -168,11 +170,11 @@ public class CreateAccountPage extends Activity {
         }
     }
 
-    protected boolean verifPassword() {
+    protected boolean verificationPassword() {
 
-        if (password.length() > 3) {
+        if (editText_password.length() > 3) {
 
-            if (password.length() < 15) {
+            if (editText_password.length() < 15) {
 
                 return true;
             }
@@ -189,12 +191,12 @@ public class CreateAccountPage extends Activity {
         }
     }
 
-    protected boolean verifConfirmPassword() {
+    protected boolean verificationConfirmPassword() {
 
-        System.out.println(password.getText());
-        System.out.println(confirmPassword.getText());
+        System.out.println(editText_password.getText());
+        System.out.println(editText_confirm_password.getText());
 
-        if (password.getText().toString().equals(confirmPassword.getText().toString())) {
+        if (editText_password.getText().toString().equals(editText_confirm_password.getText().toString())) {
 
             return true;
         }
@@ -208,11 +210,11 @@ public class CreateAccountPage extends Activity {
     protected void createAccount(View v) {
 
         String req =    "{" +
-                "\"surname\" : \"" + surname.getText().toString() + "\"," +
-                " \"login\" : \"" + login.getText().toString() + "\"," +
-                " \"password\" : \"" + password.getText().toString() + "\"," +
-                " \"mail\" : \"" + mail.getText().toString() + "\"," +
-                " \"level\" : \"student\"" +
+                "\"editText_surname\" : \"" + editText_surname.getText().toString() + "\"," +
+                " \"editText_login\" : \"" + editText_login.getText().toString() + "\"," +
+                " \"editText_password\" : \"" + editText_password.getText().toString() + "\"," +
+                " \"editText_mail\" : \"" + editText_mail.getText().toString() + "\"," +
+                " \"textView_level\" : \"student\"" +
                 "}";
 
         RequestBody body = RequestBody.create(JSON, req);
@@ -227,13 +229,14 @@ public class CreateAccountPage extends Activity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("LoginPage", "fail",e);
+
+                Log.e("CreateAccountPage", "fail",e);
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                Log.i("LoginPage", "" + response.code());
+                Log.i("CreateAccountPage", "response : " + response.code());
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -248,26 +251,27 @@ public class CreateAccountPage extends Activity {
 
     protected void goToMainPage(View v) {
 
-        String req = "{\"login\" : \"" + login.getText().toString() + "\"";
+        String req = "{\"editText_login\" : \"" + editText_login.getText().toString() + "\"";
 
         RequestBody body = RequestBody.create(JSON, req);
 
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/user/byLogin/" + login.getText().toString())
+                .url("http://192.168.43.110:8080/user/byLogin/" + editText_login.getText().toString())
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
                 Log.e("CreateAccountPage", "fail", e);
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                Log.i("CreateAccountPage", "" + response.code());
+                Log.i("CreateAccountPage", "response : " + response.code());
 
                 if (response.code() == 200) {
 

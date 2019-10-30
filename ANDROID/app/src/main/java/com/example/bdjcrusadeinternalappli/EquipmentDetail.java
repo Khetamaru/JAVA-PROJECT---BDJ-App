@@ -89,9 +89,9 @@ public class EquipmentDetail extends Activity {
                 MediaType JSON
                         = MediaType.get("application/json; charset=utf-8");
 
-                String logsString = "{\"date\" : \"" + dateText + "\"}";
+                String stringRequest = "{\"date\" : \"" + dateText + "\"}";
 
-                RequestBody body = RequestBody.create(JSON, logsString);
+                RequestBody body = RequestBody.create(JSON, stringRequest);
 
                 Request request = new Request.Builder()
                         .url("http://192.168.43.110:8080/borrow/startDate")

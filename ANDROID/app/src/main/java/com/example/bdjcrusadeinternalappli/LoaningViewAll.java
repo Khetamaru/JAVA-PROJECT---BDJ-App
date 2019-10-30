@@ -85,7 +85,7 @@ public class LoaningViewAll extends Activity {
 
                                 /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
-                                    public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                                    public void onItemClick(AdapterView<?> a, View v, int position, long textView_id) {
                                         Equipment equipment = (Equipment) listView.getItemAtPosition(position);
                                         Intent intent = new Intent(v.getContext(), EquipmentDetail.class);
                                         intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));

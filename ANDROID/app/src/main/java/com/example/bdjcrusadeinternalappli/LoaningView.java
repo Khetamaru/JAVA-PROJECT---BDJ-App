@@ -40,7 +40,7 @@ public class LoaningView extends Activity {
 
         context = this;
 
-        setContentView(R.layout.borrow);
+        setContentView(R.layout.loaning);
 
         mapper = new ObjectMapper();
 
@@ -67,11 +67,11 @@ public class LoaningView extends Activity {
 
                 String userString = "{" +
                                         "\"idUser\" : \"" + user.getIdUser() + "\", " +
-                                        "\"surname\" : \"" + user.getSurname() + "\", " +
-                                        "\"login\" : \"" + user.getLogin() + "\", " +
-                                        "\"password\" : \"" + user.getPassword() + "\", " +
-                                        "\"mail\" : \"" + user.getMail() + "\", " +
-                                        "\"level\" : \"" + user.getMail() + "\"" +
+                                        "\"editText_surname\" : \"" + user.getSurname() + "\", " +
+                                        "\"editText_login\" : \"" + user.getLogin() + "\", " +
+                                        "\"editText_password\" : \"" + user.getPassword() + "\", " +
+                                        "\"editText_mail\" : \"" + user.getMail() + "\", " +
+                                        "\"textView_level\" : \"" + user.getMail() + "\"" +
                                     "}";
 
                 RequestBody body = RequestBody.create(JSON, userString);
@@ -105,7 +105,7 @@ public class LoaningView extends Activity {
 
                                 /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
-                                    public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                                    public void onItemClick(AdapterView<?> a, View v, int position, long textView_id) {
                                         Equipment equipment = (Equipment) listView.getItemAtPosition(position);
                                         Intent intent = new Intent(v.getContext(), EquipmentDetail.class);
                                         intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));

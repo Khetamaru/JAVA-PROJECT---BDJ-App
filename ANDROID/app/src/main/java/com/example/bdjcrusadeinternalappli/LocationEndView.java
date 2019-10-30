@@ -81,11 +81,11 @@ public class LocationEndView extends Activity {
                         String req = "{" +
                                         "\"user\": {" +
                                                     "\"idUser\": \"" + user.idUser + "\"," +
-                                                    "\"surname\": \"" + user.surname + "\"," +
-                                                    "\"login\": \"" + user.login + "\"," +
-                                                    "\"password\": \"" + user.password + "\"," +
-                                                    "\"mail\": \"" + user.mail + "\"," +
-                                                    "\"level\": \"" + user.level + "\"" +
+                                                    "\"editText_surname\": \"" + user.surname + "\"," +
+                                                    "\"editText_login\": \"" + user.login + "\"," +
+                                                    "\"editText_password\": \"" + user.password + "\"," +
+                                                    "\"editText_mail\": \"" + user.mail + "\"," +
+                                                    "\"textView_level\": \"" + user.level + "\"" +
                                         "}," +
                                         "\"place\": \"" + place + "\"," +
                                         "\"startDate\": \"" + startDate.getTime() + "\"," +

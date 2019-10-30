@@ -105,11 +105,11 @@ public class EquipmentDetailEnd extends Activity {
                     String req = "{" +
                                     "\"user\": {" +
                                                 "\"idUser\": \"" + loaning.user.idUser + "\"," +
-                                                "\"surname\": \"" + loaning.user.surname + "\"," +
-                                                "\"login\": \"" + loaning.user.login + "\"," +
-                                                "\"password\": \"" + loaning.user.password + "\"," +
-                                                "\"mail\": \"" + loaning.user.mail + "\"," +
-                                                "\"level\": \"" + loaning.user.level + "\"" +
+                                                "\"editText_surname\": \"" + loaning.user.surname + "\"," +
+                                                "\"editText_login\": \"" + loaning.user.login + "\"," +
+                                                "\"editText_password\": \"" + loaning.user.password + "\"," +
+                                                "\"editText_mail\": \"" + loaning.user.mail + "\"," +
+                                                "\"textView_level\": \"" + loaning.user.level + "\"" +
                                                 "}," +
                                     "\"equipment\": {" +
                                                 "\"idGame\": \"" + loaning.equipment.idGame + "\"," +
