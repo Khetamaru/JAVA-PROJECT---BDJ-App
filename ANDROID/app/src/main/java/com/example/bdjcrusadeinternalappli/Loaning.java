@@ -4,26 +4,28 @@ import java.util.Date;
 
 public class Loaning {
 
-    protected int idBorrow;
+    protected int idLoaning;
     protected User user;
     protected Equipment equipment;
     protected Date startDate;
     protected Date endDate;
+    protected String validation;
 
     public Loaning() {
 
     }
 
-    public Loaning(int _idBorrow, User _user, Equipment _equipment, Date _startDate, Date _endDate) {
+    public Loaning(int _idBorrow, User _user, Equipment _equipment, Date _startDate, Date _endDate, String _validation) {
 
-        idBorrow = _idBorrow;
+        idLoaning = _idBorrow;
         user = _user;
         equipment = _equipment;
         startDate = _startDate;
         endDate = _endDate;
+        validation = _validation;
     }
 
-    public int getIdBorrow() { return idBorrow; }
+    public int getIdLoaning() { return idLoaning; }
     public User getUser() {
         return user;
     }
@@ -36,9 +38,10 @@ public class Loaning {
     public Date getEndDate() {
         return endDate;
     }
+    public String getValidation() { return validation; }
 
 
-    public void setIdBorrow(int idBorrow) { this.idBorrow = idBorrow; }
+    public void setIdLoaning(int idLoaning) { this.idLoaning = idLoaning; }
     public void setUser(User user) {
         this.user = user;
     }
@@ -50,5 +53,19 @@ public class Loaning {
     }
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+    public void setValidation(String validation) { this.validation = validation; }
+
+
+    public String toString () {
+
+        return  "{" +
+                    "\"idLoaning\" : " + getIdLoaning() + "," +
+                    "\"user\" : \"" + getUser().toString() + "\"," +
+                    "\"equipment\" : \"" + getEquipment().toString() + "\"" +
+                    "\"startDate\" : " + getStartDate() + "," +
+                    "\"endDate\" : \"" + getEndDate() + "\"," +
+                    "\"validation\" : \"" + getValidation() + "\"" +
+                "}";
     }
 }

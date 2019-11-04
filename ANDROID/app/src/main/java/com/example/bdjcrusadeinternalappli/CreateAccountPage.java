@@ -210,11 +210,11 @@ public class CreateAccountPage extends Activity {
     protected void createAccount(View v) {
 
         String req =    "{" +
-                "\"editText_surname\" : \"" + editText_surname.getText().toString() + "\"," +
-                " \"editText_login\" : \"" + editText_login.getText().toString() + "\"," +
-                " \"editText_password\" : \"" + editText_password.getText().toString() + "\"," +
-                " \"editText_mail\" : \"" + editText_mail.getText().toString() + "\"," +
-                " \"textView_level\" : \"student\"" +
+                "\"surname\" : \"" + editText_surname.getText().toString() + "\"," +
+                "\"login\" : \"" + editText_login.getText().toString() + "\"," +
+                "\"password\" : \"" + editText_password.getText().toString() + "\"," +
+                "\"mail\" : \"" + editText_mail.getText().toString() + "\"," +
+                "\"level\" : \"student\"" +
                 "}";
 
         RequestBody body = RequestBody.create(JSON, req);

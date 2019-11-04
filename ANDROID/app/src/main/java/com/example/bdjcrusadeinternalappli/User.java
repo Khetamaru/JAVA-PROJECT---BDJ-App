@@ -48,4 +48,16 @@ public class User {
     public void setLevel(String level) {
         this.level = level;
     }
+
+    public String toString () {
+
+        return  "{" +
+                "\"idUser\" : " + getIdUser() + "," +
+                "\"surname\" : \"" + getSurname() + "\"," +
+                "\"login\" : \"" + getLogin() + "\"" +
+                "\"password\" : " + getPassword() + "," +
+                "\"mail\" : \"" + getMail() + "\"," +
+                "\"level\" : \"" + getLevel() + "\"" +
+                "}";
+    }
 }

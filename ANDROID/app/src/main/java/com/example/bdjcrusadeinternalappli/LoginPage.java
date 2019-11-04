@@ -77,7 +77,7 @@ public class LoginPage extends Activity {
                         = MediaType.get("application/json; charset=utf-8");
                 OkHttpClient client = new OkHttpClient();
 
-                stringRequest = "{\"log\" : \"" + login + "\", \"editText_password\" : \"" + password + "\"}";
+                stringRequest = "{\"log\" : \"" + login + "\", \"password\" : \"" + password + "\"}";
 
                 RequestBody body = RequestBody.create(JSON, stringRequest);
 
@@ -118,7 +118,7 @@ public class LoginPage extends Activity {
                                 @Override
                                 public void run() {
 
-                                    Toast.makeText(LoginPage.this, "Wrong editText_login or editText_password", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginPage.this, "Wrong login or password", Toast.LENGTH_LONG).show();
                                     Log.i("LoginPage", "wrong try");
                                 }
                             });

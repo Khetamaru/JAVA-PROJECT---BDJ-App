@@ -4,43 +4,67 @@ import java.util.Date;
 
 public class UserHistoric {
 
-    protected int idHistoric;
-    protected User user;
-    protected String origin;
-    protected String action;
+    protected int idUser;
+    protected String surname;
+    protected String login;
+    protected String password;
+    protected String mail;
+    protected String level;
     protected Date date;
 
 
-    public int getIdHistoric() {
-        return idHistoric;
+    public int getIdUser() {
+        return idUser;
     }
-    public User getUser() {
-        return user;
+    public String getSurname() {
+        return surname;
     }
-    public String getOrigin() {
-        return origin;
+    public String getLogin() {
+        return login;
     }
-    public String getAction() {
-        return action;
+    public String getPassword() {
+        return password;
     }
-    public Date getDate() {
-        return date;
+    public String getMail() {
+        return mail;
     }
+    public String getLevel() {
+        return level;
+    }
+    public Date getDate() { return date; }
 
 
-    public void setIdHistoric(int idHistoric) {
-        this.idHistoric = idHistoric;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
-    public void setUser(User user) {
-        this.user = user;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
-    public void setOrigin(String origin) {
-        this.origin = origin;
+    public void setLogin(String login) {
+        this.login = login;
     }
-    public void setAction(String action) {
-        this.action = action;
+    public void setPassword(String password) {
+        this.password = password;
     }
-    public void setDate(Date date) {
-        this.date = date;
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+    public void setLevel(String level) {
+        this.level = level;
+    }
+    public void setDate(Date date) { this.date = date; }
+
+
+    public String toString () {
+
+        return  "{" +
+                    "\"idUser\" : " + getIdUser() + "," +
+                    "\"surname\" : \"" + getSurname() + "\"," +
+                    "\"login\" : \"" + getLogin() + "\"" +
+                    "\"password\" : " + getPassword() + "," +
+                    "\"mail\" : \"" + getMail() + "\"," +
+                    "\"level\" : \"" + getLevel() + "\"," +
+                    "\"date\" : \"" + getDate() + "\"" +
+                "}";
     }
 }
