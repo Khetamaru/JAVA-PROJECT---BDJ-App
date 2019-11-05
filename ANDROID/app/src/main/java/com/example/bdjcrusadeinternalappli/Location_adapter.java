@@ -59,10 +59,10 @@ public class Location_adapter extends BaseAdapter {
 
         holder.uUser.setText(listData.get(position).user.getSurname());
         holder.uPlace.setText(listData.get(position).getPlace());
-        String startDate = listData.get(position).getStartDate().toString();
+        /*String startDate = listData.get(position).getStartDate().toString();
         holder.uStartDate.setText(startDate);
         String endDate = listData.get(position).getEndDate().toString();
-        holder.uEndDate.setText(endDate);
+        holder.uEndDate.setText(endDate);*/
         return v;
     }
 

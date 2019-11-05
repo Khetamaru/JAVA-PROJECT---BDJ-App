@@ -251,7 +251,7 @@ public class CreateAccountPage extends Activity {
 
     protected void goToMainPage(View v) {
 
-        String req = "{\"editText_login\" : \"" + editText_login.getText().toString() + "\"";
+        String req = "{\"login\" : \"" + editText_login.getText().toString() + "\"";
 
         RequestBody body = RequestBody.create(JSON, req);
 

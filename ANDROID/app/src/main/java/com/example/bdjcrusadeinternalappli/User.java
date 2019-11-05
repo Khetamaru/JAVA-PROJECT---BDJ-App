@@ -54,8 +54,8 @@ public class User {
         return  "{" +
                 "\"idUser\" : " + getIdUser() + "," +
                 "\"surname\" : \"" + getSurname() + "\"," +
-                "\"login\" : \"" + getLogin() + "\"" +
-                "\"password\" : " + getPassword() + "," +
+                "\"login\" : \"" + getLogin() + "\"," +
+                "\"password\" : \"" + getPassword() + "\"," +
                 "\"mail\" : \"" + getMail() + "\"," +
                 "\"level\" : \"" + getLevel() + "\"" +
                 "}";

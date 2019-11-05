@@ -24,16 +24,17 @@ import okhttp3.Response;
 
 public class MainPage extends Activity {
 
-    TextView textView_id;
     TextView textView_surname;
     TextView textView_level;
 
-    Button button_inventory;
-    Button button_historic;
+    Button button_logOut;
+
     Button button_loaning;
     Button button_location;
+    Button button_inventory;
+    Button button_userHistoric;
+
     Button button_levelUp;
-    Button button_logOut;
 
     ObjectMapper mapper;
 
@@ -74,6 +75,9 @@ public class MainPage extends Activity {
                         //textView_id.setText(String.valueOf(user.idUser));
                         textView_surname = findViewById(R.id.surname);
                         textView_surname.setText(user.surname);
+
+                        textView_level = findViewById(R.id.level);
+                        textView_level.setText(user.level);
                         /*editText_login.setText(user.editText_login);
                         editText_password.setText(user.editText_password);
                         editText_mail.setText(user.editText_mail);*/
@@ -101,21 +105,13 @@ public class MainPage extends Activity {
             case("cotisant"):
 
                 setContentView(R.layout.main_page_student);
-                button_inventory = findViewById(R.id.inventory);
-                button_inventory.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        goToInventory(v);
-                    }
-                });
 
                 button_loaning = findViewById(R.id.loaning);
                 button_loaning.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        goToBorrow(v);
+                        goToLoaning(v);
                     }
                 });
 
@@ -136,14 +132,9 @@ public class MainPage extends Activity {
                         goToLevelUp(v);
                     }
                 });
-
-                textView_level = findViewById(R.id.level);
-                textView_level.setText(user.level);
                 break;
 
             case("bdjMember"):
-
-            case("admin"):
 
                 setContentView(R.layout.main_page_bdj_member);
                 button_inventory = findViewById(R.id.inventory);
@@ -160,7 +151,7 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        goToBorrow(v);
+                        goToLoaning(v);
                     }
                 });
 
@@ -173,8 +164,50 @@ public class MainPage extends Activity {
                     }
                 });
 
-                button_historic = findViewById(R.id.historic);
-                button_historic.setOnClickListener(new View.OnClickListener() {
+                button_levelUp = findViewById(R.id.levelUp);
+                button_levelUp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToLevelUp(v);
+                    }
+                });
+                break;
+
+
+            case("admin"):
+
+                setContentView(R.layout.main_page_admin);
+
+                button_inventory = findViewById(R.id.inventory);
+                button_inventory.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToInventory(v);
+                    }
+                });
+
+                button_loaning = findViewById(R.id.loaning);
+                button_loaning.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToLoaning(v);
+                    }
+                });
+
+                button_location = findViewById(R.id.location);
+                button_location.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToLocation(v);
+                    }
+                });
+
+                button_userHistoric = findViewById(R.id.userHistoric);
+                button_userHistoric.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -182,7 +215,6 @@ public class MainPage extends Activity {
                     }
                 });
                 break;
-
         }
     }
 
@@ -193,9 +225,9 @@ public class MainPage extends Activity {
         startActivity(intent);
     }
 
-    protected void goToBorrow(View v) {
+    protected void goToLoaning(View v) {
 
-        Intent intent = new Intent(v.getContext(), LoaningView.class);
+        Intent intent = new Intent(v.getContext(), LoaningPage.class);
         intent.putExtra("idUser", user.idUser);
         startActivity(intent);
     }
@@ -249,5 +281,6 @@ public class MainPage extends Activity {
 
         Intent intent = new Intent(v.getContext(), LoginPage.class);
         startActivity(intent);
+        finish();
     }
 }

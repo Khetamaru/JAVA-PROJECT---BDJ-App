@@ -42,12 +42,10 @@ public class Loaning_adapter extends BaseAdapter {
 
         if (v == null) {
 
-            v = layoutInflater.inflate(R.layout.borrow_list, null);
+            v = layoutInflater.inflate(R.layout.loaning_list, null);
             holder = new ViewHolder();
             holder.uUserName = (TextView) v.findViewById(R.id.userName);
-            holder.uGameName = (TextView) v.findViewById(R.id.gameName);
-            holder.uStartDate = (TextView) v.findViewById(R.id.startDate);
-            holder.uEndDate = (TextView) v.findViewById(R.id.endDate);
+            holder.uEquipmentName = (TextView) v.findViewById(R.id.equipmentName);
             v.setTag(holder);
 
         } else {
@@ -56,18 +54,12 @@ public class Loaning_adapter extends BaseAdapter {
         }
 
         holder.uUserName.setText(listData.get(position).user.getSurname());
-        holder.uGameName.setText(listData.get(position).equipment.getName());
-        String startDate = listData.get(position).getStartDate().toString();
-        holder.uStartDate.setText(startDate);
-        String endDate = listData.get(position).getEndDate().toString();
-        holder.uEndDate.setText(endDate);
+        holder.uEquipmentName.setText(listData.get(position).equipment.getName());
         return v;
     }
 
     static class ViewHolder {
         TextView uUserName;
-        TextView uGameName;
-        TextView uStartDate;
-        TextView uEndDate;
+        TextView uEquipmentName;
     }
 }

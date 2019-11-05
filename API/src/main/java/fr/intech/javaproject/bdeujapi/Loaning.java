@@ -7,14 +7,14 @@ public class Loaning {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idBorrow;
+    private int idLoaning;
     @OneToOne
     private User user;
     @OneToOne
     private Equipment equipment;
     private Date startDate;
     private Date endDate;
-    String valid;
+    String validation;
 
 
     public Loaning() {
@@ -25,12 +25,12 @@ public class Loaning {
         equipment = _equipment;
         startDate = _startDate;
         endDate = _endDate;
-        valid = _valid;
+        validation = _valid;
     }
 
 
-    public int getIdBorrow() {
-        return idBorrow;
+    public int getIdLoaning() {
+        return idLoaning;
     }
     public User getUser() {
         return user;
@@ -44,11 +44,11 @@ public class Loaning {
     public Date getEndDate() {
         return endDate;
     }
-    public String getValid() { return valid; }
+    public String getValidation() { return validation; }
 
 
-    public void setIdBorrow(int idBorrow) {
-        this.idBorrow = idBorrow;
+    public void setIdLoaning(int idLoaning) {
+        this.idLoaning = idLoaning;
     }
     public void setUser(User user) {
         this.user = user;
@@ -62,8 +62,8 @@ public class Loaning {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-    public void setValid(String valid) {
-        this.valid = valid;
+    public void setValidation(String validation) {
+        this.validation = validation;
     }
 
 

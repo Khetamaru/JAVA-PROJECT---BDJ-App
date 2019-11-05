@@ -114,7 +114,7 @@ public class EquipmentDetail extends Activity {
 
                             */Intent intent = new Intent(v.getContext(), EquipmentDetailEnd.class);
                             intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                            intent.putExtra("idGame", equipment.idGame);
+                            intent.putExtra("idGame", equipment.getIdEquipment());
                             intent.putExtra("startDate", date.getDate());
                             startActivity(intent);
                         /*}

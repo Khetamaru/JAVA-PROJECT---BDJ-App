@@ -20,6 +20,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:inputType="text"
         android:hint="LOGIN"
+        android:text="mips"
         android:backgroundTint="@android:color/holo_red_dark"
         />
 
@@ -33,6 +34,7 @@
         app:layout_constraintRight_toRightOf="@id/parent"
         android:inputType="textPassword"
         android:hint="PASSWORD"
+        android:text="maps"
         android:backgroundTint="@android:color/holo_red_dark"
         />
 

@@ -27,7 +27,7 @@
         <activity android:name=".LocationView">
         </activity>
 
-        <activity android:name=".LoaningView">
+        <activity android:name=".LoaningPage">
         </activity>
 
         <activity android:name=".MainPage">

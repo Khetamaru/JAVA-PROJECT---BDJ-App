@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#4b6574"
     android:id="@+id/parent"
     >
 
@@ -41,24 +42,37 @@
                 android:text=" --> "
                 app:layout_constraintTop_toTopOf="@id/index"
                 app:layout_constraintBottom_toBottomOf="@id/index"
+                android:textSize="20dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="surname"
                 android:id="@+id/surname"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:minLines="1"
+                android:maxLines="1"
+                android:maxLength="10"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="/"
                 android:id="@+id/slach"
+                android:textStyle="bold"
+                android:textSize="20dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="level"
                 android:id="@+id/level"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:minLines="1"
+                android:maxLines="1"
+                android:maxLength="10"
                 />
 
         </LinearLayout>
@@ -68,20 +82,9 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/inventory"
-        android:text="INVENTORY"
-        app:layout_constraintTop_toBottomOf="@id/name"
-        app:layout_constraintBottom_toTopOf="@+id/loaning"
-        app:layout_constraintLeft_toLeftOf="@id/parent"
-        app:layout_constraintRight_toRightOf="@id/parent"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/loaning"
-        android:text="BORROW"
-        app:layout_constraintTop_toBottomOf="@id/inventory"
+        android:text="LOANING"
+        app:layout_constraintTop_toBottomOf="@id/name"
         app:layout_constraintBottom_toTopOf="@+id/location"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintRight_toRightOf="@id/parent"
@@ -103,6 +106,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/levelUp"
         android:text="LEVEL UP"
+        app:layout_constraintTop_toBottomOf="@id/location"
         app:layout_constraintBottom_toBottomOf="@+id/parent"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintRight_toRightOf="@id/parent"

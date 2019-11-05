@@ -100,24 +100,24 @@ public class EquipmentDetailEnd extends Activity {
                 }
                 else {
 
-                    loaning = new Loaning(0, user, equipment, startDate, dateText);
+                    /*loaning_admin = new Loaning(0, user, equipment, startDate, dateText);
 
                     String req = "{" +
                                     "\"user\": {" +
-                                                "\"idUser\": \"" + loaning.user.idUser + "\"," +
-                                                "\"editText_surname\": \"" + loaning.user.surname + "\"," +
-                                                "\"editText_login\": \"" + loaning.user.login + "\"," +
-                                                "\"editText_password\": \"" + loaning.user.password + "\"," +
-                                                "\"editText_mail\": \"" + loaning.user.mail + "\"," +
-                                                "\"textView_level\": \"" + loaning.user.level + "\"" +
+                                                "\"idUser\": \"" + loaning_admin.user.idUser + "\"," +
+                                                "\"editText_surname\": \"" + loaning_admin.user.surname + "\"," +
+                                                "\"editText_login\": \"" + loaning_admin.user.login + "\"," +
+                                                "\"editText_password\": \"" + loaning_admin.user.password + "\"," +
+                                                "\"editText_mail\": \"" + loaning_admin.user.mail + "\"," +
+                                                "\"textView_level\": \"" + loaning_admin.user.level + "\"" +
                                                 "}," +
                                     "\"equipment\": {" +
-                                                "\"idGame\": \"" + loaning.equipment.idGame + "\"," +
-                                                "\"name\": \"" + loaning.equipment.name + "\"," +
-                                                "\"state\": \"" + loaning.equipment.state + "\"" +
+                                                "\"idGame\": \"" + loaning_admin.equipment.idGame + "\"," +
+                                                "\"name\": \"" + loaning_admin.equipment.name + "\"," +
+                                                "\"state\": \"" + loaning_admin.equipment.state + "\"" +
                                                 "}," +
-                                    "\"startDate\": \"" + loaning.startDate.getTime() + "\"," +
-                                    "\"endDate\": \"" + loaning.endDate.getTime() + "\"" +
+                                    "\"startDate\": \"" + loaning_admin.startDate.getTime() + "\"," +
+                                    "\"endDate\": \"" + loaning_admin.endDate.getTime() + "\"" +
                                 "}";
 
                     MediaType JSON = MediaType.get("application/json; charset=utf-8");
@@ -152,7 +152,7 @@ public class EquipmentDetailEnd extends Activity {
                                 }
                             });
                         }
-                    });
+                    });*/
                 }
             }
         });

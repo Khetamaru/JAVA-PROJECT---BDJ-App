@@ -75,7 +75,7 @@ public class InventoryView extends Activity {
                                 Equipment equipment = (Equipment) listView.getItemAtPosition(position);
                                 Intent intent = new Intent(v.getContext(), EquipmentDetail.class);
                                 intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                                intent.putExtra("idGame", equipment.idGame);
+                                intent.putExtra("idGame", equipment.idEquipment);
                                 startActivity(intent);
                             }
                         });

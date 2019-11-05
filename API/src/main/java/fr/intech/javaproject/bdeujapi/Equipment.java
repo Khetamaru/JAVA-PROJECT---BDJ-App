@@ -9,7 +9,7 @@ public class Equipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idGame;
+    private int idEquipment;
     @Column(unique = true)
     private String name;
     private String status;
@@ -24,7 +24,7 @@ public class Equipment {
     }
     public Equipment(int _idGame, String _name, String _status, Date _dateRecup, String _state, String _origin, String _cfDoc, String _ableToBorrow) {
 
-        idGame = _idGame;
+        idEquipment = _idGame;
         name = _name;
         status = _status;
         dateRecup = _dateRecup;
@@ -35,8 +35,8 @@ public class Equipment {
     }
 
 
-    public int getIdGame() {
-        return idGame;
+    public int getIdEquipment() {
+        return idEquipment;
     }
     public String getName() {
         return name;
@@ -51,8 +51,8 @@ public class Equipment {
     public String getAbleToBorrow() { return ableToBorrow; }
 
 
-    public void setIdGame(int idGame) {
-        this.idGame = idGame;
+    public void setIdEquipment(int idEquipment) {
+        this.idEquipment = idEquipment;
     }
     public void setName(String name) {
         this.name = name;

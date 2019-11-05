@@ -107,7 +107,7 @@
         android:id="@+id/location"
         android:text="LOCATION"
         app:layout_constraintTop_toBottomOf="@id/loaning"
-        app:layout_constraintBottom_toTopOf="@+id/levelUp"
+        app:layout_constraintBottom_toTopOf="@+id/userHistoric"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintRight_toRightOf="@id/parent"
         />
@@ -115,12 +115,11 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/levelUp"
-        android:text="LEVEL UP"
-        app:layout_constraintTop_toBottomOf="@id/location"
-        app:layout_constraintBottom_toBottomOf="@+id/parent"
-        app:layout_constraintLeft_toLeftOf="@id/parent"
+        android:id="@+id/userHistoric"
+        android:text="USER HISTORIC"
+        app:layout_constraintBottom_toBottomOf="@id/parent"
         app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

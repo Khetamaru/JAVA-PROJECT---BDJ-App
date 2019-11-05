@@ -1,10 +1,17 @@
 package com.example.bdjcrusadeinternalappli;
 
+import java.util.Date;
+
 public class Equipment {
 
     protected int idEquipment;
-    protected String name;
-    protected String state;
+    private String name;
+    private String status;
+    private Date dateRecup;
+    private String state;
+    private String origin;
+    private String cfDoc;
+    private String ableToBorrow;
 
 
     public int getIdEquipment() {
@@ -16,6 +23,11 @@ public class Equipment {
     public String getState() {
         return state;
     }
+    public String getOrigin() { return origin; }
+    public Date getDateRecup() { return dateRecup; }
+    public String getAbleToBorrow() { return ableToBorrow; }
+    public String getCfDoc() { return cfDoc; }
+    public String getStatus() { return status; }
 
 
     public void setIdEquipment(int idEquipment) {
@@ -27,13 +39,24 @@ public class Equipment {
     public void setState(String state) {
         this.state = state;
     }
+    public void setOrigin(String origin) { this.origin = origin; }
+    public void setAbleToBorrow(String ableToBorrow) { this.ableToBorrow = ableToBorrow; }
+    public void setCfDoc(String cfDoc) { this.cfDoc = cfDoc; }
+    public void setDateRecup(Date dateRecup) { this.dateRecup = dateRecup; }
+    public void setStatus(String status) { this.status = status; }
+
 
     public String toString () {
 
         return  "{" +
                     "\"idEquipment\" : " + getIdEquipment() + "," +
                     "\"name\" : \"" + getName() + "\"," +
-                    "\"state\" : \"" + getState() + "\"" +
+                    "\"status\" : \"" + getState() + "\"," +
+                    "\"dateRecup\" : " + getIdEquipment() + "," +
+                    "\"state\" : \"" + getName() + "\"," +
+                    "\"origin\" : \"" + getState() + "\"," +
+                    "\"cfDoc\" : " + getIdEquipment() + "," +
+                    "\"ableToBorrow\" : \"" + getName() + "\"" +
                 "}";
     }
 }

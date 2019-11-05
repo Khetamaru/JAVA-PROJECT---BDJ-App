@@ -77,7 +77,7 @@ public class LoaningViewAll extends Activity {
                             @Override
                             public void run() {
 
-                                setContentView(R.layout.borrow_all);
+                                setContentView(R.layout.loaning_all);
 
                                 listView = (ListView) findViewById(R.id.BorrowListView);
 
