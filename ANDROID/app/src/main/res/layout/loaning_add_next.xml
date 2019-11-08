@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,27 +14,36 @@
         android:text="RETURN"
         app:layout_constraintRight_toRightOf="@id/parent"
         app:layout_constraintTop_toTopOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/loaningListView"
         />
 
-    <ListView
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:id="@+id/loaningListView"
-        app:layout_constraintTop_toBottomOf="@id/back"
-        app:layout_constraintLeft_toLeftOf="@id/parent"
-        app:layout_constraintRight_toRightOf="@id/parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/startDateText"
+        android:hint="CLICK HERE TO PICK THE START DATE"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintBottom_toTopOf="@+id/endDateText"
+        android:backgroundTint="@android:color/holo_red_dark"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/endDateText"
+        android:hint="CLICK HERE TO PICK THE END DATE"
+        app:layout_constraintTop_toBottomOf="@+id/startDateText"
+        app:layout_constraintBottom_toTopOf="@id/validation"
+        android:backgroundTint="@android:color/holo_red_dark"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/add"
-        app:layout_constraintTop_toBottomOf="@id/loaningListView"
-        app:layout_constraintRight_toRightOf="@id/parent"
-        app:layout_constraintLeft_toLeftOf="@id/parent"
+        android:id="@+id/validation"
+        android:text="CREATE LOAN"
         app:layout_constraintBottom_toBottomOf="@id/parent"
-        android:text="ADD LOAN"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toRightOf="@id/parent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

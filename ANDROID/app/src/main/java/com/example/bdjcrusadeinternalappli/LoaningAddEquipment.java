@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -26,16 +25,14 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class LoaningPage extends Activity {
+public class LoaningAddEquipment extends Activity {
 
-    ObjectMapper mapper;
-    ListView listView;
-    ArrayAdapter<Loaning> arrayAdapter;
-    Context context;
     User user;
-    Button loaningViewAll;
+    ListView listView;
+    Context context;
+    ObjectMapper mapper;
+
     Button back;
-    Button add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,21 +40,21 @@ public class LoaningPage extends Activity {
 
         context = this;
 
-        setContentView(R.layout.loaning);
+        setContentView(R.layout.loaning_add_equipment);
 
         mapper = new ObjectMapper();
 
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/user/" + getIntent().getIntExtra("idUser",0))
+                .url("http://192.168.43.110:8080/user/" + getIntent().getIntExtra("idUser", 0))
                 .get()
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("LoginPage", "fail", e);
+                Log.e("LoaningAddEquipment", "fail", e);
             }
 
             @Override
@@ -65,54 +62,43 @@ public class LoaningPage extends Activity {
 
                 user = mapper.readValue(response.body().string(), User.class);
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        adminCheck();
-                    }
-                });
-
                 MediaType JSON
                         = MediaType.get("application/json; charset=utf-8");
 
-                RequestBody body = RequestBody.create(JSON, user.toString());
-
                 Request request = new Request.Builder()
-                        .url("http://192.168.43.110:8080/loaning/all")
-                        .post(body)
+                        .url("http://192.168.43.110:8080/equipment/validated")
+                        .get()
                         .build();
 
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                        Log.e("EquipmentView", "fail", e);
+                        Log.e("LoaningAddEquipment", "fail", e);
                     }
 
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                        Loaning[] loans = new ObjectMapper().readValue(response.body().string(), Loaning[].class);
+                        Equipment[] equipments = new ObjectMapper().readValue(response.body().string(), Equipment[].class);
 
-                        ArrayList<Loaning> loansList = getListData(loans);
+                        ArrayList<Equipment> equipmentsList = getListData(equipments);
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
 
-                                listView = (ListView) findViewById(R.id.loaningListView);
+                                listView = (ListView) findViewById(R.id.equipmentListView);
 
-                                listView.setAdapter(new Loaning_adapter(context, loansList));
+                                listView.setAdapter(new Equipment_adapter(context, equipmentsList));
 
                                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> a, View v, int position, long textView_id) {
-                                        Loaning loaning = (Loaning) listView.getItemAtPosition(position);
-                                        Intent intent = new Intent(v.getContext(), LoaningDetails.class);
+                                        Equipment equipment = (Equipment) listView.getItemAtPosition(position);
+                                        Intent intent = new Intent(v.getContext(), LoaningAddNext.class);
                                         intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                                        intent.putExtra("idLoaning", loaning.getIdLoaning());
-                                        intent.putExtra("context", "one");
+                                        intent.putExtra("idEquipment", equipment.getIdEquipment());
                                         startActivity(intent);
                                     }
                                 });
@@ -124,20 +110,7 @@ public class LoaningPage extends Activity {
                                     public void onClick(View v) {
 
                                         Intent intent;
-                                        intent = new Intent(v.getContext(), MainPage.class);
-                                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                        startActivity(intent);
-                                    }
-                                });
-
-                                add = findViewById(R.id.add);
-                                add.setOnClickListener(new View.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(View v) {
-
-                                        Intent intent;
-                                        intent = new Intent(v.getContext(), LoaningAddEquipment.class);
+                                        intent = new Intent(v.getContext(), LoaningPage.class);
                                         intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
                                         startActivity(intent);
                                     }
@@ -150,31 +123,12 @@ public class LoaningPage extends Activity {
         });
     }
 
-    private void adminCheck() {
+    private ArrayList getListData(Equipment[] equipments) {
+        ArrayList<Equipment> results = new ArrayList<>();
 
-        if (user.level.equals("admin")) {
+        for (Equipment equipment : equipments) {
 
-            setContentView(R.layout.loaning_admin);
-
-            loaningViewAll = findViewById(R.id.fullBorrow);
-            loaningViewAll.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent intent = new Intent(v.getContext(), LoaningViewAll.class);
-                    intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                    startActivity(intent);
-                }
-            });
-        }
-    }
-
-    private ArrayList getListData(Loaning[] loanings) {
-        ArrayList<Loaning> results = new ArrayList<>();
-
-        for (Loaning loaning : loanings) {
-
-            results.add(loaning);
+            results.add(equipment);
         }
 
         return results;

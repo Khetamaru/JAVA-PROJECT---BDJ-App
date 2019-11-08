@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,12 +24,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class InventoryView extends Activity {
+public class EquipmentView extends Activity {
 
     ObjectMapper mapper;
     ListView listView;
     ArrayAdapter<Equipment> arrayAdapter;
     Context context;
+    Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +38,14 @@ public class InventoryView extends Activity {
 
         context = this;
 
+        setContentView(R.layout.inventory);
+
         mapper = new ObjectMapper();
 
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/game")
+                .url("http://192.168.43.110:8080/equipment")
                 .get()
                 .build();
 
@@ -49,7 +53,7 @@ public class InventoryView extends Activity {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                Log.e("InventoryView", "fail", e);
+                Log.e("EquipmentView", "fail", e);
             }
 
             @Override
@@ -57,17 +61,15 @@ public class InventoryView extends Activity {
 
                 Equipment[] equipment = new ObjectMapper().readValue(response.body().string(), Equipment[].class);
 
-                ArrayList<Equipment> gamesList = getListData(equipment);
+                ArrayList<Equipment> equipmentsList = getListData(equipment);
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
-                        setContentView(R.layout.inventory);
+                        listView = (ListView) findViewById(R.id.equipmentListView);
 
-                        listView = (ListView) findViewById(R.id.InventoryListView);
-
-                        listView.setAdapter(new inventory_adapter(context, gamesList));
+                        listView.setAdapter(new Equipment_adapter(context, equipmentsList));
 
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
@@ -75,7 +77,20 @@ public class InventoryView extends Activity {
                                 Equipment equipment = (Equipment) listView.getItemAtPosition(position);
                                 Intent intent = new Intent(v.getContext(), EquipmentDetail.class);
                                 intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                                intent.putExtra("idGame", equipment.idEquipment);
+                                intent.putExtra("idEquipment", equipment.idEquipment);
+                                startActivity(intent);
+                            }
+                        });
+
+                        back = findViewById(R.id.back);
+                        back.setOnClickListener(new View.OnClickListener() {
+
+                            @Override
+                            public void onClick(View v) {
+
+                                Intent intent;
+                                intent = new Intent(v.getContext(), MainPage.class);
+                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
                                 startActivity(intent);
                             }
                         });
@@ -86,6 +101,7 @@ public class InventoryView extends Activity {
     }
 
     private ArrayList getListData(Equipment[] equipments) {
+
         ArrayList<Equipment> results = new ArrayList<>();
 
         for (Equipment equipment : equipments) {

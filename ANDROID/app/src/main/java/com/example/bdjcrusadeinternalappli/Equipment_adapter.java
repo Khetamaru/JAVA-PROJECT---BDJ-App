@@ -9,12 +9,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class inventory_adapter extends BaseAdapter {
+public class Equipment_adapter extends BaseAdapter {
 
     private ArrayList<Equipment> listData;
     private LayoutInflater layoutInflater;
 
-    public inventory_adapter(Context aContext, ArrayList<Equipment> listData) {
+    public Equipment_adapter(Context aContext, ArrayList<Equipment> listData) {
 
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);
@@ -25,11 +25,13 @@ public class inventory_adapter extends BaseAdapter {
 
         return listData.size();
     }
+
     @Override
     public Object getItem(int position) {
 
         return listData.get(position);
     }
+
     @Override
     public long getItemId(int position) {
 
@@ -42,10 +44,10 @@ public class inventory_adapter extends BaseAdapter {
 
         if (v == null) {
 
-            v = layoutInflater.inflate(R.layout.inventory_valid, null);
+            v = layoutInflater.inflate(R.layout.equipment_list, null);
             holder = new ViewHolder();
-            holder.uName = (TextView) v.findViewById(R.id.name);
-            holder.uState = (TextView) v.findViewById(R.id.state);
+            holder.uEquipment = (TextView) v.findViewById(R.id.equipmentName);
+            holder.uAble = (TextView) v.findViewById(R.id.ableToBorrow);
             v.setTag(holder);
 
         } else {
@@ -53,13 +55,13 @@ public class inventory_adapter extends BaseAdapter {
             holder = (ViewHolder) v.getTag();
         }
 
-        holder.uName.setText(listData.get(position).getName());
-        holder.uState.setText(listData.get(position).getState());
+        holder.uEquipment.setText(listData.get(position).getName());
+        holder.uAble.setText(listData.get(position).getAbleToBorrow());
         return v;
     }
 
     static class ViewHolder {
-        TextView uName;
-        TextView uState;
+        TextView uEquipment;
+        TextView uAble;
     }
 }

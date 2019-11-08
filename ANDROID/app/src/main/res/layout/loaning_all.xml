@@ -5,13 +5,26 @@
     android:orientation="vertical"
     android:id="@+id/parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#4b6574">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/back"
+        android:text="RETURN"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintBottom_toTopOf="@id/loaningListView"
+        />
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BorrowListView"
-        app:layout_constraintTop_toTopOf="@id/parent"
+        android:layout_height="550dp"
+        android:id="@+id/loaningListView"
+        app:layout_constraintTop_toBottomOf="@id/back"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toRightOf="@id/parent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

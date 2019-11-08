@@ -50,6 +50,14 @@ public class EquipmentController {
         }
     }
 
+    @GetMapping("/validated")
+    public Iterable<Equipment> getEquipmentValidated() throws Exception {
+
+        Iterable<Equipment> equipments = equipmentRepository.findByAbleToBorrowLike("yes");
+
+        return equipments;
+    }
+
     /////////////////////////////// DELETE //////////////////////////////////
 
     @DeleteMapping

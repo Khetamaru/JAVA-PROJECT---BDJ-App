@@ -25,6 +25,15 @@ public class Loaning {
         validation = _validation;
     }
 
+    public Loaning(User _user, Equipment _equipment, Date _startDate, Date _endDate, String _validation) {
+
+        user = _user;
+        equipment = _equipment;
+        startDate = _startDate;
+        endDate = _endDate;
+        validation = _validation;
+    }
+
     public int getIdLoaning() { return idLoaning; }
     public User getUser() {
         return user;
@@ -61,11 +70,22 @@ public class Loaning {
 
         return  "{" +
                     "\"idLoaning\" : " + getIdLoaning() + "," +
-                    "\"user\" : \"" + getUser().toString() + "\"," +
-                    "\"equipment\" : \"" + getEquipment().toString() + "\"" +
+                    "\"user\" : " + getUser().toString() + "," +
+                    "\"equipment\" : " + getEquipment().toString() + "," +
                     "\"startDate\" : " + getStartDate() + "," +
-                    "\"endDate\" : \"" + getEndDate() + "\"," +
+                    "\"endDate\" : " + getEndDate() + "," +
                     "\"validation\" : \"" + getValidation() + "\"" +
+                "}";
+    }
+
+    public String toStringWithoutId () {
+
+        return  "{" +
+                "\"user\" : " + getUser().toString() + "," +
+                "\"equipment\" : " + getEquipment().toString() + "," +
+                "\"startDate\" : " + getStartDate().getTime() + "," +
+                "\"endDate\" : " + getEndDate().getTime() + "," +
+                "\"validation\" : \"" + getValidation() + "\"" +
                 "}";
     }
 }

@@ -220,7 +220,7 @@ public class MainPage extends Activity {
 
     protected void goToInventory(View v) {
 
-        Intent intent = new Intent(v.getContext(), InventoryView.class);
+        Intent intent = new Intent(v.getContext(), EquipmentView.class);
         intent.putExtra("idUser", user.idUser);
         startActivity(intent);
     }

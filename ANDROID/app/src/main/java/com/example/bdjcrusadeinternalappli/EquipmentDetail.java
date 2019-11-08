@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,119 +28,81 @@ public class EquipmentDetail extends Activity {
     Equipment equipment;
     ObjectMapper mapper;
 
-    CalendarView date;
-    Button valid;
-    Date dateText;
+    TextView name;
+    TextView status;
+    TextView recupDate;
+    TextView state;
+    TextView origin;
+    TextView cfDoc;
+    TextView ableToBorrow;
+
+    Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.stuff_view_start);
+        setContentView(R.layout.equipment_details);
 
         OkHttpClient client = new OkHttpClient();
+
         mapper = new ObjectMapper();
 
         Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/user/" + getIntent().getIntExtra("idUser",0))
+                .url("http://192.168.43.110:8080/equipment/" + getIntent().getIntExtra("idEquipment",0))
                 .get()
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("LoginPage", "fail", e);
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-
-                user = mapper.readValue(response.body().string(), User.class);
-            }
-        });
-
-        mapper = new ObjectMapper();
-
-        request = new Request.Builder()
-                .url("http://192.168.43.110:8080/game/" + getIntent().getIntExtra("idGame",0))
-                .get()
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("LoginPage", "fail", e);
+                Log.e("EquipmentDetail", "fail", e);
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
                 equipment = mapper.readValue(response.body().string(), Equipment.class);
-            }
-        });
 
-        date = findViewById(R.id.date);
-        valid = findViewById(R.id.valid);
-        valid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                /*mapper = new ObjectMapper();
-
-                MediaType JSON
-                        = MediaType.get("application/json; charset=utf-8");
-
-                String stringRequest = "{\"date\" : \"" + dateText + "\"}";
-
-                RequestBody body = RequestBody.create(JSON, stringRequest);
-
-                Request request = new Request.Builder()
-                        .url("http://192.168.43.110:8080/borrow/startDate")
-                        .post(body)
-                        .build();
-
-                client.newCall(request).enqueue(new Callback() {
+                runOnUiThread(new Runnable() {
                     @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    public void run() {
 
-                        Log.e("LoginPage", "fail", e);
+                        name = findViewById(R.id.name);
+                        name.setText(equipment.getName());
+
+                        status = findViewById(R.id.status);
+                        status.setText(equipment.getStatus());
+
+                        recupDate = findViewById(R.id.recupDate);
+                        recupDate.setText(equipment.getDateRecup().toString());
+
+                        state = findViewById(R.id.state);
+                        state.setText(equipment.getState());
+
+                        origin = findViewById(R.id.origin);
+                        origin.setText(equipment.getOrigin());
+
+                        cfDoc = findViewById(R.id.cfDoc);
+                        cfDoc.setText(equipment.getCfDoc());
+
+                        ableToBorrow = findViewById(R.id.ableToBorrow);
+                        ableToBorrow.setText(equipment.getAbleToBorrow());
+
+                        back = findViewById(R.id.back);
+                        back.setOnClickListener(new View.OnClickListener() {
+
+                            @Override
+                            public void onClick(View v) {
+
+                                Intent intent;
+                                intent = new Intent(v.getContext(), EquipmentView.class);
+                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
+                                startActivity(intent);
+                            }
+                        });
                     }
-
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-
-                        Log.i("EquipmentDetail", "" + response.code());
-
-                        if (response.code() == 404) {
-
-                            */Intent intent = new Intent(v.getContext(), EquipmentDetailEnd.class);
-                            intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                            intent.putExtra("idGame", equipment.getIdEquipment());
-                            intent.putExtra("startDate", date.getDate());
-                            startActivity(intent);
-                        /*}
-                        else if (response.code() == 200) {
-
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(EquipmentDetail.this, "Wrong Hour", Toast.LENGTH_LONG).show();
-                                    Log.i("LoginPage", "wrong try");
-                                }
-                            });
-                        }
-                        else {
-
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(EquipmentDetail.this, "Strange Error", Toast.LENGTH_LONG).show();
-                                    Log.i("LoginPage", "wrong try");
-                                }
-                            });
-                        }
-                    }
-                });*/
+                });
             }
         });
     }

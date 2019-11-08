@@ -4,30 +4,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/parent"
     >
 
-    <CalendarView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/date"
-        android:minDate="10/01/2019"
+        android:id="@+id/equipmentName"
+        android:text="default"
         app:layout_constraintTop_toTopOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/valid"
-        app:layout_constraintRight_toRightOf="@id/parent"
         app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toLeftOf="@id/ableToBorrow"
+        android:textStyle="bold"
+        android:textSize="20dp"
         />
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/valid"
-        android:text="valid start date"
-        app:layout_constraintTop_toBottomOf="@id/date"
-        app:layout_constraintBottom_toBottomOf="@id/parent"
+        android:id="@+id/ableToBorrow"
+        android:text="default"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintLeft_toRightOf="@id/equipmentName"
         app:layout_constraintRight_toRightOf="@id/parent"
-        app:layout_constraintLeft_toLeftOf="@id/parent"
+        android:textStyle="italic"
+        android:textSize="20dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

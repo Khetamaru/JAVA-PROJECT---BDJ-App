@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface EquipmentRepository extends CrudRepository<Equipment, Integer> {
+
+    public Iterable<Equipment> findByAbleToBorrowLike(String yes);
 }

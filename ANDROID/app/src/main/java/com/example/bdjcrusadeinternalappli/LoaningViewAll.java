@@ -2,9 +2,13 @@ package com.example.bdjcrusadeinternalappli;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,6 +31,8 @@ public class LoaningViewAll extends Activity {
     ArrayAdapter<Loaning> arrayAdapter;
     Context context;
     User user;
+
+    Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +61,7 @@ public class LoaningViewAll extends Activity {
                 user = mapper.readValue(response.body().string(), User.class);
 
                 Request request = new Request.Builder()
-                        .url("http://192.168.43.110:8080/borrow")
+                        .url("http://192.168.43.110:8080/loaning")
                         .get()
                         .build();
 
@@ -63,7 +69,7 @@ public class LoaningViewAll extends Activity {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                        Log.e("InventoryView", "fail", e);
+                        Log.e("EquipmentView", "fail", e);
                     }
 
                     @Override
@@ -79,20 +85,34 @@ public class LoaningViewAll extends Activity {
 
                                 setContentView(R.layout.loaning_all);
 
-                                listView = (ListView) findViewById(R.id.BorrowListView);
+                                listView = (ListView) findViewById(R.id.loaningListView);
 
                                 listView.setAdapter(new Loaning_adapter(context, borrowsList));
 
-                                /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> a, View v, int position, long textView_id) {
-                                        Equipment equipment = (Equipment) listView.getItemAtPosition(position);
-                                        Intent intent = new Intent(v.getContext(), EquipmentDetail.class);
+                                        Loaning loaning = (Loaning) listView.getItemAtPosition(position);
+                                        Intent intent = new Intent(v.getContext(), LoaningDetails.class);
                                         intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                                        intent.putExtra("idGame", equipment.idGame);
+                                        intent.putExtra("idLoaning", loaning.getIdLoaning());
+                                        intent.putExtra("context", "all");
                                         startActivity(intent);
                                     }
-                                });*/
+                                });
+
+                                back = findViewById(R.id.back);
+                                back.setOnClickListener(new View.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        Intent intent;
+                                        intent = new Intent(v.getContext(), LoaningPage.class);
+                                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
+                                        startActivity(intent);
+                                    }
+                                });
                             }
                         });
                     }
