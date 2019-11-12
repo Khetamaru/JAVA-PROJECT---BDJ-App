@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/parent"
+    android:background="#4b6574"
+    >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/disconnection"
+        android:text="LOGOUT"
+        app:layout_constraintRight_toRightOf="@id/name"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/name"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/index"
+            app:layout_constraintRight_toLeftOf="@id/disconnection"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" --> "
+                app:layout_constraintTop_toTopOf="@id/index"
+                app:layout_constraintBottom_toBottomOf="@id/index"
+                android:textSize="20dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="surname"
+                android:id="@+id/surname"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:minLines="1"
+                android:maxLines="1"
+                android:maxLength="10"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"
+                android:id="@+id/slach"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="level"
+                android:id="@+id/level"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:minLines="1"
+                android:maxLines="1"
+                android:maxLength="10"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inventory"
+        android:text="INVENTORY"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintBottom_toTopOf="@+id/loaning"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loaning"
+        android:text="LOANING"
+        app:layout_constraintTop_toBottomOf="@id/inventory"
+        app:layout_constraintBottom_toTopOf="@+id/location"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/location"
+        android:text="LOCATION"
+        app:layout_constraintTop_toBottomOf="@id/loaning"
+        app:layout_constraintBottom_toTopOf="@+id/userHistoric"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/userHistoric"
+        android:text="USER HISTORIC"
+        app:layout_constraintBottom_toBottomOf="@id/parent"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

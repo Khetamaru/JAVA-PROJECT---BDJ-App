@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/parent"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/user"
+        android:text="user"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toLeftOf="@id/place"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/place"
+        android:text="place"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintLeft_toRightOf="@id/user"
+        app:layout_constraintRight_toLeftOf="@id/date"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/date"
+        android:text="date"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintLeft_toRightOf="@id/place"
+        app:layout_constraintRight_toLeftOf="@id/hour"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hour"
+        android:text="hour"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintLeft_toRightOf="@id/date"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        android:textSize="20dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
