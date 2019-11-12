@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class UserHistoric {
 
-    protected int idUser;
+    protected int idUserHistoric;
     protected String surname;
     protected String login;
     protected String password;
@@ -13,8 +13,8 @@ public class UserHistoric {
     protected Date date;
 
 
-    public int getIdUser() {
-        return idUser;
+    public int getIdUserHistoric() {
+        return idUserHistoric;
     }
     public String getSurname() {
         return surname;
@@ -34,8 +34,8 @@ public class UserHistoric {
     public Date getDate() { return date; }
 
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setIdUserHistoric(int idUserHistoric) {
+        this.idUserHistoric = idUserHistoric;
     }
     public void setSurname(String surname) {
         this.surname = surname;
@@ -58,9 +58,9 @@ public class UserHistoric {
     public String toString () {
 
         return  "{" +
-                    "\"idUser\" : " + getIdUser() + "," +
+                    "\"idUser\" : " + getIdUserHistoric() + "," +
                     "\"surname\" : \"" + getSurname() + "\"," +
-                    "\"login\" : \"" + getLogin() + "\"" +
+                    "\"login\" : \"" + getLogin() + "\"," +
                     "\"password\" : " + getPassword() + "," +
                     "\"mail\" : \"" + getMail() + "\"," +
                     "\"level\" : \"" + getLevel() + "\"," +

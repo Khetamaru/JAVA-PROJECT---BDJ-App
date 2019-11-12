@@ -12,6 +12,18 @@ public class Location {
     protected Time startHour;
     protected Time endHour;
 
+    public Location() {
+
+    }
+    public Location(User user, String place, Date date, Time startHour, Time endHour) {
+
+        this.user = user;
+        this.place = place;
+        this.date = date;
+        this.startHour = startHour;
+        this.endHour = endHour;
+    }
+
 
     public int getIdLocation() {
         return idLocation;
@@ -44,11 +56,22 @@ public class Location {
 
         return  "{" +
                     "\"idLocation\" : " + getIdLocation() + "," +
-                    "\"user\" : \"" + getUser().toString() + "\"," +
-                    "\"place\" : \"" + getPlace() + "\"" +
-                    "\"date\" : " + getDate() + "," +
+                    "\"user\" : " + getUser().toString() + "," +
+                    "\"place\" : \"" + getPlace() + "\"," +
+                    "\"date\" : \"" + getDate().getTime() + "\"," +
                     "\"startHour\" : \"" + getStartHour() + "\"," +
                     "\"endHour\" : \"" + getEndHour() + "\"" +
+                "}";
+    }
+
+    public String toStringWithoutId () {
+
+        return  "{" +
+                "\"user\" : " + getUser().toString() + "," +
+                "\"place\" : \"" + getPlace() + "\"," +
+                "\"date\" : \"" + getDate().getTime() + "\"," +
+                "\"startHour\" : \"" + getStartHour() + "\"," +
+                "\"endHour\" : \"" + getEndHour() + "\"" +
                 "}";
     }
 }

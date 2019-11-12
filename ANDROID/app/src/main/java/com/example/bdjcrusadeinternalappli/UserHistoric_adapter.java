@@ -7,14 +7,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
-public class Location_adapter extends BaseAdapter {
+public class UserHistoric_adapter extends BaseAdapter {
 
-    private ArrayList<Location> listData;
+    private ArrayList<UserHistoric> listData;
     private LayoutInflater layoutInflater;
 
-    public Location_adapter(Context aContext, ArrayList<Location> listData) {
+    public UserHistoric_adapter(Context aContext, ArrayList<UserHistoric> listData) {
 
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);
@@ -44,12 +46,10 @@ public class Location_adapter extends BaseAdapter {
 
         if (v == null) {
 
-            v = layoutInflater.inflate(R.layout.location_list, null);
+            v = layoutInflater.inflate(R.layout.user_historic_list, null);
             holder = new ViewHolder();
-            holder.uUser = (TextView) v.findViewById(R.id.user);
-            holder.uPlace = (TextView) v.findViewById(R.id.place);
+            holder.uSurname = (TextView) v.findViewById(R.id.surname);
             holder.uDate = (TextView) v.findViewById(R.id.date);
-            holder.uHour = (TextView) v.findViewById(R.id.hour);
             v.setTag(holder);
 
         } else {
@@ -57,21 +57,15 @@ public class Location_adapter extends BaseAdapter {
             holder = (ViewHolder) v.getTag();
         }
 
-        String[] date = listData.get(position).getDate().toString().split(" ");
-        String[] startTime = listData.get(position).getStartHour().toString().split(":");
-        String[] endTime = listData.get(position).getEndHour().toString().split(":");
+        String[] date = listData.get(position).getDate().toString().split(":");
 
-        holder.uUser.setText(listData.get(position).user.getSurname());
-        holder.uPlace.setText(listData.get(position).getPlace());
+        holder.uSurname.setText(listData.get(position).getSurname());
         holder.uDate.setText(date[0] + " " + date[1] + " " + date[2]);
-        holder.uHour.setText(startTime[0] + ":" + startTime[1] + " / " + endTime[0] + ":" + endTime[1]);
         return v;
     }
 
     static class ViewHolder {
-        TextView uUser;
-        TextView uPlace;
-        TextView uHour;
+        TextView uSurname;
         TextView uDate;
     }
 }

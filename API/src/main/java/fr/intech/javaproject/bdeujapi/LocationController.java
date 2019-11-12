@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
@@ -33,6 +34,14 @@ public class LocationController {
     public Iterable<Location> getAllLocations() throws Exception {
 
         return locationRepository.findAll();
+    }
+
+    @GetMapping("/today")
+    public Iterable<Location> getAllLocationsToday() throws Exception {
+
+        Date date = Calendar.getInstance().getTime();
+
+        return locationRepository.findByDateGreaterThan(date);
     }
 
     @GetMapping("/{id}")

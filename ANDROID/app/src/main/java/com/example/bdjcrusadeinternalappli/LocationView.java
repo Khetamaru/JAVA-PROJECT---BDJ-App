@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -30,7 +31,8 @@ public class LocationView extends Activity {
     ArrayAdapter<Location> arrayAdapter;
     Context context;
     User user;
-    Button addLocation;
+    Button add;
+    Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class LocationView extends Activity {
 
         context = this;
 
-        setContentView(R.layout.location);
+        setContentView(R.layout.location_view);
 
         mapper = new ObjectMapper();
 
@@ -60,46 +62,90 @@ public class LocationView extends Activity {
 
                 user = mapper.readValue(response.body().string(), User.class);
 
-                Request request = new Request.Builder()
-                        .url("http://192.168.43.110:8080/member")
-                        .get()
-                        .build();
-
-                client.newCall(request).enqueue(new Callback() {
+                runOnUiThread(new Runnable() {
                     @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        Log.e("LoginPage", "fail", e);
-                    }
+                    public void run() {
 
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        String url;
 
-                        Location[] locations = new ObjectMapper().readValue(response.body().string(), Location[].class);
+                        if (user.getLevel().equals("admin") || user.getLevel().equals("bdjMember")) {
 
-                        ArrayList<Location> membersList = getListData(locations);
+                            setContentView(R.layout.location_view_all);
 
-                        runOnUiThread(new Runnable() {
+                            url = "http://192.168.43.110:8080/location";
+
+
+                            add = findViewById(R.id.fullLocation);
+                            add.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    Intent intent = new Intent(v.getContext(), LocationAdd.class);
+                                    intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                        else {
+
+                            url = "http://192.168.43.110:8080/location";
+                        }
+
+                        Request request = new Request.Builder()
+                                .url(url)
+                                .get()
+                                .build();
+
+                        client.newCall(request).enqueue(new Callback() {
                             @Override
-                            public void run() {
+                            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                Log.e("LoginPage", "fail", e);
+                            }
 
-                                listView = (ListView) findViewById(R.id.LocationListView);
+                            @Override
+                            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                                listView.setAdapter(new Location_adapter(context, membersList));
+                                Location[] locations = new ObjectMapper().readValue(response.body().string(), Location[].class);
+
+                                ArrayList<Location> locationsList = getListData(locations);
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        listView = (ListView) findViewById(R.id.LocationListView);
+
+                                        listView.setAdapter(new Location_adapter(context, locationsList));
+
+                                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                                                Location location = (Location) listView.getItemAtPosition(position);
+                                                Intent intent = new Intent(v.getContext(), LocationDetail.class);
+                                                intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
+                                                intent.putExtra("idLocation", location.getIdLocation());
+                                                startActivity(intent);
+                                            }
+                                        });
+
+                                        back = findViewById(R.id.back);
+                                        back.setOnClickListener(new View.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(View v) {
+
+                                                Intent intent;
+                                                intent = new Intent(v.getContext(), MainPage.class);
+                                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
+                                                startActivity(intent);
+                                            }
+                                        });
+                                    }
+                                });
                             }
                         });
                     }
                 });
-            }
-        });
-
-        addLocation = findViewById(R.id.fullLocation);
-        addLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(v.getContext(), LocationPlaceView.class);
-                intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                startActivity(intent);
             }
         });
     }

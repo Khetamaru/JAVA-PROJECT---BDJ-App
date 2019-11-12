@@ -7,4 +7,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.Date;
 
 public interface LocationRepository extends CrudRepository<Location, Integer> {
+
+    public Iterable<Location> findByDateGreaterThan(Date date);
 }

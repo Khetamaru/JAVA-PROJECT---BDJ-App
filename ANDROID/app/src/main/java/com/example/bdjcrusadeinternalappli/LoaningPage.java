@@ -70,6 +70,32 @@ public class LoaningPage extends Activity {
                     public void run() {
 
                         adminCheck();
+
+                        back = findViewById(R.id.back);
+                        back.setOnClickListener(new View.OnClickListener() {
+
+                            @Override
+                            public void onClick(View v) {
+
+                                Intent intent;
+                                intent = new Intent(v.getContext(), MainPage.class);
+                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
+                                startActivity(intent);
+                            }
+                        });
+
+                        add = findViewById(R.id.add);
+                        add.setOnClickListener(new View.OnClickListener() {
+
+                            @Override
+                            public void onClick(View v) {
+
+                                Intent intent;
+                                intent = new Intent(v.getContext(), LoaningAddEquipment.class);
+                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
+                                startActivity(intent);
+                            }
+                        });
                     }
                 });
 
@@ -113,32 +139,6 @@ public class LoaningPage extends Activity {
                                         intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
                                         intent.putExtra("idLoaning", loaning.getIdLoaning());
                                         intent.putExtra("context", "one");
-                                        startActivity(intent);
-                                    }
-                                });
-
-                                back = findViewById(R.id.back);
-                                back.setOnClickListener(new View.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(View v) {
-
-                                        Intent intent;
-                                        intent = new Intent(v.getContext(), MainPage.class);
-                                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                        startActivity(intent);
-                                    }
-                                });
-
-                                add = findViewById(R.id.add);
-                                add.setOnClickListener(new View.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(View v) {
-
-                                        Intent intent;
-                                        intent = new Intent(v.getContext(), LoaningAddEquipment.class);
-                                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
                                         startActivity(intent);
                                     }
                                 });

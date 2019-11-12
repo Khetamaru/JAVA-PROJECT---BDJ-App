@@ -40,6 +40,8 @@ public class LoaningViewAll extends Activity {
 
         context = this;
 
+        setContentView(R.layout.loaning_all);
+
         mapper = new ObjectMapper();
 
         OkHttpClient client = new OkHttpClient();
@@ -59,6 +61,24 @@ public class LoaningViewAll extends Activity {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
                 user = mapper.readValue(response.body().string(), User.class);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        back = findViewById(R.id.back);
+                        back.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Intent intent;
+                                intent = new Intent(v.getContext(), LoaningPage.class);
+                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                });
 
                 Request request = new Request.Builder()
                         .url("http://192.168.43.110:8080/loaning")
@@ -83,8 +103,6 @@ public class LoaningViewAll extends Activity {
                             @Override
                             public void run() {
 
-                                setContentView(R.layout.loaning_all);
-
                                 listView = (ListView) findViewById(R.id.loaningListView);
 
                                 listView.setAdapter(new Loaning_adapter(context, borrowsList));
@@ -97,19 +115,6 @@ public class LoaningViewAll extends Activity {
                                         intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
                                         intent.putExtra("idLoaning", loaning.getIdLoaning());
                                         intent.putExtra("context", "all");
-                                        startActivity(intent);
-                                    }
-                                });
-
-                                back = findViewById(R.id.back);
-                                back.setOnClickListener(new View.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(View v) {
-
-                                        Intent intent;
-                                        intent = new Intent(v.getContext(), LoaningPage.class);
-                                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
                                         startActivity(intent);
                                     }
                                 });

@@ -51,12 +51,12 @@ public class Equipment {
         return  "{" +
                     "\"idEquipment\" : " + getIdEquipment() + "," +
                     "\"name\" : \"" + getName() + "\"," +
-                    "\"status\" : \"" + getState() + "\"," +
-                    "\"dateRecup\" : " + getIdEquipment() + "," +
-                    "\"state\" : \"" + getName() + "\"," +
-                    "\"origin\" : \"" + getState() + "\"," +
-                    "\"cfDoc\" : " + getIdEquipment() + "," +
-                    "\"ableToBorrow\" : \"" + getName() + "\"" +
+                    "\"state\" : \"" + getState() + "\"," +
+                    "\"origin\" : \"" + getOrigin() + "\"," +
+                    "\"ableToBorrow\" : \"" + getAbleToBorrow() + "\"," +
+                    "\"cfDoc\" : \"" + getCfDoc() + "\"," +
+                    "\"dateRecup\" : " + getDateRecup().getTime() + "," +
+                    "\"status\" : \"" + getStatus() + "\"" +
                 "}";
     }
 }

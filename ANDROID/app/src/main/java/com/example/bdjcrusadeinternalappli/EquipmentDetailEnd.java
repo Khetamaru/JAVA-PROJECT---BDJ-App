@@ -89,7 +89,7 @@ public class EquipmentDetailEnd extends Activity {
             @Override
             public void onClick(View v) {
 
-                startDate = new Date(getIntent().getLongExtra("startDate", 0));
+                startDate = new Date(getIntent().getLongExtra("date", 0));
                 Log.i("EndDate", "" + startDate);
 
                 dateText = new Date(date.getDate());
@@ -100,7 +100,7 @@ public class EquipmentDetailEnd extends Activity {
                 }
                 else {
 
-                    /*loaning_admin = new Loaning(0, user, equipment, startDate, dateText);
+                    /*loaning_admin = new Loaning(0, user, equipment, date, dateText);
 
                     String req = "{" +
                                     "\"user\": {" +
@@ -113,10 +113,10 @@ public class EquipmentDetailEnd extends Activity {
                                                 "}," +
                                     "\"equipment\": {" +
                                                 "\"idGame\": \"" + loaning_admin.equipment.idGame + "\"," +
-                                                "\"name\": \"" + loaning_admin.equipment.name + "\"," +
-                                                "\"state\": \"" + loaning_admin.equipment.state + "\"" +
+                                                "\"surname\": \"" + loaning_admin.equipment.surname + "\"," +
+                                                "\"login\": \"" + loaning_admin.equipment.login + "\"" +
                                                 "}," +
-                                    "\"startDate\": \"" + loaning_admin.startDate.getTime() + "\"," +
+                                    "\"date\": \"" + loaning_admin.date.getTime() + "\"," +
                                     "\"endDate\": \"" + loaning_admin.endDate.getTime() + "\"" +
                                 "}";
 

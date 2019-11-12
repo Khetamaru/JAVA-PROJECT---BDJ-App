@@ -21,6 +21,9 @@
         <activity android:name=".UserHistoricView">
         </activity>
 
+        <activity android:name=".UserHistoricDetail">
+        </activity>
+
         <activity android:name=".EquipmentView">
         </activity>
 
@@ -45,15 +48,6 @@
         <activity android:name=".LoaningViewAll">
         </activity>
 
-        <activity android:name=".LocationPlaceView">
-        </activity>
-
-        <activity android:name=".LocationStartView">
-        </activity>
-
-        <activity android:name=".LocationEndView">
-        </activity>
-
         <activity android:name=".LoaningDetails">
         </activity>
 
@@ -61,6 +55,12 @@
         </activity>
 
         <activity android:name=".LoaningAddNext">
+        </activity>
+
+        <activity android:name=".LocationDetail">
+        </activity>
+
+        <activity android:name=".LocationAdd">
         </activity>
 
     </application>

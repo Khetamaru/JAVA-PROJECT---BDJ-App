@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -16,6 +17,8 @@ public class UserController {
     private IMapper mapper;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserHistoricRepository userHistoricRepository;
 
     /////////////////////////////// PUT //////////////////////////////////
 
@@ -24,6 +27,10 @@ public class UserController {
 
         User user = new ObjectMapper().readValue(data, User.class);
         userRepository.save(user);
+
+        Date date = new Date();
+        UserHistoric userHistoric = new UserHistoric(user.getIdUser(), user.getLevel(), user.getSurname(), user.getLogin(), user.getPassword(), user.getMail(), date);
+        userHistoricRepository.save(userHistoric);
     }
 
     /////////////////////////////// GET //////////////////////////////////

@@ -19,7 +19,7 @@ public class UserHistoricController {
     /////////////////////////////// PUT //////////////////////////////////
 
     @PutMapping
-    public void saveHistoric(UserHistoric userHistoric) throws Exception {
+    public void save(UserHistoric userHistoric) throws Exception {
 
         userHistoricRepository.save(userHistoric);
     }
