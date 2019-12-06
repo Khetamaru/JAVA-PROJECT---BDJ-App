@@ -60,4 +60,15 @@ public class User {
                 "\"level\" : \"" + getLevel() + "\"" +
                 "}";
     }
+
+    public String toStringWithoutId () {
+
+        return  "{" +
+                "\"surname\" : \"" + getSurname() + "\"," +
+                "\"login\" : \"" + getLogin() + "\"," +
+                "\"password\" : \"" + getPassword() + "\"," +
+                "\"mail\" : \"" + getMail() + "\"," +
+                "\"level\" : \"" + getLevel() + "\"" +
+                "}";
+    }
 }

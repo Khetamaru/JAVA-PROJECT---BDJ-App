@@ -63,7 +63,7 @@ public class Location_adapter extends BaseAdapter {
 
         holder.uUser.setText(listData.get(position).user.getSurname());
         holder.uPlace.setText(listData.get(position).getPlace());
-        holder.uDate.setText(date[0] + " " + date[1] + " " + date[2]);
+        holder.uDate.setText(date[2] + " " + date[1] + " " + date[5]);
         holder.uHour.setText(startTime[0] + ":" + startTime[1] + " / " + endTime[0] + ":" + endTime[1]);
         return v;
     }

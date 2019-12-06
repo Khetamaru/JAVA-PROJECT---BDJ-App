@@ -40,7 +40,7 @@ public class LoaningViewAll extends Activity {
 
         context = this;
 
-        setContentView(R.layout.loaning_all);
+        setContentView(R.layout.loading_page);
 
         mapper = new ObjectMapper();
 
@@ -65,6 +65,8 @@ public class LoaningViewAll extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+                        setContentView(R.layout.loaning_all);
 
                         back = findViewById(R.id.back);
                         back.setOnClickListener(new View.OnClickListener() {

@@ -19,6 +19,10 @@ public class UserController {
     UserRepository userRepository;
     @Autowired
     UserHistoricRepository userHistoricRepository;
+    @Autowired
+    LoaningRepository loaningRepository;
+    @Autowired
+    LocationRepository locationRepository;
 
     /////////////////////////////// PUT //////////////////////////////////
 
@@ -39,6 +43,12 @@ public class UserController {
     public Iterable<User> getAllUsers() throws Exception {
 
         return userRepository.findAll();
+    }
+
+    @GetMapping("/allExept/{id}")
+    public Iterable<User> getAllUsersExept(@PathVariable int id) throws Exception {
+
+        return userRepository.findAllByIdUserNotLike(id);
     }
 
     @GetMapping("/{id}")
@@ -128,6 +138,16 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable int id) throws Exception {
+
+        Optional<User> optionalUser = userRepository.findById(id);
+        User user = optionalUser.get();
+
+        Date date = new Date();
+        UserHistoric userHistoric = new UserHistoric(id, "", user.getSurname(), "", "", "", date);
+        userHistoricRepository.save(userHistoric);
+
+        loaningRepository.deleteByUser(user);
+        locationRepository.deleteByUser(user);
 
         userRepository.deleteById(id);
     }

@@ -38,7 +38,7 @@ public class EquipmentView extends Activity {
 
         context = this;
 
-        setContentView(R.layout.inventory);
+        setContentView(R.layout.loading_page);
 
         mapper = new ObjectMapper();
 
@@ -66,6 +66,8 @@ public class EquipmentView extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+                        setContentView(R.layout.inventory);
 
                         listView = (ListView) findViewById(R.id.equipmentListView);
 

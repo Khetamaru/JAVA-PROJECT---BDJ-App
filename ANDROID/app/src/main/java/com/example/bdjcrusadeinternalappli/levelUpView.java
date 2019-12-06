@@ -15,6 +15,7 @@ public class levelUpView extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.inventory);
 
         Intent intent = new Intent(this, MainPage.class);
         intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));

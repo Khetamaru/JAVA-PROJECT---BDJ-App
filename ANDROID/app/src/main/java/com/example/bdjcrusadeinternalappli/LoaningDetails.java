@@ -41,7 +41,7 @@ public class LoaningDetails extends Activity {
         super.onCreate(savedInstanceState);
         Log.i("LoaningDetails", "creation");
 
-        setContentView(R.layout.loaning_details);
+        setContentView(R.layout.loading_page);
 
         mapper = new ObjectMapper();
 
@@ -66,6 +66,8 @@ public class LoaningDetails extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+                        setContentView(R.layout.loaning_details);
 
                         userName = findViewById(R.id.textUserName);
                         userName.setText(loaning.getUser().getSurname());

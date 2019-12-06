@@ -27,7 +27,7 @@
         android:id="@+id/surnameBar"
         app:layout_constraintTop_toTopOf="@id/parent"
         app:layout_constraintLeft_toLeftOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/levelBar"
+        app:layout_constraintBottom_toTopOf="@id/loginBar"
         android:orientation="vertical"
         android:background="@drawable/border"
         android:padding="15dp"
@@ -45,7 +45,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/surname"
+            android:id="@+id/surnameView"
             android:text="billy"
             android:textSize="20dp"
             />
@@ -55,72 +55,10 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/levelBar"
+        android:id="@+id/loginBar"
         app:layout_constraintTop_toBottomOf="@id/surnameBar"
         app:layout_constraintRight_toRightOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/mailBar"
-        android:orientation="vertical"
-        android:background="@drawable/border"
-        android:padding="15dp"
-        android:layout_marginRight="8dp"
-        >
-
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="LEVEL"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/level"
-            android:text="décomposé"
-            android:textSize="20dp"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/mailBar"
-        app:layout_constraintTop_toBottomOf="@id/levelBar"
-        app:layout_constraintLeft_toLeftOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/loginBar"
-        android:orientation="vertical"
-        android:background="@drawable/border"
-        android:padding="15dp"
-        android:layout_marginLeft="8dp"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MAIL"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/mail"
-            android:text="tomorrow"
-            android:textSize="20dp"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/loginBar"
-        app:layout_constraintTop_toBottomOf="@id/mailBar"
-        app:layout_constraintRight_toRightOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/passwordBar"
+        app:layout_constraintBottom_toTopOf="@id/levelBar"
         android:orientation="vertical"
         android:background="@drawable/border"
         android:padding="15dp"
@@ -138,7 +76,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/login"
+            android:id="@+id/loginView"
             android:text="RAS"
 
             android:textSize="20dp"
@@ -149,10 +87,10 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/passwordBar"
+        android:id="@+id/levelBar"
         app:layout_constraintTop_toBottomOf="@id/loginBar"
         app:layout_constraintLeft_toLeftOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/dateBar"
+        app:layout_constraintBottom_toTopOf="@id/mailBar"
         android:orientation="vertical"
         android:background="@drawable/border"
         android:padding="15dp"
@@ -160,9 +98,9 @@
         >
 
         <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PASSWORD"
+            android:layout_width="wrap_content"
+            android:text="LEVEL"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -170,8 +108,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/password"
-            android:text="my ass"
+            android:id="@+id/levelView"
+            android:text="décomposé"
             android:textSize="20dp"
             />
 
@@ -180,20 +118,20 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/dateBar"
-        app:layout_constraintTop_toBottomOf="@id/passwordBar"
-        app:layout_constraintRight_toRightOf="@id/parent"
+        android:id="@+id/mailBar"
         app:layout_constraintBottom_toBottomOf="@id/parent"
+        app:layout_constraintRight_toRightOf="@id/parent"
         android:orientation="vertical"
         android:background="@drawable/border"
         android:padding="15dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DATE"
+            android:text="MAIL"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -201,8 +139,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/date"
-            android:text="rm rf *"
+            android:id="@+id/mailView"
+            android:text="tomorrow"
             android:textSize="20dp"
             />
 

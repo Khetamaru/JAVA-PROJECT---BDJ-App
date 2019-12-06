@@ -13,6 +13,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/back"
         android:text="RETURN"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/border_button"
         app:layout_constraintRight_toRightOf="@id/parent"
         app:layout_constraintTop_toTopOf="@id/parent"
         app:layout_constraintBottom_toTopOf="@id/loaningListView"
@@ -20,7 +23,7 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="wrap_content"
         android:id="@+id/loaningListView"
         app:layout_constraintTop_toBottomOf="@id/back"
         app:layout_constraintLeft_toLeftOf="@id/parent"

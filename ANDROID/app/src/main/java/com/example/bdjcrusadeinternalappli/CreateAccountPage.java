@@ -51,10 +51,15 @@ public class CreateAccountPage extends Activity {
         setContentView(R.layout.create_account_page);
 
         editText_surname = findViewById(R.id.pseudo);
+
         editText_mail = findViewById(R.id.mail);
+
         editText_login = findViewById(R.id.login);
+
         editText_password = findViewById(R.id.password);
+
         editText_confirm_password = findViewById(R.id.confirmPassword);
+
         button_creation = findViewById(R.id.submit);
 
         button_creation.setOnClickListener(new View.OnClickListener() {

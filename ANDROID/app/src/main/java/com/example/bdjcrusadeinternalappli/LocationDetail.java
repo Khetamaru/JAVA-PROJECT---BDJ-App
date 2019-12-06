@@ -43,7 +43,7 @@ public class LocationDetail extends Activity {
 
         context = this;
 
-        setContentView(R.layout.location_details);
+        setContentView(R.layout.loading_page);
 
         mapper = new ObjectMapper();
 
@@ -89,6 +89,8 @@ public class LocationDetail extends Activity {
                             @Override
                             public void run() {
 
+                                setContentView(R.layout.location_details);
+
                                 userText = findViewById(R.id.user);
                                 userText.setText(user.getSurname());
 
@@ -96,7 +98,8 @@ public class LocationDetail extends Activity {
                                 placeText.setText(location.getPlace());
 
                                 dateText = findViewById(R.id.date);
-                                dateText.setText(location.getDate().toString());
+                                String[] date = location.getDate().toString().split(" ");
+                                dateText.setText(date[2] + " " + date[1] + " " + date[5]);
 
                                 String[] startTime = location.getStartHour().toString().split(":");
                                 startHourText = findViewById(R.id.startHour);

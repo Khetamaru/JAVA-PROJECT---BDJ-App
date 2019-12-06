@@ -14,6 +14,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/back"
         android:text="RETURN"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/border_button"
         app:layout_constraintRight_toRightOf="@id/parent"
         app:layout_constraintTop_toTopOf="@id/parent"
         />
@@ -25,13 +28,21 @@
         app:layout_constraintTop_toTopOf="@id/parent"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintBottom_toTopOf="@id/equipmentBar"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginLeft="8dp"
         >
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="USER : "
+            android:text="USER"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -41,7 +52,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/textUserName"
             android:text="billy"
-            android:textStyle="italic"
             android:textSize="20dp"
             />
 
@@ -54,13 +64,16 @@
         app:layout_constraintTop_toBottomOf="@id/userBar"
         app:layout_constraintRight_toRightOf="@id/parent"
         app:layout_constraintBottom_toTopOf="@id/startDateBar"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginRight="8dp"
         >
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="EQUIPMENT : "
+            android:text="EQUIPMENT"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -70,8 +83,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/textEquipmentName"
             android:text="Doom"
-            android:textStyle="italic"
             android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
             />
 
     </LinearLayout>
@@ -83,12 +100,21 @@
         app:layout_constraintTop_toBottomOf="@id/equipmentBar"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintBottom_toTopOf="@id/endDateBar"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginLeft="8dp"
         >
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="START DATE : "
+            android:text="START DATE"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -98,7 +124,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/startDate"
             android:text="one day"
-            android:textStyle="italic"
             android:textSize="20dp"
             />
 
@@ -111,12 +136,16 @@
         app:layout_constraintTop_toBottomOf="@id/startDateBar"
         app:layout_constraintRight_toRightOf="@id/parent"
         app:layout_constraintBottom_toTopOf="@id/delete"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginRight="8dp"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="START DATE : "
+            android:text="END DATE"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -126,8 +155,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/endDate"
             android:text="never"
-            android:textStyle="italic"
             android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
             />
 
     </LinearLayout>
@@ -137,6 +170,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/delete"
         android:text="DELETE LOAN"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border_button"
+        android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="@id/parent"
         app:layout_constraintRight_toRightOf="@id/parent"
         app:layout_constraintLeft_toLeftOf="@id/parent"

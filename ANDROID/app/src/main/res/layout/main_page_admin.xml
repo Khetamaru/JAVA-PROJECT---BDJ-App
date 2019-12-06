@@ -14,18 +14,24 @@
         android:layout_height="wrap_content"
         android:id="@+id/disconnection"
         android:text="LOGOUT"
-        app:layout_constraintRight_toRightOf="@id/name"
         app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/border_button"
         />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/name"
         app:layout_constraintTop_toTopOf="@id/parent"
         app:layout_constraintLeft_toLeftOf="@id/parent"
-        app:layout_constraintRight_toRightOf="@id/parent"
+        android:background="@drawable/border"
+        android:padding="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         >
 
         <LinearLayout
@@ -39,40 +45,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" --> "
-                app:layout_constraintTop_toTopOf="@id/index"
-                app:layout_constraintBottom_toBottomOf="@id/index"
-                android:textSize="20dp"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="surname"
                 android:id="@+id/surname"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:minLines="1"
-                android:maxLines="1"
-                android:maxLength="10"
+                android:textSize="18dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="/"
                 android:id="@+id/slach"
-                android:textStyle="bold"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="level"
                 android:id="@+id/level"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:minLines="1"
-                android:maxLines="1"
-                android:maxLength="10"
+                android:textSize="18dp"
                 />
 
         </LinearLayout>
@@ -80,46 +69,73 @@
     </LinearLayout>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/inventory"
         android:text="INVENTORY"
+        android:textSize="20dp"
+        android:padding="15dp"
         app:layout_constraintTop_toBottomOf="@id/name"
-        app:layout_constraintBottom_toTopOf="@+id/loaning"
-        app:layout_constraintLeft_toLeftOf="@id/parent"
-        app:layout_constraintRight_toRightOf="@id/parent"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/loaning"
-        android:text="LOANING"
-        app:layout_constraintTop_toBottomOf="@id/inventory"
         app:layout_constraintBottom_toTopOf="@+id/location"
         app:layout_constraintLeft_toLeftOf="@id/parent"
-        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintRight_toLeftOf="@id/loaning"
+        android:background="@drawable/border_button"
         />
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loaning"
+        android:text="BORROW"
+        android:textSize="20dp"
+        android:padding="15dp"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintBottom_toTopOf="@+id/location"
+        app:layout_constraintLeft_toRightOf="@id/inventory"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        android:background="@drawable/border_button"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/location"
         android:text="LOCATION"
+        android:textSize="20dp"
+        android:padding="15dp"
         app:layout_constraintTop_toBottomOf="@id/loaning"
-        app:layout_constraintBottom_toTopOf="@+id/userHistoric"
+        app:layout_constraintBottom_toTopOf="@+id/adminMenu"
         app:layout_constraintLeft_toLeftOf="@id/parent"
-        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintRight_toLeftOf="@id/historic"
+        android:background="@drawable/border_button"
         />
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/userHistoric"
-        android:text="USER HISTORIC"
-        app:layout_constraintBottom_toBottomOf="@id/parent"
+        android:id="@+id/historic"
+        android:text="HISTORIC"
+        android:textSize="20dp"
+        android:padding="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/adminMenu"
+        app:layout_constraintLeft_toRightOf="@id/location"
         app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintTop_toBottomOf="@id/inventory"
+        android:background="@drawable/border_button"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/adminMenu"
+        android:text="MENU ADMIN"
+        android:textSize="20dp"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/parent"
         app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintTop_toBottomOf="@id/location"
+        android:background="@drawable/border_button"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

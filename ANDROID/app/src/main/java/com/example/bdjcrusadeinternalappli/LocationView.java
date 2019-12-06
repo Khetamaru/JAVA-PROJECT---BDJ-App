@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import kotlinClass.LocationAdd;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -40,7 +41,7 @@ public class LocationView extends Activity {
 
         context = this;
 
-        setContentView(R.layout.location_view);
+        setContentView(R.layout.loading_page);
 
         mapper = new ObjectMapper();
 
@@ -65,6 +66,8 @@ public class LocationView extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+                        setContentView(R.layout.location_view);
 
                         String url;
 

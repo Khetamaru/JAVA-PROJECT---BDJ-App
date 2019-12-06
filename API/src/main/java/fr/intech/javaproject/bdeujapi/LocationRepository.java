@@ -9,4 +9,6 @@ import java.util.Date;
 public interface LocationRepository extends CrudRepository<Location, Integer> {
 
     public Iterable<Location> findByDateGreaterThan(Date date);
+
+    public void deleteByUser(User user);
 }

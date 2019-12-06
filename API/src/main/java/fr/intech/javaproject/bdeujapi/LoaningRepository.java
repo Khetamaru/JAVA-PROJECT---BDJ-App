@@ -13,4 +13,6 @@ public interface LoaningRepository extends CrudRepository<Loaning, Integer> {
     public Optional<Integer> goodStartDate(@Param("startDate") Date date);
 
     public Optional<Iterable<Loaning>> findAllByUser(User user);
+
+    public void deleteByUser(User user);
 }

@@ -39,7 +39,7 @@ public class UserHistoricDetail extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.user_historic_details);
+        setContentView(R.layout.loading_page);
 
         OkHttpClient client = new OkHttpClient();
 
@@ -65,6 +65,8 @@ public class UserHistoricDetail extends Activity {
                     @Override
                     public void run() {
 
+                        setContentView(R.layout.user_historic_details);
+
                         surname = findViewById(R.id.surname);
                         surname.setText(userHistoric.getSurname());
 
@@ -81,7 +83,8 @@ public class UserHistoricDetail extends Activity {
                         password.setText(userHistoric.getPassword());
 
                         date = findViewById(R.id.date);
-                        date.setText(userHistoric.getDate().toString());
+                        String[] dateTab = userHistoric.getDate().toString().split(" ");
+                        date.setText(dateTab[2] + " " + dateTab[1] + " " + dateTab[5]);
 
                         back = findViewById(R.id.back);
                         back.setOnClickListener(new View.OnClickListener() {

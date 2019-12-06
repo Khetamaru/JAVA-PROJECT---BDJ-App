@@ -43,7 +43,7 @@ public class LoaningPage extends Activity {
 
         context = this;
 
-        setContentView(R.layout.loaning);
+        setContentView(R.layout.loading_page);
 
         mapper = new ObjectMapper();
 
@@ -68,6 +68,8 @@ public class LoaningPage extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+                        setContentView(R.layout.loaning);
 
                         adminCheck();
 

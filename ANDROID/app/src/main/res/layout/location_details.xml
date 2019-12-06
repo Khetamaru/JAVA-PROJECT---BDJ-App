@@ -17,6 +17,9 @@
         android:text="RETURN"
         app:layout_constraintRight_toRightOf="@id/parent"
         app:layout_constraintTop_toTopOf="@id/parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/border_button"
         />
 
     <LinearLayout
@@ -26,13 +29,16 @@
         app:layout_constraintTop_toTopOf="@id/parent"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintBottom_toTopOf="@id/placeBar"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginLeft="8dp"
         >
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="USER : "
+            android:text="USER"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -54,13 +60,16 @@
         app:layout_constraintTop_toBottomOf="@id/userBar"
         app:layout_constraintRight_toRightOf="@id/parent"
         app:layout_constraintBottom_toTopOf="@id/dateBar"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginRight="8dp"
         >
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="PLACE : "
+            android:text="PLACE"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -82,12 +91,16 @@
         app:layout_constraintTop_toBottomOf="@id/placeBar"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintBottom_toTopOf="@id/startHourBar"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginLeft="8dp"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DATE : "
+            android:text="DATE"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -109,12 +122,16 @@
         app:layout_constraintTop_toBottomOf="@id/dateBar"
         app:layout_constraintRight_toRightOf="@id/parent"
         app:layout_constraintBottom_toTopOf="@id/endHourBar"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginRight="8dp"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="START HOUR : "
+            android:text="START HOUR"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -136,12 +153,16 @@
         app:layout_constraintTop_toBottomOf="@id/startHourBar"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintBottom_toBottomOf="@id/parent"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginLeft="8dp"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="END HOUR : "
+            android:text="END HOUR"
             android:textStyle="bold"
             android:textSize="20dp"
             />

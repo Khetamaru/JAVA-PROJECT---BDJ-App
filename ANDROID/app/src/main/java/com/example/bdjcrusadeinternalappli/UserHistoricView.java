@@ -38,7 +38,7 @@ public class UserHistoricView extends Activity {
 
         mapper = new ObjectMapper();
 
-        setContentView(R.layout.historic_view);
+        setContentView(R.layout.loading_page);
 
         mapper = new ObjectMapper();
 
@@ -66,6 +66,8 @@ public class UserHistoricView extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+                        setContentView(R.layout.historic_view);
 
                         listView = (ListView) findViewById(R.id.userHistoricListView);
 

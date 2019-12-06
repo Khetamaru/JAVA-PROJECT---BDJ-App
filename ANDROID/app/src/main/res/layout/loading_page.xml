@@ -6,28 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/parent"
+    android:background="#4b6574"
     >
 
-    <CalendarView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/date"
-        android:minDate="10/01/2019"
-        app:layout_constraintTop_toTopOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/valid"
+        android:src="@drawable/loading"
         app:layout_constraintRight_toRightOf="@id/parent"
         app:layout_constraintLeft_toLeftOf="@id/parent"
-        />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/valid"
-        android:text="valid end date"
-        app:layout_constraintTop_toBottomOf="@id/date"
         app:layout_constraintBottom_toBottomOf="@id/parent"
-        app:layout_constraintRight_toRightOf="@id/parent"
-        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintTop_toTopOf="@id/parent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

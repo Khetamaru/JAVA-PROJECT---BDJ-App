@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import okhttp3.Call;
@@ -42,7 +45,7 @@ public class EquipmentDetail extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.equipment_details);
+        setContentView(R.layout.loading_page);
 
         OkHttpClient client = new OkHttpClient();
 
@@ -68,6 +71,8 @@ public class EquipmentDetail extends Activity {
                     @Override
                     public void run() {
 
+                        setContentView(R.layout.equipment_details);
+
                         name = findViewById(R.id.name);
                         name.setText(equipment.getName());
 
@@ -75,7 +80,8 @@ public class EquipmentDetail extends Activity {
                         status.setText(equipment.getStatus());
 
                         recupDate = findViewById(R.id.recupDate);
-                        recupDate.setText(equipment.getDateRecup().toString());
+                        String[] date = equipment.getDateRecup().toString().split(" ");
+                        recupDate.setText(date[2] + " " + date[1] + " " + date[5]);
 
                         state = findViewById(R.id.state);
                         state.setText(equipment.getState());

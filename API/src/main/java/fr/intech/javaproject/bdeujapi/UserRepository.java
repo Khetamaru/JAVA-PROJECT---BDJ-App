@@ -14,4 +14,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     public Optional<User> findByLoginAndPassword(String login, String password);
 
     public Optional<User> findByLogin(String login);
+
+    public Iterable<User> findAllByIdUserNotLike(int id);
 }

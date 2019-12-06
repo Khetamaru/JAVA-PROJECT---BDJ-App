@@ -7,16 +7,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
-public class UserHistoric_adapter extends BaseAdapter {
+public class Users_adapter extends BaseAdapter {
 
-    private ArrayList<UserHistoric> listData;
+    private ArrayList<User> listData;
     private LayoutInflater layoutInflater;
 
-    public UserHistoric_adapter(Context aContext, ArrayList<UserHistoric> listData) {
+    public Users_adapter(Context aContext, ArrayList<User> listData) {
 
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);
@@ -46,10 +44,10 @@ public class UserHistoric_adapter extends BaseAdapter {
 
         if (v == null) {
 
-            v = layoutInflater.inflate(R.layout.user_historic_list, null);
+            v = layoutInflater.inflate(R.layout.users_list, null);
             holder = new ViewHolder();
             holder.uSurname = (TextView) v.findViewById(R.id.surname);
-            holder.uDate = (TextView) v.findViewById(R.id.date);
+            holder.uLevel = (TextView) v.findViewById(R.id.level);
             v.setTag(holder);
 
         } else {
@@ -57,16 +55,13 @@ public class UserHistoric_adapter extends BaseAdapter {
             holder = (ViewHolder) v.getTag();
         }
 
-        String[] date = listData.get(position).getDate().toString().split(" ");
-        String[] hour = date[3].split(":");
-
         holder.uSurname.setText(listData.get(position).getSurname());
-        holder.uDate.setText(date[2] + " " + date[1] + " " + date[5] + " - " + date[3]);
+        holder.uLevel.setText(listData.get(position).getLevel());
         return v;
     }
 
     static class ViewHolder {
         TextView uSurname;
-        TextView uDate;
+        TextView uLevel;
     }
 }

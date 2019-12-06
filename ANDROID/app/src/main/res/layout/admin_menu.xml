@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/parent"
     android:background="#4b6574"
     >
 
@@ -14,20 +14,25 @@
         android:layout_height="wrap_content"
         android:id="@+id/back"
         android:text="RETURN"
-        app:layout_constraintRight_toRightOf="@id/parent"
         app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintRight_toRightOf="@id/parent"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/border_button"
         />
 
-    <ListView
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/LocationListView"
-        app:layout_constraintTop_toBottomOf="@id/back"
+        android:id="@+id/userManaging"
+        android:text="USER MANAGING"
+        android:textSize="20dp"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/parent"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintTop_toBottomOf="@id/back"
+        android:background="@drawable/border_button"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

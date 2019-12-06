@@ -42,9 +42,6 @@
         <activity android:name=".EquipmentDetail">
         </activity>
 
-        <activity android:name=".EquipmentDetailEnd">
-        </activity>
-
         <activity android:name=".LoaningViewAll">
         </activity>
 
@@ -54,13 +51,25 @@
         <activity android:name=".LoaningAddEquipment">
         </activity>
 
-        <activity android:name=".LoaningAddNext">
+        <activity android:name="kotlinClass.LoaningAddNext">
         </activity>
 
         <activity android:name=".LocationDetail">
         </activity>
 
-        <activity android:name=".LocationAdd">
+        <activity android:name="kotlinClass.PersonnalPage">
+        </activity>
+
+        <activity android:name="kotlinClass.LocationAdd">
+        </activity>
+
+        <activity android:name="kotlinClass.AdminMenu">
+        </activity>
+
+        <activity android:name="kotlinClass.UserManagingView">
+        </activity>
+
+        <activity android:name="kotlinClass.UserManagingDetail">
         </activity>
 
     </application>

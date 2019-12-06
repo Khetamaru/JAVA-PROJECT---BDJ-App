@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
+import kotlinClass.AdminMenu;
+import kotlinClass.PersonnalPage;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -27,12 +30,15 @@ public class MainPage extends Activity {
     TextView textView_surname;
     TextView textView_level;
 
+    LinearLayout nameSpace;
+
     Button button_logOut;
 
     Button button_loaning;
     Button button_location;
     Button button_inventory;
     Button button_userHistoric;
+    Button button_adminMenu;
 
     Button button_levelUp;
 
@@ -75,6 +81,17 @@ public class MainPage extends Activity {
                         //textView_id.setText(String.valueOf(user.idUser));
                         textView_surname = findViewById(R.id.surname);
                         textView_surname.setText(user.surname);
+
+                        nameSpace = findViewById(R.id.name);
+                        nameSpace.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Intent intent = new Intent(v.getContext(), PersonnalPage.class);
+                                intent.putExtra("idUser", user.idUser);
+                                startActivity(intent);
+                            }
+                        });
 
                         textView_level = findViewById(R.id.level);
                         textView_level.setText(user.level);
@@ -174,7 +191,6 @@ public class MainPage extends Activity {
                 });
                 break;
 
-
             case("admin"):
 
                 setContentView(R.layout.main_page_admin);
@@ -206,12 +222,21 @@ public class MainPage extends Activity {
                     }
                 });
 
-                button_userHistoric = findViewById(R.id.userHistoric);
+                button_userHistoric = findViewById(R.id.historic);
                 button_userHistoric.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         goToHistoric(v);
+                    }
+                });
+
+                button_adminMenu = findViewById(R.id.adminMenu);
+                button_adminMenu.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToAdminMenu(v);
                     }
                 });
                 break;
@@ -242,6 +267,13 @@ public class MainPage extends Activity {
     protected void goToHistoric(View v) {
 
         Intent intent = new Intent(v.getContext(), UserHistoricView.class);
+        intent.putExtra("idUser", user.idUser);
+        startActivity(intent);
+    }
+
+    protected void goToAdminMenu(View v) {
+
+        Intent intent = new Intent(v.getContext(), AdminMenu.class);
         intent.putExtra("idUser", user.idUser);
         startActivity(intent);
     }

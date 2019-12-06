@@ -12,74 +12,156 @@
         android:layout_height="wrap_content"
         android:id="@+id/back"
         android:text="RETURN"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/border_button"
         app:layout_constraintRight_toRightOf="@id/parent"
         app:layout_constraintTop_toTopOf="@id/parent"
         />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/placeText"
-        android:hint="PLACE"
-        app:layout_constraintTop_toTopOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@+id/dateText"
-        android:backgroundTint="@android:color/holo_red_dark"
-        />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/dateText"
-        android:hint="CLICK HERE TO PICK THE DATE"
-        app:layout_constraintTop_toBottomOf="@id/placeText"
-        app:layout_constraintBottom_toTopOf="@+id/startTime"
-        android:backgroundTint="@android:color/holo_red_dark"
-        />
-
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="START TIME"
-        app:layout_constraintLeft_toLeftOf="@id/startTime"
-        app:layout_constraintBottom_toTopOf="@id/startTime"
-        app:layout_constraintRight_toRightOf="@id/startTime"
-        />
-
-    <TimePicker
-        android:layout_width="200dp"
-        android:layout_height="50mm"
-        android:id="@+id/startTime"
-        app:layout_constraintTop_toBottomOf="@id/dateText"
+        android:id="@+id/placeSpace"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        app:layout_constraintTop_toBottomOf="@id/back"
+        app:layout_constraintBottom_toTopOf="@+id/startTimeSpace"
+        app:layout_constraintRight_toLeftOf="@id/dateSpace"
         app:layout_constraintLeft_toLeftOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/validation"
-        />
+        >
 
-    <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/place"
+            android:layout_gravity="center"
+            android:hint="PLACE"
+            android:textSize="20dp"
+            />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/placeSpinner"
+            android:layout_gravity="center"
+            android:text="PLACE"
+            android:textSize="20dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="END TIME"
-        app:layout_constraintLeft_toLeftOf="@id/endTime"
-        app:layout_constraintBottom_toTopOf="@id/endTime"
-        app:layout_constraintRight_toRightOf="@id/endTime"
-        />
-
-    <TimePicker
-        android:layout_width="200dp"
-        android:layout_height="50mm"
-        android:id="@+id/endTime"
-        app:layout_constraintTop_toBottomOf="@id/dateText"
+        android:id="@+id/dateSpace"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        app:layout_constraintTop_toBottomOf="@id/back"
+        app:layout_constraintBottom_toTopOf="@+id/endTimeSpace"
+        app:layout_constraintLeft_toRightOf="@id/placeSpace"
         app:layout_constraintRight_toRightOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/validation"
-        />
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateText"
+            android:layout_gravity="center"
+            android:hint="DATE"
+            android:textSize="20dp"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/setDate"
+            android:layout_gravity="center"
+            android:text="Select"
+            android:background="@drawable/border_button"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startTimeSpace"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        app:layout_constraintTop_toBottomOf="@id/dateSpace"
+        app:layout_constraintBottom_toBottomOf="@+id/parent"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toLeftOf="@id/endTimeSpace"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startTime"
+            android:layout_gravity="center"
+            android:hint="START TIME"
+            android:textSize="20dp"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/setStartTime"
+            android:layout_gravity="center"
+            android:text="Select"
+            android:background="@drawable/border_button"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/endTimeSpace"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        app:layout_constraintTop_toBottomOf="@id/dateSpace"
+        app:layout_constraintBottom_toBottomOf="@+id/parent"
+        app:layout_constraintLeft_toRightOf="@id/startTimeSpace"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endTime"
+            android:layout_gravity="center"
+            android:hint="END TIME"
+            android:textSize="20dp"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/setEndTime"
+            android:layout_gravity="center"
+            android:text="Select"
+            android:background="@drawable/border_button"
+            />
+
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/validation"
         android:text="CREATE LOCATION"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@id/parent"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintRight_toRightOf="@id/parent"
+        android:background="@drawable/border_button"
+        android:padding="15dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

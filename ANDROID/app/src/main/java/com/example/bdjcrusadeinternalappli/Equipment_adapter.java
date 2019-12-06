@@ -56,7 +56,16 @@ public class Equipment_adapter extends BaseAdapter {
         }
 
         holder.uEquipment.setText(listData.get(position).getName());
-        holder.uAble.setText(listData.get(position).getAbleToBorrow());
+        String ableToBorrow = listData.get(position).getAbleToBorrow();
+        if(ableToBorrow.equals("yes")) {
+
+            holder.uAble.setText("borrowUp");
+        }
+        else {
+
+            holder.uAble.setText("borrowDown");
+        }
+
         return v;
     }
 
