@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import com.example.bdjcrusadeinternalappli.LocationView
 import com.example.bdjcrusadeinternalappli.R
 import com.example.bdjcrusadeinternalappli.R.id
 import com.example.bdjcrusadeinternalappli.User
@@ -15,7 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import java.io.IOException
-import java.util.logging.Level
 
 class PersonnalPage : Activity() {
 
@@ -23,6 +21,9 @@ class PersonnalPage : Activity() {
         super.onCreate(savedInstanceState)
 
         var user: User
+
+        var back : Button
+        var changePassword : Button
 
         val context = this
         var intent = intent
@@ -49,15 +50,23 @@ class PersonnalPage : Activity() {
                 runOnUiThread {
 
                     when(user.level) {
-                        "admin" -> adminView(user)
+                        "admin" -> adminView(user, client, context, intentUser)
 
-                        else -> noneAdminView(user, client, context, intentUser, intentClient)
+                        else -> simpleUserView(user, client, context, intentUser)
                     }
 
-                    var back : Button = findViewById(id.back)
+                    back = findViewById(id.back)
                     back.setOnClickListener(View.OnClickListener {
 
                         val intent = Intent(context, UserManagingView::class.java)
+                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
+                        startActivity(intent)
+                    })
+
+                    changePassword = findViewById(id.changePassword)
+                    changePassword.setOnClickListener (View.OnClickListener {
+
+                        val intent = Intent(context, ChangePasswordPage::class.java)
                         intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
                         startActivity(intent)
                     })
@@ -66,52 +75,28 @@ class PersonnalPage : Activity() {
         })
     }
 
-    fun adminView(user : User) {
+    fun simpleUserView(user : User, client: OkHttpClient, context: Context, intentUser: Int) {
 
         setContentView(R.layout.user_managing_admin)
 
-        var surnameView : TextView = findViewById(id.surnameView)
+        var surnameView : EditText = findViewById(id.surnameView)
         surnameView.setText(user.getSurname())
 
-        var loginView : TextView = findViewById(id.loginView)
+        var loginView : EditText = findViewById(id.loginView)
         loginView.setText(user.getLogin())
 
-        var mailView : TextView = findViewById(id.mailView)
+        var mailView : EditText = findViewById(id.mailView)
         mailView.setText(user.getMail())
 
         var levelView : TextView = findViewById(id.levelView)
         levelView.setText(user.getLevel())
-    }
-
-    fun noneAdminView(user : User, client: OkHttpClient, context: Context, intentUser: Int, intentClient: Int) {
-
-        setContentView(R.layout.user_managing_none_admin)
-
-        var deleteButton : Button = findViewById(id.delete)
-        deleteButton.setOnClickListener(View.OnClickListener {
-
-            val request = Request.Builder()
-                    .url("http://192.168.43.110:8080/user/${user.idUser}")
-                    .delete()
-                    .build()
-
-            client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    Log.e("UserManagingDetail", "fail", e)
-                }
-
-                @Throws(IOException::class)
-                override fun onResponse(call: Call, response: Response) {
-
-                    val intent = Intent(context, UserManagingView::class.java)
-                    intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
-                    startActivity(intent)
-                }
-            })
-        })
 
         var saveButton : Button = findViewById(id.save)
         saveButton.setOnClickListener(View.OnClickListener {
+
+            user.login = loginView.text.toString()
+            user.mail = mailView.text.toString()
+            user.surname = surnameView.text.toString()
 
             val rq = user.toString()
 
@@ -124,7 +109,7 @@ class PersonnalPage : Activity() {
 
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
-                    Log.e("UserManagingDetail", "fail", e)
+                    Log.e("PersonnalPage", "fail", e)
                 }
 
                 @Throws(IOException::class)
@@ -132,7 +117,6 @@ class PersonnalPage : Activity() {
 
                     val intent = Intent(context, PersonnalPage::class.java)
                     intent.putExtra("idUser", intentUser)
-                    intent.putExtra("idUserManaging", intentClient)
 
                     /*Toast.makeText(this@UserManagingDetail, "New Information(s) saved !", Toast.LENGTH_LONG).show()
                     Log.i("UserManagingDetail", "New Information(s) saved !")*/
@@ -141,14 +125,19 @@ class PersonnalPage : Activity() {
                 }
             })
         })
+    }
 
-        var surnameView : TextView = findViewById(id.surnameView)
+    fun adminView(user : User, client: OkHttpClient, context: Context, intentUser: Int) {
+
+        setContentView(R.layout.personnal_page_admin)
+
+        var surnameView : EditText = findViewById(id.surnameView)
         surnameView.setText(user.getSurname())
 
-        var loginView : TextView = findViewById(id.loginView)
+        var loginView : EditText = findViewById(id.loginView)
         loginView.setText(user.getLogin())
 
-        var mailView : TextView = findViewById(id.mailView)
+        var mailView : EditText = findViewById(id.mailView)
         mailView.setText(user.getMail())
 
         val levels = arrayOf("student", "cotisant", "bdjMember", "admin")
@@ -176,5 +165,40 @@ class PersonnalPage : Activity() {
                 }
             }
         }
+
+        var saveButton : Button = findViewById(id.save)
+        saveButton.setOnClickListener(View.OnClickListener {
+
+            user.login = loginView.text.toString()
+            user.mail = mailView.text.toString()
+            user.surname = surnameView.text.toString()
+
+            val rq = user.toString()
+
+            val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), rq)
+
+            val request = Request.Builder()
+                    .url("http://192.168.43.110:8080/user")
+                    .put(body)
+                    .build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    Log.e("PersonnalPage", "fail", e)
+                }
+
+                @Throws(IOException::class)
+                override fun onResponse(call: Call, response: Response) {
+
+                    val intent = Intent(context, PersonnalPage::class.java)
+                    intent.putExtra("idUser", intentUser)
+
+                    /*Toast.makeText(this@UserManagingDetail, "New Information(s) saved !", Toast.LENGTH_LONG).show()
+                    Log.i("UserManagingDetail", "New Information(s) saved !")*/
+
+                    startActivity(intent)
+                }
+            })
+        })
     }
 }
