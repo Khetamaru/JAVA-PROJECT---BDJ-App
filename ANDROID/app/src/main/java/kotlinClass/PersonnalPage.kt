@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import com.example.bdjcrusadeinternalappli.MainPage
 import com.example.bdjcrusadeinternalappli.R
 import com.example.bdjcrusadeinternalappli.R.id
 import com.example.bdjcrusadeinternalappli.User
@@ -28,12 +29,11 @@ class PersonnalPage : Activity() {
         val context = this
         var intent = intent
         val intentUser = intent.getIntExtra("idUser", 0)
-        val intentClient = intent.getIntExtra("idUserManaging", 0)
         val mapper: ObjectMapper = ObjectMapper()
         val client: OkHttpClient = OkHttpClient()
 
         val request = Request.Builder()
-                .url("http://192.168.43.110:8080/user/$intentClient")
+                .url("http://192.168.43.110:8080/user/$intentUser")
                 .get()
                 .build()
 
@@ -58,7 +58,7 @@ class PersonnalPage : Activity() {
                     back = findViewById(id.back)
                     back.setOnClickListener(View.OnClickListener {
 
-                        val intent = Intent(context, UserManagingView::class.java)
+                        val intent = Intent(context, MainPage::class.java)
                         intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
                         startActivity(intent)
                     })
@@ -77,7 +77,7 @@ class PersonnalPage : Activity() {
 
     fun simpleUserView(user : User, client: OkHttpClient, context: Context, intentUser: Int) {
 
-        setContentView(R.layout.user_managing_admin)
+        setContentView(R.layout.personnal_page)
 
         var surnameView : EditText = findViewById(id.surnameView)
         surnameView.setText(user.getSurname())
@@ -98,32 +98,41 @@ class PersonnalPage : Activity() {
             user.mail = mailView.text.toString()
             user.surname = surnameView.text.toString()
 
-            val rq = user.toString()
+            if (verifSurname(surnameView)) {
 
-            val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), rq)
+                if (verificationMail(mailView)) {
 
-            val request = Request.Builder()
-                    .url("http://192.168.43.110:8080/user")
-                    .put(body)
-                    .build()
+                    if (verificationLogin(loginView)) {
 
-            client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    Log.e("PersonnalPage", "fail", e)
-                }
+                        val rq = user.toString()
 
-                @Throws(IOException::class)
-                override fun onResponse(call: Call, response: Response) {
+                        val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), rq)
 
-                    val intent = Intent(context, PersonnalPage::class.java)
-                    intent.putExtra("idUser", intentUser)
+                        val request = Request.Builder()
+                                .url("http://192.168.43.110:8080/user")
+                                .put(body)
+                                .build()
 
-                    /*Toast.makeText(this@UserManagingDetail, "New Information(s) saved !", Toast.LENGTH_LONG).show()
+                        client.newCall(request).enqueue(object : Callback {
+                            override fun onFailure(call: Call, e: IOException) {
+                                Log.e("PersonnalPage", "fail", e)
+                            }
+
+                            @Throws(IOException::class)
+                            override fun onResponse(call: Call, response: Response) {
+
+                                val intent = Intent(context, PersonnalPage::class.java)
+                                intent.putExtra("idUser", intentUser)
+
+                                /*Toast.makeText(this@UserManagingDetail, "New Information(s) saved !", Toast.LENGTH_LONG).show()
                     Log.i("UserManagingDetail", "New Information(s) saved !")*/
 
-                    startActivity(intent)
+                                startActivity(intent)
+                            }
+                        })
+                    }
                 }
-            })
+            }
         })
     }
 
@@ -173,32 +182,93 @@ class PersonnalPage : Activity() {
             user.mail = mailView.text.toString()
             user.surname = surnameView.text.toString()
 
-            val rq = user.toString()
+            if (verifSurname(surnameView)) {
 
-            val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), rq)
+                if (verificationMail(mailView)) {
 
-            val request = Request.Builder()
-                    .url("http://192.168.43.110:8080/user")
-                    .put(body)
-                    .build()
+                    if (verificationLogin(loginView)) {
 
-            client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    Log.e("PersonnalPage", "fail", e)
-                }
+                        val rq = user.toString()
 
-                @Throws(IOException::class)
-                override fun onResponse(call: Call, response: Response) {
+                        val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), rq)
 
-                    val intent = Intent(context, PersonnalPage::class.java)
-                    intent.putExtra("idUser", intentUser)
+                        val request = Request.Builder()
+                                .url("http://192.168.43.110:8080/user")
+                                .put(body)
+                                .build()
 
-                    /*Toast.makeText(this@UserManagingDetail, "New Information(s) saved !", Toast.LENGTH_LONG).show()
+                        client.newCall(request).enqueue(object : Callback {
+                            override fun onFailure(call: Call, e: IOException) {
+                                Log.e("PersonnalPage", "fail", e)
+                            }
+
+                            @Throws(IOException::class)
+                            override fun onResponse(call: Call, response: Response) {
+
+                                val intent = Intent(context, PersonnalPage::class.java)
+                                intent.putExtra("idUser", intentUser)
+
+                                /*Toast.makeText(this@UserManagingDetail, "New Information(s) saved !", Toast.LENGTH_LONG).show()
                     Log.i("UserManagingDetail", "New Information(s) saved !")*/
 
-                    startActivity(intent)
+                                startActivity(intent)
+                            }
+                        })
+                    }
                 }
-            })
+            }
         })
+    }
+
+
+    fun verifSurname(editText_surname : EditText): Boolean {
+        if (editText_surname.length() > 3) {
+
+            if (editText_surname.length() < 15) {
+
+                return true
+            }
+            else {
+
+                Toast.makeText(this@PersonnalPage, "Surname to long", Toast.LENGTH_LONG).show()
+            }
+        }
+        else {
+
+            Toast.makeText(this@PersonnalPage, "Surname to short", Toast.LENGTH_LONG).show()
+        }
+        return false
+    }
+
+    fun verificationMail(editText_mail : EditText): Boolean {
+
+        if (editText_mail.text.toString() != "") {
+
+            return true
+        }
+        else {
+
+            Toast.makeText(this@PersonnalPage, "You have to write a mail address", Toast.LENGTH_LONG).show()
+            return false
+        }
+    }
+
+    fun verificationLogin(editText_login : EditText) : Boolean {
+        if (editText_login.length() > 3) {
+
+            if (editText_login.length() < 15) {
+
+                return true
+            }
+            else {
+
+                Toast.makeText(this@PersonnalPage, "Login to long (MAX 14)", Toast.LENGTH_LONG).show()
+            }
+        } else {
+
+            Toast.makeText(this@PersonnalPage, "Login to short (MIN 4)", Toast.LENGTH_LONG).show()
+        }
+
+        return false
     }
 }

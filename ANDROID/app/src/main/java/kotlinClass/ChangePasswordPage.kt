@@ -10,6 +10,7 @@ import android.widget.*
 import com.example.bdjcrusadeinternalappli.*
 import com.example.bdjcrusadeinternalappli.R.*
 import com.fasterxml.jackson.databind.ObjectMapper
+import kotlinx.android.synthetic.main.change_password_page.*
 import okhttp3.*
 import java.io.IOException
 import java.util.*
@@ -21,15 +22,10 @@ class ChangePasswordPage : Activity() {
         super.onCreate(savedInstanceState)
 
         var user: User
-        var equipment: Equipment
-        var startDate: Date = Date()
-        var endDate: Date = Date()
 
-        var startDateText: TextView
-        var endDateText: TextView
-
-        var setStartDate: Button
-        var setEndDate: Button
+        var oldPasswordEditText: EditText
+        var newPasswordEditText: EditText
+        var confirmationPasswordEditText: EditText
 
         val context = this
         var intent = intent
@@ -38,12 +34,11 @@ class ChangePasswordPage : Activity() {
         val client: OkHttpClient = OkHttpClient()
 
         val intentUser = intent.getIntExtra("idUser", 0)
-        val intentEquipment = intent.getIntExtra("idEquipment", 0)
 
         var validation: Button
         var back: Button
 
-        setContentView(R.layout.loaning_add_next)
+        setContentView(R.layout.loading_page)
 
         val request: Request = Request.Builder()
                 .url("http://192.168.43.110:8080/user/$intentUser")
@@ -60,131 +55,88 @@ class ChangePasswordPage : Activity() {
 
                 user = mapper.readValue(response.body!!.string(), User::class.java)
 
-                val request: Request = Request.Builder()
-                        .url("http://192.168.43.110:8080/equipment/$intentEquipment")
-                        .get()
-                        .build()
+                runOnUiThread {
 
-                client.newCall(request).enqueue(object : Callback {
-                    override fun onFailure(call: Call, e: IOException) {
+                    setContentView(R.layout.change_password_page)
 
-                        Log.e("LocationAdd", "fail", e)
-                    }
+                    oldPasswordEditText = findViewById(id.oldPassword)
+                    newPasswordEditText = findViewById(id.newPassword)
+                    confirmationPasswordEditText = findViewById(id.secondNewPassword)
 
-                    override fun onResponse(call: Call, response: Response) {
+                    back = findViewById(id.back)
+                    validation = findViewById(id.validation)
 
-                        equipment = mapper.readValue(response.body!!.string(), Equipment::class.java)
+                    back.setOnClickListener(View.OnClickListener {
 
-                        startDateText = findViewById(R.id.startDateText)
-                        endDateText = findViewById(R.id.endDateText)
+                        val intent = Intent(context, PersonnalPage::class.java)
+                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
+                        startActivity(intent)
+                    })
 
-                        setStartDate = findViewById(R.id.setStartDate)
-                        setEndDate = findViewById(R.id.setEndDate)
+                    validation.setOnClickListener(View.OnClickListener {
 
-                        back = findViewById(R.id.back)
-                        validation = findViewById(R.id.validation)
+                        if (oldPassword.text.toString() == user.password) {
 
-                        setStartDate.setOnClickListener(View.OnClickListener {
+                            if (newPasswordEditText.text.toString() != "") {
 
-                            val cal = Calendar.getInstance()
-                            val year = cal.get(Calendar.YEAR)
-                            val month: Int = cal.get(Calendar.MONTH)
-                            val day = cal.get(Calendar.DAY_OF_MONTH)
+                                if (newPasswordEditText.length() > 3) {
 
-                            var datePickerDialog = DatePickerDialog(this@ChangePasswordPage, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                                    if (newPasswordEditText.length() < 15) {
 
-                                var MonthOfYear = monthOfYear + 1
-                                startDateText.setText("$dayOfMonth/$MonthOfYear/$year")
-                                startDate = Date("$MonthOfYear/$dayOfMonth/$year")
+                                        if (confirmationPasswordEditText.text.toString() == newPasswordEditText.text.toString()) {
 
-                            }, year, month, day)
+                                            user.password = newPasswordEditText.text.toString()
 
-                            datePickerDialog.show()
-                        })
+                                            mapper = ObjectMapper()
 
-                        setEndDate.setOnClickListener(View.OnClickListener {
+                                            val client = OkHttpClient()
 
-                            val cal = Calendar.getInstance()
-                            val year = cal.get(Calendar.YEAR)
-                            val month: Int = cal.get(Calendar.MONTH)
-                            val day = cal.get(Calendar.DAY_OF_MONTH)
+                                            val rq = user.toString()
 
-                            var datePickerDialog = DatePickerDialog(this@ChangePasswordPage, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                                            val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), rq)
 
-                                var MonthOfYear = monthOfYear + 1
-                                endDateText.setText("$dayOfMonth/$MonthOfYear/$year")
-                                endDate = Date("$MonthOfYear/$dayOfMonth/$year")
+                                            val request = Request.Builder()
+                                                    .url("http://192.168.43.110:8080/user")
+                                                    .put(body)
+                                                    .build()
 
-                            }, year, month, day)
+                                            client.newCall(request).enqueue(object : Callback {
+                                                override fun onFailure(call: Call, e: IOException) {
+                                                    Log.e("LoaningAddNext", "fail", e)
+                                                }
 
-                            datePickerDialog.show()
-                        })
+                                                @Throws(IOException::class)
+                                                override fun onResponse(call: Call, response: Response) {
 
-                        back.setOnClickListener(View.OnClickListener {
+                                                    val intent: Intent
+                                                    intent = Intent(context, PersonnalPage::class.java)
+                                                    intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
+                                                    startActivity(intent)
+                                                }
+                                            })
+                                        } else {
 
-                            val intent = Intent(context, LoaningAddEquipment::class.java)
-                            intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
-                            startActivity(intent)
-                        })
+                                            Toast.makeText(this@ChangePasswordPage, "New password and confirmation password have to be the same", Toast.LENGTH_LONG).show()
+                                        }
+                                    } else {
 
-                        validation.setOnClickListener { v ->
-                            if (startDateText.text != "" && endDateText.text != "") {
+                                        Toast.makeText(this@ChangePasswordPage, "New password to long", Toast.LENGTH_LONG).show()
+                                    }
+                                } else {
 
-                                if (testDateSet(startDate, endDate)) {
-
-                                    var temp = startDate
-                                    startDate = endDate
-                                    endDate = temp
+                                    Toast.makeText(this@ChangePasswordPage, "New password to short", Toast.LENGTH_LONG).show()
                                 }
-
-                                val loaning = Loaning(user, equipment, startDate, endDate, "no")
-
-                                mapper = ObjectMapper()
-
-                                val client = OkHttpClient()
-
-                                val rq = loaning.toStringWithoutId()
-
-                                val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), rq)
-
-                                val request = Request.Builder()
-                                        .url("http://192.168.43.110:8080/loaning")
-                                        .put(body)
-                                        .build()
-
-                                client.newCall(request).enqueue(object : Callback {
-                                    override fun onFailure(call: Call, e: IOException) {
-                                        Log.e("LoaningAddNext", "fail", e)
-                                    }
-
-                                    @Throws(IOException::class)
-                                    override fun onResponse(call: Call, response: Response) {
-
-                                        val intent: Intent
-                                        intent = Intent(v.context, LoaningPage::class.java)
-                                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
-                                        startActivity(intent)
-                                    }
-                                })
                             } else {
 
-                                Toast.makeText(this@ChangePasswordPage, "One or all field(s) is empty", Toast.LENGTH_LONG).show()
-                                Log.i("LoaningAddNext", "One or all field(s) is empty")
+                                Toast.makeText(this@ChangePasswordPage, "You have to write a new password", Toast.LENGTH_LONG).show()
                             }
+                        } else {
+
+                            Toast.makeText(this@ChangePasswordPage, "Old password is wrong", Toast.LENGTH_LONG).show()
                         }
-                    }
-                })
+                    })
+                }
             }
         })
-    }
-
-    fun testDateSet(startDate: Date, endDate: Date): Boolean {
-
-        if (startDate.time > endDate.time) {
-
-            return true
-        }
-
-        return false
     }
 }
