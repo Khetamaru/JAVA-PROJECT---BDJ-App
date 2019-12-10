@@ -5,13 +5,8 @@ import java.util.Date;
 
 @Entity
 @Access(AccessType.FIELD)
-public class VideoGame {
+public class VideoGame extends Equipment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idEquipment;
-    @OneToOne
-    private Equipment equipment;
     @OneToOne
     private GameConsole gameConsole;
     private int nbMaxPlayer;
@@ -22,10 +17,11 @@ public class VideoGame {
 
     public VideoGame() {
     }
-    public VideoGame(int _idEquipment, Equipment _equipment, GameConsole _gameConsole, int _nbMaxPlayer, String _lan, Date _realiseDate, String _editor) {
+    public VideoGame(int _idGame, String _name, String _status, Date _dateRecup, String _state, String _origin, String _cfDoc, String _ableToBorrow,
+        int _idEquipment, Equipment _equipment, GameConsole _gameConsole, int _nbMaxPlayer, String _lan, Date _realiseDate, String _editor) {
 
-        idEquipment = _idEquipment;
-        equipment = _equipment;
+    super(_idGame, _name, _status, _dateRecup, _state, _origin, _cfDoc, _ableToBorrow);
+
         gameConsole = _gameConsole;
         nbMaxPlayer = _nbMaxPlayer;
         lan = _lan;
@@ -34,8 +30,6 @@ public class VideoGame {
     }
 
 
-    public int getIdEquipment() { return idEquipment; }
-    public Equipment getEquipment() { return equipment; }
     public GameConsole getGameConsole() { return gameConsole; }
     public int getNbMaxPlayer() { return nbMaxPlayer; }
     public String getLan() { return lan; }
@@ -43,8 +37,6 @@ public class VideoGame {
     public String getEditor() { return editor; }
 
 
-    public void setIdEquipment(int idEquipment) { this.idEquipment = idEquipment; }
-    public void setEquipment(Equipment equipment) { this.equipment = equipment; }
     public void setGameConsole(GameConsole gameConsole) { this.gameConsole = gameConsole; }
     public void setNbMaxPlayer(int nbMaxPlayer) { this.nbMaxPlayer = nbMaxPlayer; }
     public void setLan(String lan) { this.lan = lan; }

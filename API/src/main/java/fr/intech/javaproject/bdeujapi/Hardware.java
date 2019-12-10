@@ -5,13 +5,8 @@ import java.util.Date;
 
 @Entity
 @Access(AccessType.FIELD)
-public class Hardware {
+public class Hardware extends Equipment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idEquipment;
-    @OneToOne
-    private Equipment equipment;
     private String CPU;
     private String RAM;
     private String HDD;
@@ -21,10 +16,11 @@ public class Hardware {
 
     public Hardware() {
     }
-    public Hardware(int _idEquipment, Equipment _equipment, String _CPU, String _RAM, String _HDD, String _GPU, String _OS) {
+    public Hardware(int _idGame, String _name, String _status, Date _dateRecup, String _state, String _origin, String _cfDoc, String _ableToBorrow,
+        int _idEquipment, Equipment _equipment, String _CPU, String _RAM, String _HDD, String _GPU, String _OS) {
 
-        idEquipment = _idEquipment;
-        equipment = _equipment;
+        super(_idGame, _name, _status, _dateRecup, _state, _origin, _cfDoc, _ableToBorrow);
+
         CPU = _CPU;
         RAM = _RAM;
         HDD = _HDD;
@@ -33,10 +29,6 @@ public class Hardware {
     }
 
 
-    public int getIdEquipment() {
-        return idEquipment;
-    }
-    public Equipment getEquipment() { return equipment; }
     public String getCPU() { return CPU; }
     public String getRAM() { return RAM; }
     public String getHDD() { return HDD; }
@@ -44,10 +36,6 @@ public class Hardware {
     public String getOS() { return OS; }
 
 
-    public void setIdEquipment(int idEquipment) {
-        this.idEquipment = idEquipment;
-    }
-    public void setEquipment(Equipment equipment) { this.equipment = equipment; }
     public void setCPU(String CPU) { this.CPU = CPU; }
     public void setRAM(String RAM) { this.RAM = RAM; }
     public void setHDD(String HDD) { this.HDD = HDD; }

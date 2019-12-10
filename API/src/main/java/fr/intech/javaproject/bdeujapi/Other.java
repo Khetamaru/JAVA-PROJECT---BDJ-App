@@ -5,35 +5,21 @@ import java.util.Date;
 
 @Entity
 @Access(AccessType.FIELD)
-public class Other {
+public class Other extends Equipment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idEquipment;
-    @OneToOne
-    private Equipment equipment;
     private String type;
-
 
     public Other() {
     }
-    public Other(int _idEquipment, Equipment _equipment, String _type) {
+    public Other(int _idGame, String _name, String _status, Date _dateRecup, String _state, String _origin, String _cfDoc, String _ableToBorrow,
+                 String _type) {
 
-        idEquipment = _idEquipment;
-        equipment = _equipment;
+        super(_idGame, _name, _status, _dateRecup, _state, _origin, _cfDoc, _ableToBorrow);
+
         type = _type;
     }
 
-
-    public int getIdEquipment() {
-        return idEquipment;
-    }
-    public Equipment getEquipment() { return equipment; }
     public String getType() { return type; }
 
-    public void setIdEquipment(int idEquipment) {
-        this.idEquipment = idEquipment;
-    }
-    public void setEquipment(Equipment equipment) { this.equipment = equipment; }
     public void setType(String type) { this.type = type; }
 }
