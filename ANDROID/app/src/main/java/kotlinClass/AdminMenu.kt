@@ -17,9 +17,10 @@ class AdminMenu : Activity() {
 
         var userManaging: Button
 
-        val context = this
+        var context = this
         var intent = intent
-        val intentUser = intent.getIntExtra("idUser", 0)
+        var intentUser = intent.getIntExtra("idUser", 0)
+        var rooterService = RooterService()
 
         var back: Button
 
@@ -30,16 +31,12 @@ class AdminMenu : Activity() {
 
         userManaging.setOnClickListener(View.OnClickListener {
 
-            val intent = Intent(context, UserManagingView::class.java)
-            intent.putExtra("idUser", intentUser)
-            startActivity(intent)
+            rooterService.changeActivity(Intent(context, UserManagingView::class.java), context, intentUser)
         })
 
         back.setOnClickListener(View.OnClickListener {
 
-            val intent = Intent(context, MainPage::class.java)
-            intent.putExtra("idUser", intentUser)
-            startActivity(intent)
+            rooterService.changeActivity(Intent(context, MainPage::class.java), context, intentUser)
         })
     }
 }
