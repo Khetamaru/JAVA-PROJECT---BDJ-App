@@ -31,11 +31,9 @@ class UserManagingView : Activity() {
 
         var back: Button
 
-        setContentView(R.layout.user_managing_view)
+        setContentView(R.layout.loading_page)
 
-        back = findViewById(R.id.back)
-
-        requestService.requestBuilderGet("allExept", intentUser)
+        requestService.requestBuilderGet("user/allExept", intentUser)
                 .enqueue(object : Callback {
 
             override fun onFailure(call: Call, e: IOException) {
@@ -50,6 +48,8 @@ class UserManagingView : Activity() {
                 arrayList.addAll(users)
 
                 runOnUiThread {
+
+                    setContentView(R.layout.user_managing_view)
 
                     listView = findViewById<View>(id.UsersListView) as ListView
                     listView.adapter = Users_adapter(context, arrayList)

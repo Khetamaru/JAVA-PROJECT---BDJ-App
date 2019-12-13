@@ -15,11 +15,12 @@ public class GameConsole extends Equipment {
 
 
     public GameConsole() {
-    }
-    public GameConsole(int _idGame, String _name, String _status, Date _dateRecup, String _state, String _origin, String _cfDoc, String _ableToBorrow,
-        int _idEquipment, Equipment _equipment, int _nbMaxController, String _videoCable, String _powerCable, Date _realiseDate, String _editor) {
 
-        super(_idGame, _name, _status, _dateRecup, _state, _origin, _cfDoc, _ableToBorrow);
+    }
+    public GameConsole(int _idGame, String _name, String _className, String _status, Date _dateRecup, String _state, String _origin, String _cfDoc, String _ableToBorrow,
+        int _nbMaxController, String _videoCable, String _powerCable, Date _realiseDate, String _editor) {
+
+        super(_idGame, _name, _className, _status, _dateRecup, _state, _origin, _cfDoc, _ableToBorrow);
 
         nbMaxController = _nbMaxController;
         videoCable = _videoCable;

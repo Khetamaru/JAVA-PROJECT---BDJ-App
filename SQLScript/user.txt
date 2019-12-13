@@ -1,0 +1,58 @@
+[
+	{
+		"surname" : "Roitardé",
+		"login" : "mips",
+		"password" : "maps",
+		"mail" : "lasserre@intechinfo.fr",
+		"level" : "admin"
+	},
+	{
+		"surname" : "Rasputine",
+		"login" : "vincent",
+		"password" : "etaix",
+		"mail" : "fillot1@gmail.com",
+		"level" : "admin"
+	},
+	{
+		"surname" : "Vlad",
+		"login" : "théodore",
+		"password" : "blanc-talon",
+		"mail" : "fillot2@gmail.com",
+		"level" : "admin"
+	},
+	{
+		"surname" : "Captn",
+		"login" : "mickael",
+		"password" : "almeida",
+		"mail" : "ma@gmail.com",
+		"level" : "BDJMember"
+	},
+	{
+		"surname" : "Thomrider",
+		"login" : "thomas",
+		"password" : "ouioui",
+		"mail" : "to@gmail.com",
+		"level" : "BDJMember"
+	},
+	{
+		"surname" : "toto",
+		"login" : "toot",
+		"password" : "trot",
+		"mail" : "toto@gmail.com",
+		"level" : "cotisant"
+	},
+	{
+		"surname" : "titi",
+		"login" : "tiit",
+		"password" : "trit",
+		"mail" : "titi@gmail.com",
+		"level" : "student"
+	},
+	{
+		"surname" : "tata",
+		"login" : "taat",
+		"password" : "trat",
+		"mail" : "tata@gmail.com",
+		"level" : "student"
+	}	
+]

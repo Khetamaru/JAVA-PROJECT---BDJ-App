@@ -12,13 +12,13 @@ public class BoardGame extends Equipment {
     private Date realiseDate;
     private String editor;
 
-
     public BoardGame() {
-    }
-    public BoardGame(int _idGame, String _name, String _status, Date _dateRecup, String _state, String _origin, String _cfDoc, String _ableToBorrow,
-        int _idEquipment, Equipment _equipment, String _type, int _nbMaxPlayer, Date _realiseDate, String _editor) {
 
-        super(_idGame, _name, _status, _dateRecup, _state, _origin, _cfDoc, _ableToBorrow);
+    }
+    public BoardGame(int _idGame, String _name, String _className, String _status, Date _dateRecup, String _state, String _origin, String _cfDoc, String _ableToBorrow,
+        String _type, int _nbMaxPlayer, Date _realiseDate, String _editor) {
+
+        super(_idGame, _name, _className, _status, _dateRecup, _state, _origin, _cfDoc, _ableToBorrow);
 
         type = _type;
         nbMaxPlayer = _nbMaxPlayer;
