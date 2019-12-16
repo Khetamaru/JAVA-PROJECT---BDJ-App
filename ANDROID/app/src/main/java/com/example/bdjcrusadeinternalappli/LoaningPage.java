@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import kotlinClass.RequestService;
+import kotlinClass.RooterService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -37,6 +40,9 @@ public class LoaningPage extends Activity {
     Button back;
     Button add;
 
+    RequestService requestService;
+    RooterService rooterService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,17 +53,11 @@ public class LoaningPage extends Activity {
 
         mapper = new ObjectMapper();
 
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/user/" + getIntent().getIntExtra("idUser",0))
-                .get()
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderGet("user", getIntent().getIntExtra("idUser",0))
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("LoginPage", "fail", e);
+                Toast.makeText(LoaningPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -79,10 +79,7 @@ public class LoaningPage extends Activity {
                             @Override
                             public void onClick(View v) {
 
-                                Intent intent;
-                                intent = new Intent(v.getContext(), MainPage.class);
-                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                startActivity(intent);
+                                rooterService.changeActivity(new Intent(v.getContext(), MainPage.class), LoaningPage.this, getIntent().getIntExtra("idUser", 0));
                             }
                         });
 
@@ -92,30 +89,18 @@ public class LoaningPage extends Activity {
                             @Override
                             public void onClick(View v) {
 
-                                Intent intent;
-                                intent = new Intent(v.getContext(), LoaningAddEquipment.class);
-                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                startActivity(intent);
+                                rooterService.changeActivity(new Intent(v.getContext(), LoaningAddEquipment.class), LoaningPage.this, getIntent().getIntExtra("idUser", 0));
                             }
                         });
                     }
                 });
 
-                MediaType JSON
-                        = MediaType.get("application/json; charset=utf-8");
-
-                RequestBody body = RequestBody.create(JSON, user.toString());
-
-                Request request = new Request.Builder()
-                        .url("http://192.168.43.110:8080/loaning/all")
-                        .post(body)
-                        .build();
-
-                client.newCall(request).enqueue(new Callback() {
+                requestService.requestBuilderPost("loaning/all", user.toString())
+                        .enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                        Log.e("EquipmentView", "fail", e);
+                        Toast.makeText(LoaningPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -137,11 +122,8 @@ public class LoaningPage extends Activity {
                                     @Override
                                     public void onItemClick(AdapterView<?> a, View v, int position, long textView_id) {
                                         Loaning loaning = (Loaning) listView.getItemAtPosition(position);
-                                        Intent intent = new Intent(v.getContext(), LoaningDetails.class);
-                                        intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                                        intent.putExtra("idLoaning", loaning.getIdLoaning());
-                                        intent.putExtra("context", "one");
-                                        startActivity(intent);
+
+                                        rooterService.changeActivity(new Intent(v.getContext(), LoaningDetails.class), LoaningPage.this, getIntent().getIntExtra("idUser",0), loaning.getIdLoaning(), "idLoaning", "one", "context");
                                     }
                                 });
                             }
@@ -163,9 +145,7 @@ public class LoaningPage extends Activity {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(v.getContext(), LoaningViewAll.class);
-                    intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                    startActivity(intent);
+                    rooterService.changeActivity(new Intent(v.getContext(), LoaningViewAll.class), LoaningPage.this, getIntent().getIntExtra("idUser", 0));
                 }
             });
         }

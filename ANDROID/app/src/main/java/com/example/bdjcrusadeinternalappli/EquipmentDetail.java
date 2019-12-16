@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -19,6 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import kotlinClass.RequestService;
+import kotlinClass.RooterService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -41,25 +44,20 @@ public class EquipmentDetail extends Activity {
 
     Button back;
 
+    RequestService requestService;
+    RooterService rooterService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.loading_page);
 
-        OkHttpClient client = new OkHttpClient();
-
-        mapper = new ObjectMapper();
-
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/equipment/" + getIntent().getIntExtra("idEquipment",0))
-                .get()
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderGet("equipment", getIntent().getIntExtra("idEquipment",0))
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("EquipmentDetail", "fail", e);
+                Toast.makeText(EquipmentDetail.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -101,10 +99,7 @@ public class EquipmentDetail extends Activity {
                             @Override
                             public void onClick(View v) {
 
-                                Intent intent;
-                                intent = new Intent(v.getContext(), EquipmentView.class);
-                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                startActivity(intent);
+                                rooterService.changeActivity(new Intent(v.getContext(), EquipmentView.class), EquipmentDetail.this, getIntent().getIntExtra("idUser", 0));
                             }
                         });
                     }

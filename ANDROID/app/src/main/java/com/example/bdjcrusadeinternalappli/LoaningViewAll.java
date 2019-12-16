@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import kotlinClass.RequestService;
+import kotlinClass.RooterService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -34,6 +37,9 @@ public class LoaningViewAll extends Activity {
 
     Button back;
 
+    RequestService requestService;
+    RooterService rooterService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,17 +50,11 @@ public class LoaningViewAll extends Activity {
 
         mapper = new ObjectMapper();
 
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/user/" + getIntent().getIntExtra("idUser",0))
-                .get()
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderGet("user", getIntent().getIntExtra("idUser",0))
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("LoginPage", "fail", e);
+                Toast.makeText(LoaningViewAll.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -73,25 +73,18 @@ public class LoaningViewAll extends Activity {
                             @Override
                             public void onClick(View v) {
 
-                                Intent intent;
-                                intent = new Intent(v.getContext(), LoaningPage.class);
-                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                startActivity(intent);
+                                rooterService.changeActivity(new Intent(v.getContext(), LoaningPage.class), LoaningViewAll.this, getIntent().getIntExtra("idUser", 0));
                             }
                         });
                     }
                 });
 
-                Request request = new Request.Builder()
-                        .url("http://192.168.43.110:8080/loaning")
-                        .get()
-                        .build();
-
-                client.newCall(request).enqueue(new Callback() {
+                requestService.requestBuilderGet("loaning")
+                        .enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                        Log.e("EquipmentView", "fail", e);
+                        Toast.makeText(LoaningViewAll.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -112,12 +105,9 @@ public class LoaningViewAll extends Activity {
                                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> a, View v, int position, long textView_id) {
+
                                         Loaning loaning = (Loaning) listView.getItemAtPosition(position);
-                                        Intent intent = new Intent(v.getContext(), LoaningDetails.class);
-                                        intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                                        intent.putExtra("idLoaning", loaning.getIdLoaning());
-                                        intent.putExtra("context", "all");
-                                        startActivity(intent);
+                                        rooterService.changeActivity(new Intent(v.getContext(), LoaningDetails.class), LoaningViewAll.this, getIntent().getIntExtra("idUser",0), loaning.getIdLoaning(), "idLoaning", "all", "context");
                                     }
                                 });
                             }

@@ -1,0 +1,24 @@
+[
+	{
+		"name" : "chaise", 
+		"className" : "other",
+		"status" : "own",
+		"dateRecup" : 1576228728903,
+		"state" : "neuf",
+		"origin" : "achat",
+		"cfDoc" : "",
+        "ableToBorrow" : "no",
+        "type" : "mobilier"
+    },
+    {
+		"name" : "armoire", 
+		"className" : "other",
+		"status" : "own",
+		"dateRecup" : 1576228728903,
+		"state" : "neuf",
+		"origin" : "achat",
+		"cfDoc" : "",
+        "ableToBorrow" : "no",
+        "type" : "mobilier"
+    }
+]

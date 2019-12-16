@@ -23,6 +23,16 @@ class RequestService() {
         return client.newCall(request)
     }
 
+    fun requestBuilderGet(controller : String, login : String) : Call {
+
+        val request = Request.Builder()
+                .url("$requestType://$address:$port/$controller/$login")
+                .get()
+                .build()
+
+        return client.newCall(request)
+    }
+
     fun requestBuilderGet(controller : String) : Call {
 
         val request = Request.Builder()
@@ -45,6 +55,18 @@ class RequestService() {
         return client.newCall(request)
     }
 
+    fun requestBuilderPost(controller : String, obj : String) : Call {
+
+        val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), obj)
+
+        val request = Request.Builder()
+                .url("$requestType://$address:$port/$controller")
+                .post(body)
+                .build()
+
+        return client.newCall(request)
+    }
+
     fun requestBuilderDelete(controller : String, id : Int) : Call {
 
         val request = Request.Builder()
@@ -60,6 +82,18 @@ class RequestService() {
         val request = Request.Builder()
                 .url("$requestType://$address:$port/$controller")
                 .delete()
+                .build()
+
+        return client.newCall(request)
+    }
+
+    fun requestBuilderPatch(controller : String, id : Int, obj : String) : Call {
+
+        val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), obj)
+
+        val request = Request.Builder()
+                .url("$requestType://$address:$port/$controller/$id")
+                .patch(body)
                 .build()
 
         return client.newCall(request)

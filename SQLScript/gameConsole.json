@@ -9,8 +9,8 @@
 		"cfDoc" : "./ps3",
 		"ableToBorrow" : "no",
 	    "nbMaxController" : 4,
-	    "videoCable" : "yes"
-	    "powerCable" : "yes"
+	    "videoCable" : "yes",
+	    "powerCable" : "yes",
 	    "realiseDate" : 1576228728903,
 	    "editor" : "sony"
 	},
@@ -24,8 +24,8 @@
 		"cfDoc" : "./xbox",
 		"ableToBorrow" : "no",
 	    "nbMaxController" : 4,
-	    "videoCable" : "yes"
-	    "powerCable" : "yes"
+	    "videoCable" : "yes",
+	    "powerCable" : "yes",
 	    "realiseDate" : 1576228728903,
 	    "editor" : "microsoft"
 	}

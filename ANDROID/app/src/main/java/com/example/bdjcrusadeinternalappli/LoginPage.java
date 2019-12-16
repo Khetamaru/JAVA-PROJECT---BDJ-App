@@ -15,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
+import kotlinClass.RequestService;
+import kotlinClass.RooterService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -31,10 +33,10 @@ public class LoginPage extends Activity {
     EditText editText_password;
     ObjectMapper mapper;
 
-    //Login logs;
-    //File logsJSON;
-    //FileOutputStream logsStream;
     String stringRequest;
+
+    RequestService requestService;
+    RooterService rooterService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,38 +61,14 @@ public class LoginPage extends Activity {
                 String login = editText_login.getText().toString();
                 String password = editText_password.getText().toString();
 
-                /*logsJSON = new File("./logs.json");
-                try {
-                    logs = mapper.readValue(logsJSON, Login.class);
-                    editText_login.setText(logs.getLog());
-                    editText_password.setText(logs.getPassword());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    logsStream = new FileOutputStream("./logs.json");
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }*/
-
-                MediaType JSON
-                        = MediaType.get("application/json; charset=utf-8");
-                OkHttpClient client = new OkHttpClient();
-
                 stringRequest = "{\"log\" : \"" + login + "\", \"password\" : \"" + password + "\"}";
 
-                RequestBody body = RequestBody.create(JSON, stringRequest);
-
-                Request request = new Request.Builder()
-                        .url("http://192.168.43.110:8080/user/login")
-                        .post(body)
-                        .build();
-
-                client.newCall(request).enqueue(new Callback() {
+                requestService.requestBuilderPost("user/login", stringRequest)
+                        .enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                        Log.e("LoginPage", "fail",e);
+                        Toast.makeText(LoginPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -101,15 +79,12 @@ public class LoginPage extends Activity {
                         if (response.code() == 200) {
 
                             User user = mapper.readValue(response.body().string(), User.class);
-                            //mapper.writeValue(logsStream, logs);
 
                            runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
 
-                                    Intent intent = new Intent(v.getContext(), MainPage.class);
-                                    intent.putExtra("idUser", user.idUser);
-                                    startActivity(intent);
+                                    rooterService.changeActivity(new Intent(v.getContext(), MainPage.class), LoginPage.this, user.idUser);
                                 }
                             });
                         }

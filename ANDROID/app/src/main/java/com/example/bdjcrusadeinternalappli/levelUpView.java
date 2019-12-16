@@ -7,18 +7,18 @@ import android.view.View;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kotlinClass.RooterService;
+
 public class levelUpView extends Activity {
 
     ObjectMapper mapper;
+    RooterService rooterService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.inventory);
-
-        Intent intent = new Intent(this, MainPage.class);
-        intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-        startActivity(intent);
+        rooterService.changeActivity(new Intent(this, MainPage.class), levelUpView.this, getIntent().getIntExtra("idUser",0));
     }
 }
