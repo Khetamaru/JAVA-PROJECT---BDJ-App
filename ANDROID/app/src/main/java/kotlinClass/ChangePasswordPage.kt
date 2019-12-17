@@ -10,11 +10,13 @@ import android.widget.*
 import com.example.bdjcrusadeinternalappli.*
 import com.example.bdjcrusadeinternalappli.R.*
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.common.hash.Hashing
 import kotlinx.android.synthetic.main.change_password_page.*
 import okhttp3.*
 import java.io.IOException
 import java.util.*
 import okhttp3.MediaType.Companion.toMediaType
+import java.nio.charset.StandardCharsets
 
 class ChangePasswordPage : Activity() {
 
@@ -31,7 +33,6 @@ class ChangePasswordPage : Activity() {
         var intent = intent
 
         var mapper: ObjectMapper = ObjectMapper()
-        val client: OkHttpClient = OkHttpClient()
 
         val intentUser = intent.getIntExtra("idUser", 0)
         var rooterService = RooterService()
@@ -40,7 +41,9 @@ class ChangePasswordPage : Activity() {
         var validation: Button
         var back: Button
 
-        setContentView(R.layout.loading_page)
+        var password: String;
+
+        setContentView(layout.loading_page)
 
         requestService.requestBuilderGet("user", intentUser)
                 .enqueue(object : Callback {
@@ -72,7 +75,11 @@ class ChangePasswordPage : Activity() {
 
                     validation.setOnClickListener(View.OnClickListener {
 
-                        if (oldPassword.text.toString() == user.password) {
+                        password = Hashing.sha256()
+                                .hashString(oldPassword.text.toString(), StandardCharsets.UTF_8)
+                                .toString()
+
+                        if (password == user.password) {
 
                             if (newPasswordEditText.text.toString() != "") {
 

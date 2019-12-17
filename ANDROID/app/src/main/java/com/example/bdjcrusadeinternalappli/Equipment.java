@@ -6,6 +6,7 @@ public class Equipment {
 
     protected int idEquipment;
     private String name;
+    private String className;
     private String status;
     private Date dateRecup;
     private String state;
@@ -14,12 +15,29 @@ public class Equipment {
     private String ableToBorrow;
 
 
+    public Equipment() {
+    }
+    public Equipment(int _idGame, String _name, String _className, String _status, Date _dateRecup, String _state, String _origin, String _cfDoc, String _ableToBorrow) {
+
+        idEquipment = _idGame;
+        name = _name;
+        className = _className;
+        status = _status;
+        dateRecup = _dateRecup;
+        state = _state;
+        origin = _origin;
+        cfDoc = _cfDoc;
+        ableToBorrow = _ableToBorrow;
+    }
+
+
     public int getIdEquipment() {
         return idEquipment;
     }
     public String getName() {
         return name;
     }
+    public String getClassName() { return className; }
     public String getState() {
         return state;
     }
@@ -36,6 +54,7 @@ public class Equipment {
     public void setName(String name) {
         this.name = name;
     }
+    public void setClassName(String className) { this.className = className; }
     public void setState(String state) {
         this.state = state;
     }
@@ -58,5 +77,10 @@ public class Equipment {
                     "\"dateRecup\" : " + getDateRecup().getTime() + "," +
                     "\"status\" : \"" + getStatus() + "\"" +
                 "}";
+    }
+
+    public Equipment extarct() {
+
+        return Equipment.this;
     }
 }
