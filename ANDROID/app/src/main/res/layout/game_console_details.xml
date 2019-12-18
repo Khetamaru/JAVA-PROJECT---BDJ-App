@@ -21,6 +21,19 @@
         android:layout_marginRight="8dp"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/otherInfo"
+        android:text="OTHER INFOS"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        android:background="@drawable/border_button"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:padding="15dp"
+        />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +44,7 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintTop_toBottomOf="@id/back"
         app:layout_constraintLeft_toLeftOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/statusBar"
+        app:layout_constraintBottom_toTopOf="@id/nbMaxControllerBar"
         >
 
         <TextView
@@ -60,10 +73,10 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/statusBar"
+        android:id="@+id/nbMaxControllerBar"
         app:layout_constraintTop_toBottomOf="@id/nameBar"
         app:layout_constraintRight_toRightOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/recupDateBar"
+        app:layout_constraintBottom_toTopOf="@id/videoCableBar"
         android:orientation="vertical"
         android:background="@drawable/border"
         android:padding="15dp"
@@ -73,7 +86,7 @@
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="STATUS"
+            android:text="NB MAX CONTROLLER"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -81,7 +94,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/status"
+            android:id="@+id/nbMaxController"
             android:text="décomposé"
             android:textSize="20dp"
             />
@@ -96,10 +109,10 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/recupDateBar"
-        app:layout_constraintTop_toBottomOf="@id/statusBar"
+        android:id="@+id/videoCableBar"
+        app:layout_constraintTop_toBottomOf="@id/nbMaxControllerBar"
         app:layout_constraintLeft_toLeftOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/stateBar"
+        app:layout_constraintBottom_toTopOf="@id/powerCableBar"
         android:orientation="vertical"
         android:background="@drawable/border"
         android:padding="15dp"
@@ -114,7 +127,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RECUP DATE"
+            android:text="VIDEO CABLE"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -122,7 +135,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/recupDate"
+            android:id="@+id/videoCable"
             android:text="tomorrow"
             android:textSize="20dp"
             />
@@ -132,10 +145,10 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/stateBar"
-        app:layout_constraintTop_toBottomOf="@id/recupDateBar"
+        android:id="@+id/powerCableBar"
+        app:layout_constraintTop_toBottomOf="@id/videoCableBar"
         app:layout_constraintRight_toRightOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/originBar"
+        app:layout_constraintBottom_toTopOf="@id/realiseDateBar"
         android:orientation="vertical"
         android:background="@drawable/border"
         android:padding="15dp"
@@ -145,7 +158,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STATE"
+            android:text="POWER CABLE"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -153,7 +166,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/state"
+            android:id="@+id/powerCable"
             android:text="RAS"
             android:textSize="20dp"
             />
@@ -168,10 +181,10 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/originBar"
-        app:layout_constraintTop_toBottomOf="@id/stateBar"
+        android:id="@+id/realiseDateBar"
+        app:layout_constraintTop_toBottomOf="@id/powerCableBar"
         app:layout_constraintLeft_toLeftOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/cfDocBar"
+        app:layout_constraintBottom_toTopOf="@id/editorBar"
         android:orientation="vertical"
         android:background="@drawable/border"
         android:padding="15dp"
@@ -186,7 +199,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ORIGIN"
+            android:text="REALISE DATE"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -194,7 +207,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/origin"
+            android:id="@+id/realiseDate"
             android:text="my ass"
             android:textSize="20dp"
             />
@@ -204,49 +217,13 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/cfDocBar"
-        app:layout_constraintTop_toBottomOf="@id/originBar"
+        android:id="@+id/editorBar"
         app:layout_constraintRight_toRightOf="@id/parent"
-        app:layout_constraintBottom_toTopOf="@id/ableToBorrowBar"
-        android:orientation="vertical"
-        android:background="@drawable/border"
-        android:padding="15dp"
-        android:layout_marginRight="8dp"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CF DOC"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cfDoc"
-            android:text="rm rf *"
-            android:textSize="20dp"
-            />
-
-        <TextView
-            android:layout_width="20px"
-            android:layout_height="20px"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ableToBorrowBar"
-        app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintBottom_toBottomOf="@id/parent"
         android:orientation="vertical"
         android:background="@drawable/border"
         android:padding="15dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         >
 
@@ -258,7 +235,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ABLE TO BORROW"
+            android:text="EDITOR"
             android:textStyle="bold"
             android:textSize="20dp"
             />
@@ -266,11 +243,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ableToBorrow"
-            android:text="RAS"
+            android:id="@+id/editor"
+            android:text="my ass"
             android:textSize="20dp"
             />
 
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

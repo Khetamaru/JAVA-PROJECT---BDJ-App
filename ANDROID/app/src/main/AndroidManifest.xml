@@ -75,6 +75,39 @@
         <activity android:name="kotlinClass.ChangePasswordPage">
         </activity>
 
+        <activity android:name="kotlinClass.EquipmentSelectTypeMenu">
+        </activity>
+
+        <activity android:name="kotlinClass.BoardGameView">
+        </activity>
+
+        <activity android:name="kotlinClass.GameConsoleView">
+        </activity>
+
+        <activity android:name="kotlinClass.HardwareView">
+        </activity>
+
+        <activity android:name="kotlinClass.OtherView">
+        </activity>
+
+        <activity android:name="kotlinClass.VideoGameView">
+        </activity>
+
+        <activity android:name="kotlinClass.BoardGameDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.GameConsoleDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.HardwareDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.OtherDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.VideoGameDetail">
+        </activity>
+
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 
 import kotlinClass.AdminMenu;
+import kotlinClass.EquipmentSelectTypeMenu;
 import kotlinClass.PersonnalPage;
 import kotlinClass.RequestService;
 import kotlinClass.RooterService;
@@ -241,7 +242,7 @@ public class MainPage extends Activity {
 
     protected void goToInventory(View v) {
 
-        rooterService.changeActivity(new Intent(v.getContext(), EquipmentView.class), MainPage.this, user.idUser);
+        rooterService.changeActivity(new Intent(v.getContext(), EquipmentSelectTypeMenu.class), MainPage.this, user.idUser);
     }
 
     protected void goToLoaning(View v) {
