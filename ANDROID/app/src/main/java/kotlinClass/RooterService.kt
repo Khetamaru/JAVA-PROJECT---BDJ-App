@@ -26,6 +26,13 @@ class RooterService {
         startActivity(context, intent, Bundle())
     }
 
+    fun changeActivity(intent : Intent, context: Context, idUser : Int, extraString : String, extraName : String) {
+
+        intent.putExtra("idUser", idUser)
+        intent.putExtra(extraName, extraString)
+        startActivity(context, intent, Bundle())
+    }
+
     fun changeActivity(intent : Intent, context: Context, idUser : Int, extraId : Int, extraName : String, extraIdTwo : String, extraNameTwo : String) {
 
         intent.putExtra("idUser", idUser)

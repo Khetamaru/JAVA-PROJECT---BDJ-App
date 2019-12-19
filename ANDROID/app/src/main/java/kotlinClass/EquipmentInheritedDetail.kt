@@ -6,23 +6,62 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import com.example.bdjcrusadeinternalappli.BoardGame
-import com.example.bdjcrusadeinternalappli.EquipmentDetail
-import com.example.bdjcrusadeinternalappli.R
+import com.example.bdjcrusadeinternalappli.*
 import com.example.bdjcrusadeinternalappli.R.id
-import com.example.bdjcrusadeinternalappli.User
 import com.fasterxml.jackson.databind.ObjectMapper
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
 import java.io.IOException
 
-class BoardGameDetail : Activity() {
+class EquipmentInheritedDetail : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var user: User
+        var back: Button
+        var fullInfo: Button
+
+        val context = this
+        var intent = intent
+        val intentUser = intent.getIntExtra("idUser", 0)
+        val intentEquipment = intent.getIntExtra("idEquipment", 0)
+        val intentType = intent.getStringExtra("type")
+        val mapper: ObjectMapper = ObjectMapper()
+        var rooterService = RooterService()
+        var requestService = RequestService()
+
+        setContentView(R.layout.loading_page)
+
+        when (intentType) {
+
+            "boardGame" -> boardGameType(requestService, rooterService, mapper, context, intentUser)
+
+            "videoGame" -> videoGameType(requestService, rooterService, mapper, context, intentUser)
+
+            "gameConsole" -> gameConsoleType(requestService, rooterService, mapper, context, intentUser)
+
+            "hardware" -> hardwareType(requestService, rooterService, mapper, context, intentUser)
+
+            else -> otherType(requestService, rooterService, mapper, context, intentUser)
+        }
+
+        back = findViewById(id.back)
+        fullInfo = findViewById(id.otherInfo)
+
+        back.setOnClickListener(View.OnClickListener {
+
+            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, intentType, "type")
+        })
+
+        fullInfo.setOnClickListener(View.OnClickListener {
+
+            rooterService.changeActivity(Intent(context, EquipmentDetail::class.java), context, intentUser, intentEquipment, "idEquipment", "BoardGame", "context")
+        })
+    }
+
+    private fun BoardGameType() {
+
         var boardGame: BoardGame
 
         var nameTextView: TextView
@@ -31,24 +70,11 @@ class BoardGameDetail : Activity() {
         var realiseDateTextView: TextView
         var editorTextView: TextView
 
-        var back: Button
-        var fullInfo: Button
-
-        val context = this
-        var intent = intent
-        val intentUser = intent.getIntExtra("idUser", 0)
-        val intentBoardGame = intent.getIntExtra("idEquipment", 0)
-        val mapper: ObjectMapper = ObjectMapper()
-        var rooterService = RooterService()
-        var requestService = RequestService()
-
-        setContentView(R.layout.loading_page)
-
         requestService.requestBuilderGet("boardGame", intentBoardGame)
-                .enqueue(object : Callback {
+        .enqueue(object : Callback {
 
             override fun onFailure(call: Call, e: IOException) {
-                Toast.makeText(this@BoardGameDetail, "Conversation with server fail", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@EquipmentInheritedDetail, "Conversation with server fail", Toast.LENGTH_LONG).show()
             }
 
             @Throws(IOException::class)
@@ -66,9 +92,6 @@ class BoardGameDetail : Activity() {
                     realiseDateTextView = findViewById(id.realiseDate)
                     editorTextView = findViewById(id.editor)
 
-                    back = findViewById(id.back)
-                    fullInfo = findViewById(id.otherInfo)
-
                     nameTextView.text = boardGame.name
                     typeTextView.text = boardGame.type
                     nbMaxPlayerTextView.text = boardGame.nbMaxPlayer.toString()
@@ -77,18 +100,28 @@ class BoardGameDetail : Activity() {
 
                     realiseDateTextView.text = date[2] + " " + date[1] + " " + date[5]
                     editorTextView.text = boardGame.editor
-
-                    back.setOnClickListener(View.OnClickListener {
-
-                        rooterService.changeActivity(Intent(context, BoardGameView::class.java), context, intentUser)
-                    })
-
-                    fullInfo.setOnClickListener(View.OnClickListener {
-
-                        rooterService.changeActivity(Intent(context, EquipmentDetail::class.java), context, intentUser, boardGame.idEquipment, "idEquipment", "BoardGame", "context")
-                    })
                 }
             }
         })
+    }
+
+    private fun GameConsoleType() {
+
+
+    }
+
+    private fun VideoGameType() {
+
+
+    }
+
+    private fun HardwareType() {
+
+
+    }
+
+    private fun OtherType() {
+
+
     }
 }

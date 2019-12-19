@@ -7,8 +7,6 @@ import android.view.View
 import android.widget.Button
 import com.example.bdjcrusadeinternalappli.MainPage
 import com.example.bdjcrusadeinternalappli.R.*
-import com.fasterxml.jackson.databind.ObjectMapper
-import okhttp3.OkHttpClient
 
 class EquipmentSelectTypeMenu : Activity() {
 
@@ -40,27 +38,27 @@ class EquipmentSelectTypeMenu : Activity() {
 
         hardware.setOnClickListener(View.OnClickListener {
 
-            rooterService.changeActivity(Intent(context, HardwareView::class.java), context, intentUser)
+            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, "hardware", "type")
         })
 
         videoGame.setOnClickListener(View.OnClickListener {
 
-            rooterService.changeActivity(Intent(context, VideoGameView::class.java), context, intentUser)
+            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, "hardware", "type")
         })
 
         gameConsole.setOnClickListener(View.OnClickListener {
 
-            rooterService.changeActivity(Intent(context, GameConsoleView::class.java), context, intentUser)
+            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, "hardware", "type")
         })
 
         boardGame.setOnClickListener(View.OnClickListener {
 
-            rooterService.changeActivity(Intent(context, BoardGameView::class.java), context, intentUser)
+            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, "hardware", "type")
         })
 
         other.setOnClickListener(View.OnClickListener {
 
-            rooterService.changeActivity(Intent(context, OtherView::class.java), context, intentUser)
+            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, "hardware", "type")
         })
 
         back.setOnClickListener(View.OnClickListener {
