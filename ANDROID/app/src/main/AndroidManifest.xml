@@ -78,34 +78,16 @@
         <activity android:name="kotlinClass.EquipmentSelectTypeMenu">
         </activity>
 
-        <activity android:name="kotlinClass.BoardGameView">
+        <activity android:name="kotlinClass.EquipmentInheritedView">
         </activity>
 
-        <activity android:name="kotlinClass.GameConsoleView">
+        <activity android:name="kotlinClass.EquipmentInheritedDetail">
         </activity>
 
-        <activity android:name="kotlinClass.HardwareView">
+        <activity android:name="kotlinClass.VideoGameConsoleDetail">
         </activity>
 
-        <activity android:name="kotlinClass.OtherView">
-        </activity>
-
-        <activity android:name="kotlinClass.VideoGameView">
-        </activity>
-
-        <activity android:name="kotlinClass.BoardGameDetail">
-        </activity>
-
-        <activity android:name="kotlinClass.GameConsoleDetail">
-        </activity>
-
-        <activity android:name="kotlinClass.HardwareDetail">
-        </activity>
-
-        <activity android:name="kotlinClass.OtherDetail">
-        </activity>
-
-        <activity android:name="kotlinClass.VideoGameDetail">
+        <activity android:name="kotlinClass.EquipmentFullInfoDetail">
         </activity>
 
     </application>

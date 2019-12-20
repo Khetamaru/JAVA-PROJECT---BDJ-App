@@ -35,15 +35,15 @@ class EquipmentInheritedDetail : Activity() {
 
         when (intentType) {
 
-            "boardGame" -> boardGameType(requestService, rooterService, mapper, context, intentUser)
+            "boardGame" -> boardGameType(requestService, intentEquipment, mapper)
 
-            "videoGame" -> videoGameType(requestService, rooterService, mapper, context, intentUser)
+            "videoGame" -> videoGameType(requestService, intentEquipment, mapper, rooterService, context, intentUser, intentType)
 
-            "gameConsole" -> gameConsoleType(requestService, rooterService, mapper, context, intentUser)
+            "gameConsole" -> gameConsoleType(requestService, intentEquipment, mapper)
 
-            "hardware" -> hardwareType(requestService, rooterService, mapper, context, intentUser)
+            "hardware" -> hardwareType(requestService, intentEquipment, mapper)
 
-            else -> otherType(requestService, rooterService, mapper, context, intentUser)
+            else -> otherType(requestService, intentEquipment, mapper)
         }
 
         back = findViewById(id.back)
@@ -56,11 +56,11 @@ class EquipmentInheritedDetail : Activity() {
 
         fullInfo.setOnClickListener(View.OnClickListener {
 
-            rooterService.changeActivity(Intent(context, EquipmentDetail::class.java), context, intentUser, intentEquipment, "idEquipment", "BoardGame", "context")
+            rooterService.changeActivity(Intent(context, EquipmentFullInfoDetail::class.java), context, intentUser, intentEquipment, "idEquipment", intentType, "context")
         })
     }
 
-    private fun BoardGameType() {
+    private fun boardGameType(requestService: RequestService, intentEquipment: Int, mapper: ObjectMapper) {
 
         var boardGame: BoardGame
 
@@ -70,7 +70,7 @@ class EquipmentInheritedDetail : Activity() {
         var realiseDateTextView: TextView
         var editorTextView: TextView
 
-        requestService.requestBuilderGet("boardGame", intentBoardGame)
+        requestService.requestBuilderGet("boardGame", intentEquipment)
         .enqueue(object : Callback {
 
             override fun onFailure(call: Call, e: IOException) {
@@ -105,23 +105,182 @@ class EquipmentInheritedDetail : Activity() {
         })
     }
 
-    private fun GameConsoleType() {
+    private fun gameConsoleType(requestService: RequestService, intentEquipment: Int, mapper: ObjectMapper) {
 
+        var gameConsole: GameConsole
 
+        var nameTextView: TextView
+        var nbMaxControllerTextView: TextView
+        var videoCableTextView: TextView
+        var powerCableTextView: TextView
+        var realiseDateTextView: TextView
+        var editorTextView: TextView
+
+        requestService.requestBuilderGet("gameConsole", intentEquipment)
+        .enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {
+                Toast.makeText(this@EquipmentInheritedDetail, "Conversation with server fail", Toast.LENGTH_LONG).show()
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+
+                gameConsole = mapper.readValue(response.body!!.string(), GameConsole::class.java)
+
+                runOnUiThread {
+
+                    setContentView(R.layout.game_console_details)
+
+                    nameTextView = findViewById(id.name)
+                    nbMaxControllerTextView = findViewById(id.nbMaxController)
+                    videoCableTextView = findViewById(id.videoCable)
+                    powerCableTextView = findViewById(id.powerCable)
+                    realiseDateTextView = findViewById(id.realiseDate)
+                    editorTextView = findViewById(id.editor)
+
+                    nameTextView.text = gameConsole.name
+                    nbMaxControllerTextView.text = gameConsole.nbMaxController.toString()
+                    videoCableTextView.text = gameConsole.videoCable
+                    powerCableTextView.text = gameConsole.powerCable
+
+                    var date = gameConsole.realiseDate.toString().split(" ")
+
+                    realiseDateTextView.text = date[2] + " " + date[1] + " " + date[5]
+                    editorTextView.text = gameConsole.editor
+                }
+            }
+        })
     }
 
-    private fun VideoGameType() {
+    private fun videoGameType(requestService: RequestService, intentEquipment: Int, mapper: ObjectMapper, rooterService: RooterService, context: Context, intentUser: Int, intentType: String) {
 
+        var videoGame: VideoGame
 
+        var nameTextView: TextView
+        var gameConsoleButton: Button
+        var nbMaxPlayerTextView: TextView
+        var lanTextView: TextView
+        var realiseDateTextView: TextView
+        var editorTextView: TextView
+
+        requestService.requestBuilderGet("videoGame", intentEquipment)
+        .enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {
+                Toast.makeText(this@EquipmentInheritedDetail, "Conversation with server fail", Toast.LENGTH_LONG).show()
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+
+                videoGame = mapper.readValue(response.body!!.string(), VideoGame::class.java)
+
+                runOnUiThread {
+
+                    setContentView(R.layout.video_game_details)
+
+                    nameTextView = findViewById(id.name)
+                    gameConsoleButton = findViewById(id.gameConsole)
+                    nbMaxPlayerTextView = findViewById(id.nbMaxPlayer)
+                    lanTextView = findViewById(id.lan)
+                    realiseDateTextView = findViewById(id.realiseDate)
+                    editorTextView = findViewById(id.editor)
+
+                    nameTextView.text = videoGame.name
+
+                    gameConsoleButton.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, VideoGameConsoleDetail::class.java), context, intentUser, intentEquipment, "idEquipment", intentType, "type")
+                    })
+
+                    nbMaxPlayerTextView.text = videoGame.nbMaxPlayer.toString()
+                    lanTextView.text = videoGame.lan
+
+                    var date = videoGame.realiseDate.toString().split(" ")
+
+                    realiseDateTextView.text = date[2] + " " + date[1] + " " + date[5]
+                    editorTextView.text = videoGame.editor
+                }
+            }
+        })
     }
 
-    private fun HardwareType() {
+    private fun hardwareType(requestService: RequestService, intentEquipment: Int, mapper: ObjectMapper) {
 
+        var hardware: Hardware
 
+        var nameTextView: TextView
+        var CPUTextView: TextView
+        var RAMTextView: TextView
+        var HDDTextView: TextView
+        var GPUTextView: TextView
+        var OSTextView: TextView
+
+        requestService.requestBuilderGet("hardware", intentEquipment)
+        .enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {
+                Toast.makeText(this@EquipmentInheritedDetail, "Conversation with server fail", Toast.LENGTH_LONG).show()
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+
+                hardware = mapper.readValue(response.body!!.string(), Hardware::class.java)
+
+                runOnUiThread {
+
+                    setContentView(R.layout.hardware_details)
+
+                    nameTextView = findViewById(id.name)
+                    CPUTextView = findViewById(id.CPU)
+                    RAMTextView = findViewById(id.RAM)
+                    HDDTextView = findViewById(id.HDD)
+                    GPUTextView = findViewById(id.GPU)
+                    OSTextView = findViewById(id.OS)
+
+                    nameTextView.text = hardware.name
+                    CPUTextView.text = hardware.cpu
+                    RAMTextView.text = hardware.ram
+                    HDDTextView.text = hardware.hdd
+                    GPUTextView.text = hardware.gpu
+                    OSTextView.text = hardware.os
+                }
+            }
+        })
     }
 
-    private fun OtherType() {
+    private fun otherType(requestService: RequestService, intentEquipment: Int, mapper: ObjectMapper) {
 
+        var other: Other
 
+        var nameTextView: TextView
+        var typeTextView: TextView
+
+        requestService.requestBuilderGet("other", intentEquipment)
+        .enqueue(object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {
+                Toast.makeText(this@EquipmentInheritedDetail, "Conversation with server fail", Toast.LENGTH_LONG).show()
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+
+                other = mapper.readValue(response.body!!.string(), Other::class.java)
+
+                runOnUiThread {
+
+                    setContentView(R.layout.other_details)
+
+                    nameTextView = findViewById(id.name)
+                    typeTextView = findViewById(id.type)
+
+                    nameTextView.text = other.name
+                    typeTextView.text = other.type
+                }
+            }
+        })
     }
 }
