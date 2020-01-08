@@ -25,8 +25,6 @@ class EquipmentInheritedView : Activity() {
         var rooterService = RooterService()
         var requestService = RequestService()
 
-        var back: Button
-
         setContentView(R.layout.loading_page)
 
         when (intentType) {
@@ -41,12 +39,6 @@ class EquipmentInheritedView : Activity() {
 
             else -> otherType(requestService, rooterService, mapper, context, intentUser)
         }
-
-        back = findViewById(id.back)
-        back.setOnClickListener(View.OnClickListener {
-
-            rooterService.changeActivity(Intent(context, EquipmentSelectTypeMenu::class.java), context, intentUser)
-        })
     }
 
     private fun boardGameType(requestService: RequestService, rooterService: RooterService, mapper: ObjectMapper, context: Context, intentUser: Int) {
@@ -54,6 +46,8 @@ class EquipmentInheritedView : Activity() {
         var boardGames: Array<BoardGame>
         var arrayList: ArrayList<BoardGame> = ArrayList()
         var listView : ListView
+
+        var back: Button
 
         requestService.requestBuilderGet("boardGame")
         .enqueue(object : Callback {
@@ -81,6 +75,12 @@ class EquipmentInheritedView : Activity() {
                         val boardGame = listView.getItemAtPosition(position) as BoardGame
                         rooterService.changeActivity(Intent(v.context, EquipmentInheritedDetail::class.java), context, intentUser, boardGame.idEquipment, "idEquipment", "boardGame", "type")
                     }
+
+                    back = findViewById(id.back)
+                    back.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentSelectTypeMenu::class.java), context, intentUser)
+                    })
                 }
             }
         })
@@ -91,6 +91,8 @@ class EquipmentInheritedView : Activity() {
         var videoGames: Array<VideoGame>
         var arrayList: ArrayList<VideoGame> = ArrayList()
         var listView : ListView
+
+        var back: Button
 
         requestService.requestBuilderGet("videoGame")
         .enqueue(object : Callback {
@@ -118,6 +120,12 @@ class EquipmentInheritedView : Activity() {
                         val videoGame = listView.getItemAtPosition(position) as VideoGame
                         rooterService.changeActivity(Intent(v.context,EquipmentInheritedDetail::class.java), context, intentUser, videoGame.idEquipment, "idEquipment", "videoGame", "type")
                     }
+
+                    back = findViewById(id.back)
+                    back.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentSelectTypeMenu::class.java), context, intentUser)
+                    })
                 }
             }
         })
@@ -128,6 +136,8 @@ class EquipmentInheritedView : Activity() {
         var gameConsoles: Array<GameConsole>
         var arrayList: ArrayList<GameConsole> = ArrayList()
         var listView : ListView
+
+        var back: Button
 
         requestService.requestBuilderGet("gameConsole")
         .enqueue(object : Callback {
@@ -155,6 +165,12 @@ class EquipmentInheritedView : Activity() {
                         val gameConsole = listView.getItemAtPosition(position) as GameConsole
                         rooterService.changeActivity(Intent(v.context, EquipmentInheritedDetail::class.java), context, intentUser, gameConsole.idEquipment, "idEquipment", "gameConsole", "type")
                     }
+
+                    back = findViewById(id.back)
+                    back.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentSelectTypeMenu::class.java), context, intentUser)
+                    })
                 }
             }
         })
@@ -165,6 +181,8 @@ class EquipmentInheritedView : Activity() {
         var hardwares: Array<Hardware>
         var arrayList: ArrayList<Hardware> = ArrayList()
         var listView : ListView
+
+        var back: Button
 
         requestService.requestBuilderGet("hardware")
         .enqueue(object : Callback {
@@ -192,6 +210,12 @@ class EquipmentInheritedView : Activity() {
                         val hardware = listView.getItemAtPosition(position) as Hardware
                         rooterService.changeActivity(Intent(v.context, EquipmentInheritedDetail::class.java), context, intentUser, hardware.idEquipment, "idEquipment", "hardware", "type")
                     }
+
+                    back = findViewById(id.back)
+                    back.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentSelectTypeMenu::class.java), context, intentUser)
+                    })
                 }
             }
         })
@@ -202,6 +226,8 @@ class EquipmentInheritedView : Activity() {
         var others: Array<Other>
         var arrayList: ArrayList<Other> = ArrayList()
         var listView : ListView
+
+        var back: Button
 
         requestService.requestBuilderGet("other")
         .enqueue(object : Callback {
@@ -229,6 +255,12 @@ class EquipmentInheritedView : Activity() {
                         val other = listView.getItemAtPosition(position) as Other
                         rooterService.changeActivity(Intent(v.context, EquipmentInheritedDetail::class.java), context, intentUser, other.idEquipment, "idEquipment", "other", "type")
                     }
+
+                    back = findViewById(id.back)
+                    back.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentSelectTypeMenu::class.java), context, intentUser)
+                    })
                 }
             }
         })

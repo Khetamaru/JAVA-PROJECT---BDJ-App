@@ -50,8 +50,8 @@ public class MainPage extends Activity {
 
     User user;
 
-    RequestService requestService;
-    RooterService rooterService;
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

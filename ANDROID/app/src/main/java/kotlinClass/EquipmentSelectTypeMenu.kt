@@ -43,22 +43,22 @@ class EquipmentSelectTypeMenu : Activity() {
 
         videoGame.setOnClickListener(View.OnClickListener {
 
-            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, "hardware", "type")
+            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, "videoGame", "type")
         })
 
         gameConsole.setOnClickListener(View.OnClickListener {
 
-            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, "hardware", "type")
+            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, "gameConsole", "type")
         })
 
         boardGame.setOnClickListener(View.OnClickListener {
 
-            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, "hardware", "type")
+            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, "boardGame", "type")
         })
 
         other.setOnClickListener(View.OnClickListener {
 
-            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, "hardware", "type")
+            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, "other", "type")
         })
 
         back.setOnClickListener(View.OnClickListener {

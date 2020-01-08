@@ -7,12 +7,15 @@ import android.view.View;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kotlinClass.RequestService;
 import kotlinClass.RooterService;
 
 public class levelUpView extends Activity {
 
     ObjectMapper mapper;
-    RooterService rooterService;
+
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

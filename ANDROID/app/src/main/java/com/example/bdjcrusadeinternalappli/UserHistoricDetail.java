@@ -33,13 +33,12 @@ public class UserHistoricDetail extends Activity {
     TextView level;
     TextView mail;
     TextView login;
-    TextView password;
     TextView date;
 
     Button back;
 
-    RequestService requestService;
-    RooterService rooterService;
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +79,6 @@ public class UserHistoricDetail extends Activity {
 
                         login = findViewById(R.id.login);
                         login.setText(userHistoric.getLogin());
-
-                        password = findViewById(R.id.password);
-                        password.setText(userHistoric.getPassword());
 
                         date = findViewById(R.id.date);
                         String[] dateTab = userHistoric.getDate().toString().split(" ");

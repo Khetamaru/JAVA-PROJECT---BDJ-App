@@ -38,8 +38,8 @@ public class LoaningAddEquipment extends Activity {
 
     Button back;
 
-    RequestService requestService;
-    RooterService rooterService;
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -9,6 +9,7 @@ import android.widget.*
 import com.example.bdjcrusadeinternalappli.*
 import com.example.bdjcrusadeinternalappli.R.id
 import com.fasterxml.jackson.databind.ObjectMapper
+import kotlinx.android.synthetic.main.select_equipment_type_view.*
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -19,6 +20,7 @@ class VideoGameConsoleDetail : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        var videoGame: VideoGame
         var gameConsole: GameConsole
 
         var nameTextView: TextView
@@ -41,7 +43,7 @@ class VideoGameConsoleDetail : Activity() {
 
         setContentView(R.layout.loading_page)
 
-        requestService.requestBuilderGet("gameConsole", intentEquipment)
+        requestService.requestBuilderGet("equipment", intentEquipment)
         .enqueue(object : Callback {
 
             override fun onFailure(call: Call, e: IOException) {
@@ -51,7 +53,8 @@ class VideoGameConsoleDetail : Activity() {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
 
-                gameConsole = mapper.readValue(response.body!!.string(), GameConsole::class.java)
+                videoGame = mapper.readValue(response.body!!.string(), VideoGame::class.java)
+                gameConsole = videoGame.gameConsole
 
                 runOnUiThread {
 

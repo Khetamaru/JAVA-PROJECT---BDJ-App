@@ -56,33 +56,36 @@ class EquipmentFullInfoDetail : Activity() {
 
                 equipment = switchType(intentType, response.body, mapper)
 
-                setContentView(R.layout.equipment_details)
+                runOnUiThread {
 
-                nameTextView = findViewById(R.id.name)
-                statusTextView = findViewById(R.id.status)
-                recupDateTextView = findViewById(R.id.recupDate)
-                stateTextView = findViewById(R.id.state)
-                originTextView = findViewById(R.id.origin)
-                cfdocTextView = findViewById(R.id.cfDoc)
-                ableToBorrowTextView = findViewById(R.id.ableToBorrow)
+                    setContentView(R.layout.equipment_details)
 
-                back = findViewById(R.id.back)
+                    nameTextView = findViewById(R.id.name)
+                    statusTextView = findViewById(R.id.status)
+                    recupDateTextView = findViewById(R.id.recupDate)
+                    stateTextView = findViewById(R.id.state)
+                    originTextView = findViewById(R.id.origin)
+                    cfdocTextView = findViewById(R.id.cfDoc)
+                    ableToBorrowTextView = findViewById(R.id.ableToBorrow)
 
-                nameTextView.text = equipment.name
-                statusTextView.text = equipment.status
+                    back = findViewById(R.id.back)
 
-                var date = equipment.dateRecup.toString().split(" ")
-                recupDateTextView.text = date[2] + " " + date[1] + " " + date[5]
+                    nameTextView.text = equipment.name
+                    statusTextView.text = equipment.status
 
-                stateTextView.text = equipment.state
-                originTextView.text = equipment.origin
-                cfdocTextView.text = equipment.cfDoc
-                ableToBorrowTextView.text = equipment.ableToBorrow
+                    var date = equipment.dateRecup.toString().split(" ")
+                    recupDateTextView.text = date[2] + " " + date[1] + " " + date[5]
 
-                back.setOnClickListener(View.OnClickListener {
+                    stateTextView.text = equipment.state
+                    originTextView.text = equipment.origin
+                    cfdocTextView.text = equipment.cfDoc
+                    ableToBorrowTextView.text = equipment.ableToBorrow
 
-                    rooterService.changeActivity(Intent(context, EquipmentInheritedDetail::class.java), context, intentUser, intentEquipment, "idEquipment", intentType, "type")
-                })
+                    back.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentInheritedDetail::class.java), context, intentUser, intentEquipment, "idEquipment", intentType, "type")
+                    })
+                }
             }
         })
     }

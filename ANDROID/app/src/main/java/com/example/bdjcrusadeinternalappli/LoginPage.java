@@ -35,8 +35,8 @@ public class LoginPage extends Activity {
 
     String stringRequest;
 
-    RequestService requestService;
-    RooterService rooterService;
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,12 @@ public class LoginPage extends Activity {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                        Toast.makeText(LoginPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LoginPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
 
                     @Override

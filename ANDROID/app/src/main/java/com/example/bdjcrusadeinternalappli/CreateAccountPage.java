@@ -36,8 +36,8 @@ public class CreateAccountPage extends Activity {
 
     ObjectMapper mapper;
 
-    RequestService requestService;
-    RooterService rooterService;
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

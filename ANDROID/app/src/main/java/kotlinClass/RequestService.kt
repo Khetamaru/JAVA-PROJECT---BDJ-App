@@ -10,7 +10,7 @@ class RequestService() {
 
     val client : OkHttpClient = OkHttpClient()
     val requestType = "http"
-    val address = "192.168.43.110"
+    val address = "192.168.43.89"
     val port = "8080"
 
     fun requestBuilderGet(controller : String, id : Int) : Call {

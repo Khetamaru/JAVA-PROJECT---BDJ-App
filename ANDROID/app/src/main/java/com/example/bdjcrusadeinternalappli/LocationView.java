@@ -38,8 +38,8 @@ public class LocationView extends Activity {
     Button add;
     Button back;
 
-    RequestService requestService;
-    RooterService rooterService;
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +69,9 @@ public class LocationView extends Activity {
 
                         setContentView(R.layout.location_view);
 
-                        String url;
-
                         if (user.getLevel().equals("admin") || user.getLevel().equals("bdjMember")) {
+
+                            setContentView(R.layout.location_view_all);
 
                             add = findViewById(R.id.fullLocation);
                             add.setOnClickListener(new View.OnClickListener() {

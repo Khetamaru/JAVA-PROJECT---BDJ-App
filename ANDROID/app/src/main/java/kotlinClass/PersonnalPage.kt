@@ -56,7 +56,7 @@ class PersonnalPage : Activity() {
                     back = findViewById(id.back)
                     back.setOnClickListener(View.OnClickListener {
 
-                        rooterService.changeActivity(Intent(context, MainPage::class.java), context)
+                        rooterService.changeActivity(Intent(context, MainPage::class.java), context, intentUser  )
                     })
 
                     changePassword = findViewById(id.changePassword)

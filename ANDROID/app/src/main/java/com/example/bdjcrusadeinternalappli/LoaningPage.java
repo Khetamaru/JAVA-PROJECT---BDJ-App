@@ -40,8 +40,8 @@ public class LoaningPage extends Activity {
     Button back;
     Button add;
 
-    RequestService requestService;
-    RooterService rooterService;
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

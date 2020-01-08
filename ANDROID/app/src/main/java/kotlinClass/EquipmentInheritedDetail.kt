@@ -19,9 +19,6 @@ class EquipmentInheritedDetail : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var back: Button
-        var fullInfo: Button
-
         val context = this
         var intent = intent
         val intentUser = intent.getIntExtra("idUser", 0)
@@ -35,32 +32,19 @@ class EquipmentInheritedDetail : Activity() {
 
         when (intentType) {
 
-            "boardGame" -> boardGameType(requestService, intentEquipment, mapper)
+            "boardGame" -> boardGameType(requestService, intentEquipment, mapper, rooterService, context, intentUser, intentType)
 
             "videoGame" -> videoGameType(requestService, intentEquipment, mapper, rooterService, context, intentUser, intentType)
 
-            "gameConsole" -> gameConsoleType(requestService, intentEquipment, mapper)
+            "gameConsole" -> gameConsoleType(requestService, intentEquipment, mapper, rooterService, context, intentUser, intentType)
 
-            "hardware" -> hardwareType(requestService, intentEquipment, mapper)
+            "hardware" -> hardwareType(requestService, intentEquipment, mapper, rooterService, context, intentUser, intentType)
 
-            else -> otherType(requestService, intentEquipment, mapper)
+            else -> otherType(requestService, intentEquipment, mapper, rooterService, context, intentUser, intentType)
         }
-
-        back = findViewById(id.back)
-        fullInfo = findViewById(id.otherInfo)
-
-        back.setOnClickListener(View.OnClickListener {
-
-            rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, intentType, "type")
-        })
-
-        fullInfo.setOnClickListener(View.OnClickListener {
-
-            rooterService.changeActivity(Intent(context, EquipmentFullInfoDetail::class.java), context, intentUser, intentEquipment, "idEquipment", intentType, "context")
-        })
     }
 
-    private fun boardGameType(requestService: RequestService, intentEquipment: Int, mapper: ObjectMapper) {
+    private fun boardGameType(requestService: RequestService, intentEquipment: Int, mapper: ObjectMapper, rooterService: RooterService, context: Context, intentUser: Int, intentType: String) {
 
         var boardGame: BoardGame
 
@@ -69,6 +53,9 @@ class EquipmentInheritedDetail : Activity() {
         var nbMaxPlayerTextView: TextView
         var realiseDateTextView: TextView
         var editorTextView: TextView
+
+        var back: Button
+        var fullInfo: Button
 
         requestService.requestBuilderGet("boardGame", intentEquipment)
         .enqueue(object : Callback {
@@ -100,12 +87,25 @@ class EquipmentInheritedDetail : Activity() {
 
                     realiseDateTextView.text = date[2] + " " + date[1] + " " + date[5]
                     editorTextView.text = boardGame.editor
+
+                    back = findViewById(id.back)
+                    fullInfo = findViewById(id.otherInfo)
+
+                    back.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, intentType, "type")
+                    })
+
+                    fullInfo.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentFullInfoDetail::class.java), context, intentUser, intentEquipment, "idEquipment", intentType, "type")
+                    })
                 }
             }
         })
     }
 
-    private fun gameConsoleType(requestService: RequestService, intentEquipment: Int, mapper: ObjectMapper) {
+    private fun gameConsoleType(requestService: RequestService, intentEquipment: Int, mapper: ObjectMapper, rooterService: RooterService, context: Context, intentUser: Int, intentType: String) {
 
         var gameConsole: GameConsole
 
@@ -115,6 +115,9 @@ class EquipmentInheritedDetail : Activity() {
         var powerCableTextView: TextView
         var realiseDateTextView: TextView
         var editorTextView: TextView
+
+        var back: Button
+        var fullInfo: Button
 
         requestService.requestBuilderGet("gameConsole", intentEquipment)
         .enqueue(object : Callback {
@@ -148,6 +151,19 @@ class EquipmentInheritedDetail : Activity() {
 
                     realiseDateTextView.text = date[2] + " " + date[1] + " " + date[5]
                     editorTextView.text = gameConsole.editor
+
+                    back = findViewById(id.back)
+                    fullInfo = findViewById(id.otherInfo)
+
+                    back.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, intentType, "type")
+                    })
+
+                    fullInfo.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentFullInfoDetail::class.java), context, intentUser, intentEquipment, "idEquipment", intentType, "type")
+                    })
                 }
             }
         })
@@ -163,6 +179,9 @@ class EquipmentInheritedDetail : Activity() {
         var lanTextView: TextView
         var realiseDateTextView: TextView
         var editorTextView: TextView
+
+        var back: Button
+        var fullInfo: Button
 
         requestService.requestBuilderGet("videoGame", intentEquipment)
         .enqueue(object : Callback {
@@ -181,7 +200,7 @@ class EquipmentInheritedDetail : Activity() {
                     setContentView(R.layout.video_game_details)
 
                     nameTextView = findViewById(id.name)
-                    gameConsoleButton = findViewById(id.gameConsole)
+                    gameConsoleButton = findViewById(id.gameConsoleBar)
                     nbMaxPlayerTextView = findViewById(id.nbMaxPlayer)
                     lanTextView = findViewById(id.lan)
                     realiseDateTextView = findViewById(id.realiseDate)
@@ -201,12 +220,25 @@ class EquipmentInheritedDetail : Activity() {
 
                     realiseDateTextView.text = date[2] + " " + date[1] + " " + date[5]
                     editorTextView.text = videoGame.editor
+
+                    back = findViewById(id.back)
+                    fullInfo = findViewById(id.otherInfo)
+
+                    back.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, intentType, "type")
+                    })
+
+                    fullInfo.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentFullInfoDetail::class.java), context, intentUser, intentEquipment, "idEquipment", intentType, "type")
+                    })
                 }
             }
         })
     }
 
-    private fun hardwareType(requestService: RequestService, intentEquipment: Int, mapper: ObjectMapper) {
+    private fun hardwareType(requestService: RequestService, intentEquipment: Int, mapper: ObjectMapper, rooterService: RooterService, context: Context, intentUser: Int, intentType: String) {
 
         var hardware: Hardware
 
@@ -216,6 +248,9 @@ class EquipmentInheritedDetail : Activity() {
         var HDDTextView: TextView
         var GPUTextView: TextView
         var OSTextView: TextView
+
+        var back: Button
+        var fullInfo: Button
 
         requestService.requestBuilderGet("hardware", intentEquipment)
         .enqueue(object : Callback {
@@ -246,17 +281,33 @@ class EquipmentInheritedDetail : Activity() {
                     HDDTextView.text = hardware.hdd
                     GPUTextView.text = hardware.gpu
                     OSTextView.text = hardware.os
+
+                    back = findViewById(id.back)
+                    fullInfo = findViewById(id.otherInfo)
+
+                    back.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, intentType, "type")
+                    })
+
+                    fullInfo.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentFullInfoDetail::class.java), context, intentUser, intentEquipment, "idEquipment", intentType, "type")
+                    })
                 }
             }
         })
     }
 
-    private fun otherType(requestService: RequestService, intentEquipment: Int, mapper: ObjectMapper) {
+    private fun otherType(requestService: RequestService, intentEquipment: Int, mapper: ObjectMapper, rooterService: RooterService, context: Context, intentUser: Int, intentType: String) {
 
         var other: Other
 
         var nameTextView: TextView
         var typeTextView: TextView
+
+        var back: Button
+        var fullInfo: Button
 
         requestService.requestBuilderGet("other", intentEquipment)
         .enqueue(object : Callback {
@@ -279,6 +330,19 @@ class EquipmentInheritedDetail : Activity() {
 
                     nameTextView.text = other.name
                     typeTextView.text = other.type
+
+                    back = findViewById(id.back)
+                    fullInfo = findViewById(id.otherInfo)
+
+                    back.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentInheritedView::class.java), context, intentUser, intentType, "type")
+                    })
+
+                    fullInfo.setOnClickListener(View.OnClickListener {
+
+                        rooterService.changeActivity(Intent(context, EquipmentFullInfoDetail::class.java), context, intentUser, intentEquipment, "idEquipment", intentType, "type")
+                    })
                 }
             }
         })
