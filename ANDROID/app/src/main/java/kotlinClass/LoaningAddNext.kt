@@ -131,7 +131,7 @@ class LoaningAddNext : Activity() {
                                     endDate = temp
                                 }
 
-                                val loaning = Loaning(user, equipment, startDate, endDate, "no")
+                                val loaning = Loaning(user, equipment, startDate, endDate, "In Progress")
 
                                 mapper = ObjectMapper()
 

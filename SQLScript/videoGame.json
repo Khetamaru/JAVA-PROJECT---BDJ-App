@@ -10,7 +10,7 @@
         "ableToBorrow" : "yes",
         "gameConsole" : 
         {
-            "idEquipment": 17
+            "idEquipment": 13
         },
         "nbMaxPlayer" : "4",
         "lan" : "no",

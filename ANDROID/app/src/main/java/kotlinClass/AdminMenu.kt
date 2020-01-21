@@ -16,6 +16,8 @@ class AdminMenu : Activity() {
         super.onCreate(savedInstanceState)
 
         var userManaging: Button
+        var equipmentManaging: Button
+        var loaningManaging: Button
 
         var context = this
         var intent = intent
@@ -27,11 +29,24 @@ class AdminMenu : Activity() {
         setContentView(layout.admin_menu)
 
         userManaging = findViewById(id.userManaging)
+        equipmentManaging = findViewById(id.equipmentManaging)
+        loaningManaging = findViewById(id.loaningManaging)
+
         back = findViewById(id.back)
 
         userManaging.setOnClickListener(View.OnClickListener {
 
             rooterService.changeActivity(Intent(context, UserManagingView::class.java), context, intentUser)
+        })
+
+        equipmentManaging.setOnClickListener(View.OnClickListener {
+
+            rooterService.changeActivity(Intent(context, EquipmentManagingSelect::class.java), context, intentUser)
+        })
+
+        loaningManaging.setOnClickListener(View.OnClickListener {
+
+            rooterService.changeActivity(Intent(context, LoaningManagingView::class.java), context, intentUser)
         })
 
         back.setOnClickListener(View.OnClickListener {

@@ -25,6 +25,8 @@ public class UserController {
     LoaningRepository loaningRepository;
     @Autowired
     LocationRepository locationRepository;
+    @Autowired
+    TeamRepository teamRepository;
 
     /////////////////////////////// PUT //////////////////////////////////
 
@@ -144,6 +146,7 @@ public class UserController {
 
         loaningRepository.deleteByUser(user);
         locationRepository.deleteByUser(user);
+        //teamRepository.deleteByUser(user);
 
         userRepository.deleteById(id);
     }

@@ -55,7 +55,7 @@ public class GameConsole extends Equipment {
                 "\"nbMaxController\" : \"" + getNbMaxController() + "\"," +
                 "\"videoCable\" : \"" + getVideoCable() + "\"," +
                 "\"powerCable\" : \"" + getPowerCable() + "\"," +
-                "\"realiseDate\" : \"" + getRealiseDate() + "\"," +
+                "\"realiseDate\" : \"" + getRealiseDate().getTime() + "\"," +
                 "\"editor\" : \"" + getEditor() + "\"" +
                 "}";
     }
@@ -73,8 +73,56 @@ public class GameConsole extends Equipment {
                 "\"nbMaxController\" : \"" + getNbMaxController() + "\"," +
                 "\"videoCable\" : \"" + getVideoCable() + "\"," +
                 "\"powerCable\" : \"" + getPowerCable() + "\"," +
-                "\"realiseDate\" : \"" + getRealiseDate() + "\"," +
+                "\"realiseDate\" : \"" + getRealiseDate().getTime() + "\"," +
                 "\"editor\" : \"" + getEditor() + "\"" +
                 "}";
+    }
+
+    public String allOtherStatesCheck() {
+
+        if (nbMaxControllerCheck()) {
+
+            return "nbMaxController can't be negative";
+        }
+        if(realiseDateCheck()) {
+
+            return "You have to pick a Realise Date";
+        }
+        if(editorCheck()) {
+
+            return "Editor is empty or too long (Max 25)";
+        }
+
+        return "";
+    }
+
+    public boolean nbMaxControllerCheck() {
+
+        if (nbMaxController > 0) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean realiseDateCheck() {
+
+        if(realiseDate != null) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean editorCheck() {
+
+        if(editor != null && editor.length() < 25) {
+
+            return false;
+        }
+
+        return true;
     }
 }

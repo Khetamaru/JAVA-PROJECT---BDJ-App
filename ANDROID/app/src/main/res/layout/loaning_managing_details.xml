@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4b6574"
+    >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/back"
+        android:text="RETURN"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/border_button"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/delete"
+        android:text="DELETE LOAN"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/border_button"
+        android:padding="15dp"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userBar"
+        app:layout_constraintTop_toBottomOf="@id/back"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintBottom_toTopOf="@id/equipmentBar"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginLeft="8dp"
+        >
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="USER"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textUserName"
+            android:text="billy"
+            android:textSize="20dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/equipmentBar"
+        app:layout_constraintTop_toBottomOf="@id/userBar"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintBottom_toTopOf="@id/startDateBar"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginRight="8dp"
+        >
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="EQUIPMENT"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textEquipmentName"
+            android:text="Doom"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startDateBar"
+        app:layout_constraintTop_toBottomOf="@id/equipmentBar"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintBottom_toTopOf="@id/endDateBar"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginLeft="8dp"
+        >
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="START DATE"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startDate"
+            android:text="one day"
+            android:textSize="20dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/endDateBar"
+        app:layout_constraintTop_toBottomOf="@id/startDateBar"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintBottom_toTopOf="@id/validationBar"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginRight="8dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="END DATE"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endDate"
+            android:text="never"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/validationBar"
+        app:layout_constraintTop_toBottomOf="@id/endDateBar"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintBottom_toTopOf="@id/valid"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginLeft="8dp"
+        >
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VALIDATION"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/validation"
+            android:text="one day"
+            android:textSize="20dp"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/valid"
+        android:text="VALID"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/border_button"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintLeft_toRightOf="@+id/refuse"
+        app:layout_constraintBottom_toBottomOf="@id/parent"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/refuse"
+        android:text="REFUSE"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border_button"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="@id/parent"
+        app:layout_constraintRight_toLeftOf="@id/valid"
+        app:layout_constraintLeft_toLeftOf="@+id/parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

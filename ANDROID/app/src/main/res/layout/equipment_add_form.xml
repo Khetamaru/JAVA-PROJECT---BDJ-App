@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4b6574"
+    android:id="@+id/parent"
+    >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/back"
+        android:text="RETURN"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        android:background="@drawable/border_button"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        app:layout_constraintTop_toBottomOf="@id/back"
+        app:layout_constraintBottom_toTopOf="@id/status"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:hint="NAME"
+        android:backgroundTint="@android:color/holo_red_dark"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/status"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintBottom_toTopOf="@id/dateRecup"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:hint="STATUS"
+        android:backgroundTint="@android:color/holo_red_dark"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dateRecup"
+        app:layout_constraintTop_toBottomOf="@id/status"
+        app:layout_constraintBottom_toTopOf="@id/state"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:textSize="18dp"
+        android:hint="RECUPERATION DATE"
+        android:backgroundTint="@android:color/holo_red_dark"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SELECT DATE"
+        android:id="@+id/dateRecupButton"
+        app:layout_constraintTop_toBottomOf="@id/status"
+        app:layout_constraintBottom_toTopOf="@id/state"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:background="@drawable/border_button"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:layout_marginRight="4dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/state"
+        app:layout_constraintTop_toBottomOf="@id/dateRecup"
+        app:layout_constraintBottom_toTopOf="@id/origin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:hint="STATE"
+        android:backgroundTint="@android:color/holo_red_dark"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/origin"
+        app:layout_constraintTop_toBottomOf="@id/state"
+        app:layout_constraintBottom_toTopOf="@id/cfDoc"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:hint="ORIGIN"
+        android:backgroundTint="@android:color/holo_red_dark"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cfDoc"
+        app:layout_constraintTop_toBottomOf="@id/origin"
+        app:layout_constraintBottom_toTopOf="@id/ableToBorrow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:hint="CF DOC"
+        android:backgroundTint="@android:color/holo_red_dark"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ableToBorrowHint"
+        app:layout_constraintTop_toBottomOf="@id/cfDoc"
+        app:layout_constraintBottom_toTopOf="@id/submit"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        android:text="ABLE TO BORROW"
+        android:textSize="18dp"
+        android:layout_marginLeft="8dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ableToBorrow"
+        app:layout_constraintTop_toBottomOf="@id/cfDoc"
+        app:layout_constraintBottom_toTopOf="@id/submit"
+        app:layout_constraintLeft_toRightOf="@id/ableToBorrowHint"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:layout_marginLeft="10dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" SUBMIT"
+        android:id="@+id/submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/border_button"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

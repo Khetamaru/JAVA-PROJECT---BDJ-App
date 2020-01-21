@@ -12,8 +12,8 @@ public class BoardGame extends Equipment {
     public BoardGame() {
 
     }
-    public BoardGame(int _idGame, String _name, String _className, String _status, Date _dateRecup, String _state, String _origin, String _cfDoc, String _ableToBorrow,
-                     String _type, int _nbMaxPlayer, Date _realiseDate, String _editor) {
+    public BoardGame(int _idGame, String _name, String _className, String _status, Date _dateRecup, String _state, String _origin, String _cfDoc, String _ableToBorrow, String _type,
+                      int _nbMaxPlayer, Date _realiseDate, String _editor) {
 
         super(_idGame, _name, _className, _status, _dateRecup, _state, _origin, _cfDoc, _ableToBorrow);
 
@@ -66,8 +66,70 @@ public class BoardGame extends Equipment {
                     "\"status\" : \"" + getStatus() + "\"," +
                     "\"type\" : \"" + getType() + "\"," +
                     "\"nbMaxPlayer\" : \"" + getNbMaxPlayer() + "\"," +
-                    "\"realiseDate\" : \"" + getRealiseDate() + "\"," +
+                    "\"realiseDate\" : \"" + getRealiseDate().getTime() + "\"," +
                     "\"editor\" : \"" + getEditor() + "\"" +
                 "}";
+    }
+
+    public String allOtherStatesCheck() {
+
+        if (typeCheck()) {
+
+            return "type is empty or too long (Max 25)";
+        }
+        if(nbMaxPlayerCheck()) {
+
+            return "nbMaxPlayer can't be negative";
+        }
+        if(realiseDateCheck()) {
+
+            return "You have to pick a Realise Date";
+        }
+        if(editorCheck()) {
+
+            return "Editor is empty or too long (Max 25)";
+        }
+
+        return "";
+    }
+
+    public boolean typeCheck() {
+
+        if(type != null && type.length() < 25) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean nbMaxPlayerCheck() {
+
+        if(nbMaxPlayer > 0) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean realiseDateCheck() {
+
+        if(realiseDate != null) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean editorCheck() {
+
+        if(editor != null && editor.length() < 25) {
+
+            return false;
+        }
+
+        return true;
     }
 }

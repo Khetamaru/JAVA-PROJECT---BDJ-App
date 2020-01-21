@@ -51,4 +51,14 @@ public class Other extends Equipment {
                 "\"type\" : \"" + getType() + "\"" +
                 "}";
     }
+
+    public String allOtherStatesCheck() {
+
+        if(type != null && type.length() < 25) {
+
+            return "";
+        }
+
+        return "nbMaxController can't be negative";
+    }
 }

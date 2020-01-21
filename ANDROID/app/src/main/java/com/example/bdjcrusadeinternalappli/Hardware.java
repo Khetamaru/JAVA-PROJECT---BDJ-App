@@ -76,4 +76,80 @@ public class Hardware extends Equipment {
                 "\"os\" : \"" + getOS() + "\"" +
                 "}";
     }
+
+    public String allOtherStatesCheck() {
+
+        if (cpuCheck()) {
+
+            return "CPU is empty or too long (Max 25)";
+        }
+        if(ramCheck()) {
+
+            return "RAM is empty or too long (Max 25)";
+        }
+        if(hddCheck()) {
+
+            return "HDD is empty or too long (Max 25)";
+        }
+        if(gpuCheck()) {
+
+            return "GPU is empty or too long (Max 25)";
+        }
+        if(osCheck()) {
+
+            return "OS is empty or too long (Max 25)";
+        }
+
+        return "";
+    }
+
+    public boolean cpuCheck() {
+
+        if(CPU != null && CPU.length() < 25) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean ramCheck() {
+
+        if(RAM != null && RAM.length() < 25) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean hddCheck() {
+
+        if(HDD != null && HDD.length() < 25) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean gpuCheck() {
+
+        if(GPU != null && GPU.length() < 25) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean osCheck() {
+
+        if(OS != null && OS.length() < 25) {
+
+            return false;
+        }
+
+        return true;
+    }
 }

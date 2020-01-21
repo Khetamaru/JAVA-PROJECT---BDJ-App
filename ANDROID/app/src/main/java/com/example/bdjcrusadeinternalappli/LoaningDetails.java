@@ -2,6 +2,7 @@ package com.example.bdjcrusadeinternalappli;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,7 @@ public class LoaningDetails extends Activity {
     TextView equipmentName;
     TextView startDate;
     TextView endDate;
+    TextView validation;
 
     Button back;
     Button delete;
@@ -75,11 +77,29 @@ public class LoaningDetails extends Activity {
                         equipmentName = findViewById(R.id.textEquipmentName);
                         equipmentName.setText(loaning.getEquipment().getName());
 
+                        String[] startDateSplit = loaning.getStartDate().toString().split(" ");
                         startDate = findViewById(R.id.startDate);
-                        startDate.setText(loaning.getStartDate().toString());
+                        startDate.setText(startDateSplit[2] + " " + startDateSplit[1] + " " + startDateSplit[5]);
 
+                        String[] endDateSplit = loaning.getEndDate().toString().split(" ");
                         endDate = findViewById(R.id.endDate);
-                        endDate.setText(loaning.getEndDate().toString());
+                        endDate.setText(endDateSplit[2] + " " + endDateSplit[1] + " " + endDateSplit[5]);
+
+                        validation = findViewById(R.id.validation);
+                        validation.setText(loaning.getValidation());
+
+                        switch(loaning.getValidation()) {
+
+                            case "Refused":
+                                validation.setTextColor(Color.parseColor("#5b1502"));
+                                break;
+                            case "In Progress":
+                                validation.setTextColor(Color.parseColor("#02265b"));
+                                break;
+                            case "Valid":
+                                validation.setTextColor(Color.parseColor("#085b02"));
+                                break;
+                        }
 
                         back = findViewById(R.id.back);
                         back.setOnClickListener(new View.OnClickListener() {

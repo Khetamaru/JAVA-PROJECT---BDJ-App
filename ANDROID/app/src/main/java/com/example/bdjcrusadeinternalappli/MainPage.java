@@ -18,6 +18,7 @@ import java.io.IOException;
 
 import kotlinClass.AdminMenu;
 import kotlinClass.EquipmentSelectTypeMenu;
+import kotlinClass.EventMenu;
 import kotlinClass.PersonnalPage;
 import kotlinClass.RequestService;
 import kotlinClass.RooterService;
@@ -43,6 +44,7 @@ public class MainPage extends Activity {
     Button button_inventory;
     Button button_userHistoric;
     Button button_adminMenu;
+    Button button_event;
 
     Button button_levelUp;
 
@@ -236,6 +238,15 @@ public class MainPage extends Activity {
                         goToAdminMenu(v);
                     }
                 });
+
+                button_event = findViewById(R.id.event);
+                button_event.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToEvent(v);
+                    }
+                });
                 break;
         }
     }
@@ -263,6 +274,11 @@ public class MainPage extends Activity {
     protected void goToAdminMenu(View v) {
 
         rooterService.changeActivity(new Intent(v.getContext(), AdminMenu.class), MainPage.this, user.idUser);
+    }
+
+    protected void goToEvent(View v) {
+
+        rooterService.changeActivity(new Intent(v.getContext(), EventMenu.class), MainPage.this, user.idUser);
     }
 
     protected void goToLevelUp(View v) {

@@ -1,7 +1,9 @@
 package com.example.bdjcrusadeinternalappli;
 
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Equipment {
 
     protected int idEquipment;
@@ -79,8 +81,105 @@ public class Equipment {
                 "}";
     }
 
+    public String toStringWithoutId () {
+
+        return  "{" +
+                "\"name\" : \"" + getName() + "\"," +
+                "\"state\" : \"" + getState() + "\"," +
+                "\"origin\" : \"" + getOrigin() + "\"," +
+                "\"ableToBorrow\" : \"" + getAbleToBorrow() + "\"," +
+                "\"cfDoc\" : \"" + getCfDoc() + "\"," +
+                "\"dateRecup\" : " + getDateRecup().getTime() + "," +
+                "\"status\" : \"" + getStatus() + "\"" +
+                "}";
+    }
+
     public Equipment extarct() {
 
         return Equipment.this;
+    }
+
+    public String allStatesCheck() {
+
+        if (nameCheck()) {
+
+            return "Name is empty or too long (Max 25)";
+        }
+        if (statusCheck()) {
+
+            return "Status is empty or too long (Max 25)";
+        }
+        if (recupDateCheck()) {
+
+            return "You have to pick a Recuperation Date";
+        }
+        if (stateCheck()) {
+
+            return "State is empty or too long (Max 100)";
+        }
+        if (originCheck()) {
+
+            return "Origin is empty or too long (Max 25)";
+        }
+        if (cfDocCheck()) {
+
+            return "cfDoc is too long (Max 50)";
+        }
+
+        return "";
+    }
+
+    public boolean nameCheck() {
+
+        if (name != null && name.length() < 25) {
+
+            return false;
+        }
+        return true;
+    }
+
+    public boolean statusCheck() {
+
+        if (status != null && status.length() < 25) {
+
+            return false;
+        }
+        return true;
+    }
+
+    public boolean recupDateCheck() {
+
+        if (dateRecup != null) {
+
+            return false;
+        }
+        return true;
+    }
+
+    public boolean stateCheck() {
+
+        if (state != null && state.length() < 100) {
+
+            return false;
+        }
+        return true;
+    }
+
+    public boolean originCheck() {
+
+        if (origin != null && origin.length() < 25) {
+
+            return false;
+        }
+        return true;
+    }
+
+    public boolean cfDocCheck() {
+
+        if (name != null && name.length() < 50) {
+
+            return false;
+        }
+        return true;
     }
 }

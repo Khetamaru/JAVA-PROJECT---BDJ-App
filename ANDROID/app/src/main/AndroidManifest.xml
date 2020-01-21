@@ -91,6 +91,51 @@
         <activity android:name="kotlinClass.EquipmentFullInfoDetail">
         </activity>
 
+        <activity android:name="kotlinClass.EquipmentAddForm">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentManagingDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentManagingView">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentManagingSelect">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentAddFormNext">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentManagingFullInfoDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.LoaningManagingView">
+        </activity>
+
+        <activity android:name="kotlinClass.LoaningManagingDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.EventMenu">
+        </activity>
+
+        <activity android:name="kotlinClass.EventView">
+        </activity>
+
+        <activity android:name="kotlinClass.TeamView">
+        </activity>
+
+        <activity android:name="kotlinClass.TeamDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.TeamAdd">
+        </activity>
+
+        <activity android:name="kotlinClass.EventDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.EventAdd">
+        </activity>
+
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

@@ -72,8 +72,8 @@ public class Loaning {
                     "\"idLoaning\" : " + getIdLoaning() + "," +
                     "\"user\" : " + getUser().toString() + "," +
                     "\"equipment\" : " + getEquipment().toString() + "," +
-                    "\"startDate\" : " + getStartDate() + "," +
-                    "\"endDate\" : " + getEndDate() + "," +
+                    "\"startDate\" : " + getStartDate().getTime() + "," +
+                    "\"endDate\" : " + getEndDate().getTime() + "," +
                     "\"validation\" : \"" + getValidation() + "\"" +
                 "}";
     }
