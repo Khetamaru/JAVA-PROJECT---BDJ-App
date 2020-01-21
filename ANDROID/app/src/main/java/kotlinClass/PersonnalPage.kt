@@ -1,6 +1,7 @@
 package kotlinClass
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -48,9 +49,9 @@ class PersonnalPage : Activity() {
                 runOnUiThread {
 
                     when(user.level) {
-                        "admin" -> adminView(user, context)
+                        "admin" -> adminView(user, context, intentUser)
 
-                        else -> simpleUserView(user, context)
+                        else -> simpleUserView(user, context, intentUser)
                     }
 
                     back = findViewById(id.back)
@@ -69,7 +70,7 @@ class PersonnalPage : Activity() {
         })
     }
 
-    fun simpleUserView(user : User, context: Context) {
+    fun simpleUserView(user : User, context: Context, intentUser: Int) {
 
         setContentView(R.layout.personnal_page)
 
@@ -111,7 +112,7 @@ class PersonnalPage : Activity() {
                             override fun onResponse(call: Call, response: Response) {
 
                                 val rooterService: RooterService = RooterService()
-                                rooterService.changeActivity(Intent(context, PersonnalPage::class.java), context)
+                                rooterService.changeActivity(Intent(context, PersonnalPage::class.java), context, intentUser)
                             }
                         })
                     }
@@ -120,7 +121,7 @@ class PersonnalPage : Activity() {
         })
     }
 
-    fun adminView(user : User, context: Context) {
+    fun adminView(user : User, context: Context, intentUser: Int) {
 
         setContentView(R.layout.personnal_page_admin)
 
@@ -133,31 +134,28 @@ class PersonnalPage : Activity() {
         var mailView : EditText = findViewById(id.mailView)
         mailView.setText(user.getMail())
 
-        val levels = arrayOf("student", "cotisant", "bdjMember", "admin")
+        val items = arrayOf("student", "cotisant", "bdjMember", "admin")
 
-        var levelSpinner : Spinner = findViewById(id.levelView)
+        var levelTextView: TextView = findViewById(id.levelView)
+        levelTextView.text = user.level
 
-        if (levelSpinner != null) {
+        var levelButton : Button = findViewById(id.levelButton)
 
-            val arrayAdapter = ArrayAdapter(this@PersonnalPage, android.R.layout.simple_spinner_item, levels)
-            levelSpinner.adapter = arrayAdapter
+        levelButton.setOnClickListener(View.OnClickListener {
 
-            levels.forEachIndexed { index, level ->
+            val builder = AlertDialog.Builder(this@PersonnalPage)
+            with(builder)
+            {
+                setTitle("List of Items")
+                setItems(items) { dialog, which ->
+                    levelTextView.text = items[which]
 
-                if (user.level.equals(level)) levelSpinner.setSelection(index)
-            }
-
-            levelSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
-                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-
-                    user.level = levels[position]
+                    user.level = items[which]
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                }
+                show()
             }
-        }
+        })
 
         var saveButton : Button = findViewById(id.save)
         saveButton.setOnClickListener(View.OnClickListener {
@@ -174,7 +172,7 @@ class PersonnalPage : Activity() {
 
                         val requestService = RequestService()
 
-                        requestService.requestBuilderPut("user", user.toString())
+                        requestService.requestBuilderPut("user/noHash", user.toString())
                                 .enqueue(object : Callback {
 
                             override fun onFailure(call: Call, e: IOException) {
@@ -185,7 +183,7 @@ class PersonnalPage : Activity() {
                             override fun onResponse(call: Call, response: Response) {
 
                                 val rooterService = RooterService()
-                                rooterService.changeActivity(Intent(context, PersonnalPage::class.java), context)
+                                rooterService.changeActivity(Intent(context, PersonnalPage::class.java), context, intentUser)
                             }
                         })
                     }

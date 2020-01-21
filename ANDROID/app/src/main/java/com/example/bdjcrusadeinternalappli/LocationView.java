@@ -55,7 +55,13 @@ public class LocationView extends Activity {
                 .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Toast.makeText(LocationView.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(LocationView.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -87,7 +93,13 @@ public class LocationView extends Activity {
                                 .enqueue(new Callback() {
                             @Override
                             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                                Toast.makeText(LocationView.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        Toast.makeText(LocationView.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
 
                             @Override

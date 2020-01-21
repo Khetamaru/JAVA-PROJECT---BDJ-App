@@ -119,7 +119,13 @@ public class CreateAccountPage extends Activity {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                        Toast.makeText(CreateAccountPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Toast.makeText(CreateAccountPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
 
                     @Override
@@ -216,7 +222,13 @@ public class CreateAccountPage extends Activity {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                Toast.makeText(CreateAccountPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(CreateAccountPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -242,7 +254,13 @@ public class CreateAccountPage extends Activity {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                Toast.makeText(CreateAccountPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(CreateAccountPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override

@@ -53,7 +53,13 @@ public class UserHistoricView extends Activity {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                Toast.makeText(UserHistoricView.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(UserHistoricView.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override

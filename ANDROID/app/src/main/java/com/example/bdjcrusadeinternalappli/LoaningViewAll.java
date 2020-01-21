@@ -54,7 +54,13 @@ public class LoaningViewAll extends Activity {
                 .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Toast.makeText(LoaningViewAll.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(LoaningViewAll.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -84,7 +90,13 @@ public class LoaningViewAll extends Activity {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                        Toast.makeText(LoaningViewAll.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Toast.makeText(LoaningViewAll.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
 
                     @Override

@@ -44,6 +44,17 @@ public class UserController {
         userHistoricRepository.save(userHistoric);
     }
 
+    @PutMapping("/noHash")
+    public void saveUserNoHash(@RequestBody String data) throws Exception {
+
+        User user = new ObjectMapper().readValue(data, User.class);
+        userRepository.save(user);
+
+        Date date = new Date();
+        UserHistoric userHistoric = new UserHistoric(user.getIdUser(), user.getLevel(), user.getSurname(), user.getLogin(), user.getPassword(), user.getMail(), date);
+        userHistoricRepository.save(userHistoric);
+    }
+
     /////////////////////////////// GET //////////////////////////////////
 
     @GetMapping

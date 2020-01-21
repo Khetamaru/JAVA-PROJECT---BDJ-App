@@ -50,7 +50,10 @@ class ChangePasswordPage : Activity() {
 
             override fun onFailure(call: Call, e: IOException) {
 
-                Toast.makeText(this@ChangePasswordPage, "Conversation with server fail", Toast.LENGTH_LONG).show()
+                runOnUiThread {
+
+                    Toast.makeText(this@ChangePasswordPage, "Conversation with server fail", Toast.LENGTH_LONG).show()
+                }
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -99,8 +102,10 @@ class ChangePasswordPage : Activity() {
                                                     .enqueue(object : Callback {
 
                                                 override fun onFailure(call: Call, e: IOException) {
-                                                    Toast.makeText(this@ChangePasswordPage, "Conversation with server fail", Toast.LENGTH_LONG).show()
+                                                    runOnUiThread {
 
+                                                        Toast.makeText(this@ChangePasswordPage, "Conversation with server fail", Toast.LENGTH_LONG).show()
+                                                    }
                                                 }
 
                                                 @Throws(IOException::class)

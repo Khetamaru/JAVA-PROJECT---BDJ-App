@@ -71,7 +71,13 @@ public class LoginPage extends Activity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(LoginPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        Toast.makeText(LoginPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
                         });
                     }
