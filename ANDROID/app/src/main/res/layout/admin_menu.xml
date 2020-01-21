@@ -25,13 +25,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/userManaging"
-        android:text="USER MANAGING"
+        android:text="USERS"
+        android:textSize="20dp"
+        android:padding="15dp"
+        app:layout_constraintBottom_toTopOf="@id/loaningManaging"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toLeftOf="@id/equipmentManaging"
+        app:layout_constraintTop_toBottomOf="@id/back"
+        android:background="@drawable/border_button"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/equipmentManaging"
+        android:text="EQUIPMENTS"
+        android:textSize="20dp"
+        android:padding="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/loaningManaging"
+        app:layout_constraintLeft_toRightOf="@id/userManaging"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintTop_toBottomOf="@id/back"
+        android:background="@drawable/border_button"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loaningManaging"
+        android:text="LOANS"
         android:textSize="20dp"
         android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/parent"
         app:layout_constraintLeft_toLeftOf="@id/parent"
         app:layout_constraintRight_toRightOf="@id/parent"
-        app:layout_constraintTop_toBottomOf="@id/back"
+        app:layout_constraintTop_toBottomOf="@id/userManaging"
         android:background="@drawable/border_button"
         />
 

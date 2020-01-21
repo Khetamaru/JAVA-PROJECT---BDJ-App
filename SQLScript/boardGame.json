@@ -1,0 +1,30 @@
+[
+	{
+		"name" : "Monopoly", 
+		"className" : "boardGame",
+		"status" : "own",
+		"dateRecup" : 1576228728903,
+		"state" : "neuf",
+		"origin" : "don",
+		"cfDoc" : "./monopoly",
+		"ableToBorrow" : "yes",
+	    "type" : "plateau",
+	    "nbMaxPlayer" : 8,
+	    "realiseDate" : 1576228728903,
+	    "editor" : "chepu"
+	},
+	{
+		"name" : "Uno", 
+		"className" : "boardGame",
+		"status" : "own",
+		"dateRecup" : 1576228728903,
+		"state" : "neuf",
+		"origin" : "don",
+		"cfDoc" : "./uno",
+		"ableToBorrow" : "yes",
+	    "type" : "carte",
+	    "nbMaxPlayer" : 8,
+	    "realiseDate" : 1576228728903,
+	    "editor" : "chepu"
+	}
+]

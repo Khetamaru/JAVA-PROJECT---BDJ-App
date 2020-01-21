@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -17,6 +18,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import kotlinClass.RequestService;
+import kotlinClass.RooterService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -32,6 +35,9 @@ public class UserHistoricView extends Activity {
 
     Button back;
 
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,18 +48,18 @@ public class UserHistoricView extends Activity {
 
         mapper = new ObjectMapper();
 
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/historic")
-                .get()
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderGet("historic")
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                Log.e("UserHistoricView", "fail", e);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(UserHistoricView.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -78,11 +84,9 @@ public class UserHistoricView extends Activity {
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+
                                 UserHistoric userHistoric = (UserHistoric) listView.getItemAtPosition(position);
-                                Intent intent = new Intent(v.getContext(), UserHistoricDetail.class);
-                                intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                                intent.putExtra("idUserHistoric", userHistoric.getIdUserHistoric());
-                                startActivity(intent);
+                                rooterService.changeActivity(new Intent(v.getContext(), UserHistoricDetail.class), UserHistoricView.this, getIntent().getIntExtra("idUser",0), userHistoric.getIdUserHistoric(), "idUserHistoric");
                             }
                         });
 
@@ -92,10 +96,7 @@ public class UserHistoricView extends Activity {
                             @Override
                             public void onClick(View v) {
 
-                                Intent intent;
-                                intent = new Intent(v.getContext(), MainPage.class);
-                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                startActivity(intent);
+                                rooterService.changeActivity(new Intent(v.getContext(), MainPage.class), UserHistoricView.this, getIntent().getIntExtra("idUser", 0));
                             }
                         });
                     }

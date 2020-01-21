@@ -1,6 +1,7 @@
 package kotlinClass
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -26,20 +27,18 @@ class PersonnalPage : Activity() {
         var back : Button
         var changePassword : Button
 
-        val context = this
+        val context : Context = this
         var intent = intent
         val intentUser = intent.getIntExtra("idUser", 0)
-        val mapper: ObjectMapper = ObjectMapper()
-        val client: OkHttpClient = OkHttpClient()
+        val mapper = ObjectMapper()
+        val requestService = RequestService()
+        var rooterService = RooterService()
 
-        val request = Request.Builder()
-                .url("http://192.168.43.110:8080/user/$intentUser")
-                .get()
-                .build()
+        requestService.requestBuilderGet("user", intentUser)
+                .enqueue(object : Callback {
 
-        client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.e("UserManagingDetail", "fail", e)
+                Toast.makeText(this@PersonnalPage, "Conversation with server fail", Toast.LENGTH_LONG).show()
             }
 
             @Throws(IOException::class)
@@ -50,32 +49,28 @@ class PersonnalPage : Activity() {
                 runOnUiThread {
 
                     when(user.level) {
-                        "admin" -> adminView(user, client, context, intentUser)
+                        "admin" -> adminView(user, context, intentUser)
 
-                        else -> simpleUserView(user, client, context, intentUser)
+                        else -> simpleUserView(user, context, intentUser)
                     }
 
                     back = findViewById(id.back)
                     back.setOnClickListener(View.OnClickListener {
 
-                        val intent = Intent(context, MainPage::class.java)
-                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
-                        startActivity(intent)
+                        rooterService.changeActivity(Intent(context, MainPage::class.java), context, intentUser  )
                     })
 
                     changePassword = findViewById(id.changePassword)
                     changePassword.setOnClickListener (View.OnClickListener {
 
-                        val intent = Intent(context, ChangePasswordPage::class.java)
-                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
-                        startActivity(intent)
+                        rooterService.changeActivity(Intent(context, ChangePasswordPage::class.java), context, intentUser)
                     })
                 }
             }
         })
     }
 
-    fun simpleUserView(user : User, client: OkHttpClient, context: Context, intentUser: Int) {
+    fun simpleUserView(user : User, context: Context, intentUser: Int) {
 
         setContentView(R.layout.personnal_page)
 
@@ -104,30 +99,20 @@ class PersonnalPage : Activity() {
 
                     if (verificationLogin(loginView)) {
 
-                        val rq = user.toString()
+                        val requestService : RequestService = RequestService()
 
-                        val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), rq)
+                        requestService.requestBuilderPut("user", user.toString())
+                                .enqueue(object : Callback {
 
-                        val request = Request.Builder()
-                                .url("http://192.168.43.110:8080/user")
-                                .put(body)
-                                .build()
-
-                        client.newCall(request).enqueue(object : Callback {
                             override fun onFailure(call: Call, e: IOException) {
-                                Log.e("PersonnalPage", "fail", e)
+                                Toast.makeText(this@PersonnalPage, "Conversation with server fail", Toast.LENGTH_LONG).show()
                             }
 
                             @Throws(IOException::class)
                             override fun onResponse(call: Call, response: Response) {
 
-                                val intent = Intent(context, PersonnalPage::class.java)
-                                intent.putExtra("idUser", intentUser)
-
-                                /*Toast.makeText(this@UserManagingDetail, "New Information(s) saved !", Toast.LENGTH_LONG).show()
-                    Log.i("UserManagingDetail", "New Information(s) saved !")*/
-
-                                startActivity(intent)
+                                val rooterService: RooterService = RooterService()
+                                rooterService.changeActivity(Intent(context, PersonnalPage::class.java), context, intentUser)
                             }
                         })
                     }
@@ -136,7 +121,7 @@ class PersonnalPage : Activity() {
         })
     }
 
-    fun adminView(user : User, client: OkHttpClient, context: Context, intentUser: Int) {
+    fun adminView(user : User, context: Context, intentUser: Int) {
 
         setContentView(R.layout.personnal_page_admin)
 
@@ -149,31 +134,28 @@ class PersonnalPage : Activity() {
         var mailView : EditText = findViewById(id.mailView)
         mailView.setText(user.getMail())
 
-        val levels = arrayOf("student", "cotisant", "bdjMember", "admin")
+        val items = arrayOf("student", "cotisant", "bdjMember", "admin")
 
-        var levelSpinner : Spinner = findViewById(id.levelView)
+        var levelTextView: TextView = findViewById(id.levelView)
+        levelTextView.text = user.level
 
-        if (levelSpinner != null) {
+        var levelButton : Button = findViewById(id.levelButton)
 
-            val arrayAdapter = ArrayAdapter(this@PersonnalPage, android.R.layout.simple_spinner_item, levels)
-            levelSpinner.adapter = arrayAdapter
+        levelButton.setOnClickListener(View.OnClickListener {
 
-            levels.forEachIndexed { index, level ->
+            val builder = AlertDialog.Builder(this@PersonnalPage)
+            with(builder)
+            {
+                setTitle("List of Items")
+                setItems(items) { dialog, which ->
+                    levelTextView.text = items[which]
 
-                if (user.level.equals(level)) levelSpinner.setSelection(index)
-            }
-
-            levelSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
-                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-
-                    user.level = levels[position]
+                    user.level = items[which]
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                }
+                show()
             }
-        }
+        })
 
         var saveButton : Button = findViewById(id.save)
         saveButton.setOnClickListener(View.OnClickListener {
@@ -188,30 +170,20 @@ class PersonnalPage : Activity() {
 
                     if (verificationLogin(loginView)) {
 
-                        val rq = user.toString()
+                        val requestService = RequestService()
 
-                        val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), rq)
+                        requestService.requestBuilderPut("user/noHash", user.toString())
+                                .enqueue(object : Callback {
 
-                        val request = Request.Builder()
-                                .url("http://192.168.43.110:8080/user")
-                                .put(body)
-                                .build()
-
-                        client.newCall(request).enqueue(object : Callback {
                             override fun onFailure(call: Call, e: IOException) {
-                                Log.e("PersonnalPage", "fail", e)
+                                Toast.makeText(this@PersonnalPage, "Conversation with server fail", Toast.LENGTH_LONG).show()
                             }
 
                             @Throws(IOException::class)
                             override fun onResponse(call: Call, response: Response) {
 
-                                val intent = Intent(context, PersonnalPage::class.java)
-                                intent.putExtra("idUser", intentUser)
-
-                                /*Toast.makeText(this@UserManagingDetail, "New Information(s) saved !", Toast.LENGTH_LONG).show()
-                    Log.i("UserManagingDetail", "New Information(s) saved !")*/
-
-                                startActivity(intent)
+                                val rooterService = RooterService()
+                                rooterService.changeActivity(Intent(context, PersonnalPage::class.java), context, intentUser)
                             }
                         })
                     }

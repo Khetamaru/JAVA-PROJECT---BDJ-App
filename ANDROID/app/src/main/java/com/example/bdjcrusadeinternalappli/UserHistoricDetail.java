@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
+import kotlinClass.RequestService;
+import kotlinClass.RooterService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -30,10 +33,12 @@ public class UserHistoricDetail extends Activity {
     TextView level;
     TextView mail;
     TextView login;
-    TextView password;
     TextView date;
 
     Button back;
+
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +50,17 @@ public class UserHistoricDetail extends Activity {
 
         mapper = new ObjectMapper();
 
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/historic/" + getIntent().getIntExtra("idUserHistoric",0))
-                .get()
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderGet("historic", getIntent().getIntExtra("idUserHistoric",0))
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("UserHistoricDetail", "fail", e);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(UserHistoricDetail.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -79,9 +86,6 @@ public class UserHistoricDetail extends Activity {
                         login = findViewById(R.id.login);
                         login.setText(userHistoric.getLogin());
 
-                        password = findViewById(R.id.password);
-                        password.setText(userHistoric.getPassword());
-
                         date = findViewById(R.id.date);
                         String[] dateTab = userHistoric.getDate().toString().split(" ");
                         date.setText(dateTab[2] + " " + dateTab[1] + " " + dateTab[5]);
@@ -92,10 +96,7 @@ public class UserHistoricDetail extends Activity {
                             @Override
                             public void onClick(View v) {
 
-                                Intent intent;
-                                intent = new Intent(v.getContext(), UserHistoricView.class);
-                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                startActivity(intent);
+                                rooterService.changeActivity(new Intent(v.getContext(), UserHistoricView.class), UserHistoricDetail.this, getIntent().getIntExtra("idUser", 0));
                             }
                         });
                     }

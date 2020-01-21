@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/parent"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:text="name"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toLeftOf="@id/place"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/place"
+        android:text="place"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        app:layout_constraintLeft_toRightOf="@id/name"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startDate"
+        android:text="startDate"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toLeftOf="@id/startHour"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startHour"
+        android:text="startHour"
+        app:layout_constraintTop_toBottomOf="@id/place"
+        app:layout_constraintLeft_toRightOf="@id/startDate"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/endDate"
+        android:text="endDate"
+        app:layout_constraintTop_toBottomOf="@id/startDate"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintRight_toLeftOf="@id/endHour"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/endHour"
+        android:text="endHour"
+        app:layout_constraintTop_toBottomOf="@id/startHour"
+        app:layout_constraintLeft_toRightOf="@id/endDate"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        android:textSize="20dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

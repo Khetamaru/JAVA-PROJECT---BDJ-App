@@ -1,0 +1,28 @@
+[
+    {
+        "user" : 
+        {
+            "idUser": 1
+        },
+        "equipment" : 
+        {
+            "idEquipment": 15
+        },
+        "startDate" : 1576228728903,
+        "endDate" : 1576228728903,
+        "validation" : "yes"
+    },
+    {
+        "user" : 
+        {
+            "idUser": 1
+        },
+        "equipment" : 
+        {
+            "idEquipment": 18
+        },
+        "startDate" : 1576228728903,
+        "endDate" : 1576228728903,
+        "validation" : "yes"
+    }
+]

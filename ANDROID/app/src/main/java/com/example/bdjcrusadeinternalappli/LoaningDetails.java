@@ -2,11 +2,13 @@ package com.example.bdjcrusadeinternalappli;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,6 +17,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.Date;
 
+import kotlinClass.RequestService;
+import kotlinClass.RooterService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -27,6 +31,7 @@ public class LoaningDetails extends Activity {
     TextView equipmentName;
     TextView startDate;
     TextView endDate;
+    TextView validation;
 
     Button back;
     Button delete;
@@ -35,6 +40,9 @@ public class LoaningDetails extends Activity {
 
     Loaning loaning;
     User user;
+
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +53,17 @@ public class LoaningDetails extends Activity {
 
         mapper = new ObjectMapper();
 
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/loaning/" + getIntent().getIntExtra("idLoaning",0))
-                .get()
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderGet("loaning", getIntent().getIntExtra("idLoaning",0))
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("LoaningDetails", "fail", e);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(LoaningDetails.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -75,11 +83,29 @@ public class LoaningDetails extends Activity {
                         equipmentName = findViewById(R.id.textEquipmentName);
                         equipmentName.setText(loaning.getEquipment().getName());
 
+                        String[] startDateSplit = loaning.getStartDate().toString().split(" ");
                         startDate = findViewById(R.id.startDate);
-                        startDate.setText(loaning.getStartDate().toString());
+                        startDate.setText(startDateSplit[2] + " " + startDateSplit[1] + " " + startDateSplit[5]);
 
+                        String[] endDateSplit = loaning.getEndDate().toString().split(" ");
                         endDate = findViewById(R.id.endDate);
-                        endDate.setText(loaning.getEndDate().toString());
+                        endDate.setText(endDateSplit[2] + " " + endDateSplit[1] + " " + endDateSplit[5]);
+
+                        validation = findViewById(R.id.validation);
+                        validation.setText(loaning.getValidation());
+
+                        switch(loaning.getValidation()) {
+
+                            case "Refused":
+                                validation.setTextColor(Color.parseColor("#5b1502"));
+                                break;
+                            case "In Progress":
+                                validation.setTextColor(Color.parseColor("#02265b"));
+                                break;
+                            case "Valid":
+                                validation.setTextColor(Color.parseColor("#085b02"));
+                                break;
+                        }
 
                         back = findViewById(R.id.back);
                         back.setOnClickListener(new View.OnClickListener() {
@@ -97,8 +123,8 @@ public class LoaningDetails extends Activity {
 
                                     intent = new Intent(v.getContext(), LoaningViewAll.class);
                                 }
-                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                startActivity(intent);
+
+                                rooterService.changeActivity(intent, LoaningDetails.this, getIntent().getIntExtra("idUser", 0));
                             }
                         });
 
@@ -110,17 +136,18 @@ public class LoaningDetails extends Activity {
 
                                 mapper = new ObjectMapper();
 
-                                OkHttpClient client = new OkHttpClient();
-
-                                Request request = new Request.Builder()
-                                        .url("http://192.168.43.110:8080/loaning/" + getIntent().getIntExtra("idLoaning", 0))
-                                        .delete()
-                                        .build();
-
-                                client.newCall(request).enqueue(new Callback() {
+                                requestService.requestBuilderDelete("loaning", getIntent().getIntExtra("idLoaning", 0))
+                                        .enqueue(new Callback() {
                                     @Override
                                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                                        Log.e("LoaningDetails", "fail", e);
+
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                                Toast.makeText(LoaningDetails.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -138,8 +165,8 @@ public class LoaningDetails extends Activity {
 
                                                 intent = new Intent(v.getContext(), LoaningViewAll.class);
                                             }
-                                            intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                            startActivity(intent);
+
+                                            rooterService.changeActivity(intent, LoaningDetails.this, getIntent().getIntExtra("idUser", 0));
                                         }
                                     }
                                 });

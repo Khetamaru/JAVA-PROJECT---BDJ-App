@@ -1,6 +1,7 @@
 package com.example.bdjcrusadeinternalappli;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,21 @@ public class Loaning_adapter extends BaseAdapter {
         }
 
         holder.uUserName.setText(listData.get(position).user.getSurname());
-        holder.uEquipmentName.setText(listData.get(position).equipment.getName());
+        holder.uEquipmentName.setText(listData.get(position).getValidation());
+
+        switch(listData.get(position).getValidation()) {
+
+            case "Refused":
+                holder.uEquipmentName.setTextColor(Color.parseColor("#5b1502"));
+                break;
+            case "In Progress":
+                holder.uEquipmentName.setTextColor(Color.parseColor("#02265b"));
+                break;
+            case "Valid":
+                holder.uEquipmentName.setTextColor(Color.parseColor("#085b02"));
+                break;
+        }
+
         return v;
     }
 

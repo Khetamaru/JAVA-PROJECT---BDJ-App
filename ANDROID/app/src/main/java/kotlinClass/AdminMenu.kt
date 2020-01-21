@@ -16,30 +16,42 @@ class AdminMenu : Activity() {
         super.onCreate(savedInstanceState)
 
         var userManaging: Button
+        var equipmentManaging: Button
+        var loaningManaging: Button
 
-        val context = this
+        var context = this
         var intent = intent
-        val intentUser = intent.getIntExtra("idUser", 0)
+        var intentUser = intent.getIntExtra("idUser", 0)
+        var rooterService = RooterService()
 
         var back: Button
 
         setContentView(layout.admin_menu)
 
         userManaging = findViewById(id.userManaging)
+        equipmentManaging = findViewById(id.equipmentManaging)
+        loaningManaging = findViewById(id.loaningManaging)
+
         back = findViewById(id.back)
 
         userManaging.setOnClickListener(View.OnClickListener {
 
-            val intent = Intent(context, UserManagingView::class.java)
-            intent.putExtra("idUser", intentUser)
-            startActivity(intent)
+            rooterService.changeActivity(Intent(context, UserManagingView::class.java), context, intentUser)
+        })
+
+        equipmentManaging.setOnClickListener(View.OnClickListener {
+
+            rooterService.changeActivity(Intent(context, EquipmentManagingSelect::class.java), context, intentUser)
+        })
+
+        loaningManaging.setOnClickListener(View.OnClickListener {
+
+            rooterService.changeActivity(Intent(context, LoaningManagingView::class.java), context, intentUser)
         })
 
         back.setOnClickListener(View.OnClickListener {
 
-            val intent = Intent(context, MainPage::class.java)
-            intent.putExtra("idUser", intentUser)
-            startActivity(intent)
+            rooterService.changeActivity(Intent(context, MainPage::class.java), context, intentUser)
         })
     }
 }

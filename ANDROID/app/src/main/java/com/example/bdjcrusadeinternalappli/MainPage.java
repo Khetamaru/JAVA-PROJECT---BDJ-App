@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -16,7 +17,11 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 
 import kotlinClass.AdminMenu;
+import kotlinClass.EquipmentSelectTypeMenu;
+import kotlinClass.EventMenu;
 import kotlinClass.PersonnalPage;
+import kotlinClass.RequestService;
+import kotlinClass.RooterService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -39,12 +44,16 @@ public class MainPage extends Activity {
     Button button_inventory;
     Button button_userHistoric;
     Button button_adminMenu;
+    Button button_event;
 
     Button button_levelUp;
 
     ObjectMapper mapper;
 
     User user;
+
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +66,18 @@ public class MainPage extends Activity {
 
         OkHttpClient client = new OkHttpClient();
 
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/user/" + getIntent().getIntExtra("idUser",0))
-                .get()
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderGet("user", getIntent().getIntExtra("idUser",0))
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("MainPage", "fail",e);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(MainPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -78,7 +90,6 @@ public class MainPage extends Activity {
                     public void run() {
 
                         levelChoice();
-                        //textView_id.setText(String.valueOf(user.idUser));
                         textView_surname = findViewById(R.id.surname);
                         textView_surname.setText(user.surname);
 
@@ -87,17 +98,12 @@ public class MainPage extends Activity {
                             @Override
                             public void onClick(View v) {
 
-                                Intent intent = new Intent(v.getContext(), PersonnalPage.class);
-                                intent.putExtra("idUser", user.idUser);
-                                startActivity(intent);
+                                rooterService.changeActivity(new Intent(v.getContext(), PersonnalPage.class), MainPage.this, user.idUser);
                             }
                         });
 
                         textView_level = findViewById(R.id.level);
                         textView_level.setText(user.level);
-                        /*editText_login.setText(user.editText_login);
-                        editText_password.setText(user.editText_password);
-                        editText_mail.setText(user.editText_mail);*/
 
                         button_logOut = findViewById(R.id.disconnection);
                         button_logOut.setOnClickListener(new View.OnClickListener() {
@@ -239,43 +245,47 @@ public class MainPage extends Activity {
                         goToAdminMenu(v);
                     }
                 });
+
+                button_event = findViewById(R.id.event);
+                button_event.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        goToEvent(v);
+                    }
+                });
                 break;
         }
     }
 
     protected void goToInventory(View v) {
 
-        Intent intent = new Intent(v.getContext(), EquipmentView.class);
-        intent.putExtra("idUser", user.idUser);
-        startActivity(intent);
+        rooterService.changeActivity(new Intent(v.getContext(), EquipmentSelectTypeMenu.class), MainPage.this, user.idUser);
     }
 
     protected void goToLoaning(View v) {
 
-        Intent intent = new Intent(v.getContext(), LoaningPage.class);
-        intent.putExtra("idUser", user.idUser);
-        startActivity(intent);
+        rooterService.changeActivity(new Intent(v.getContext(), LoaningPage.class), MainPage.this, user.idUser);
     }
 
     protected void goToLocation(View v) {
 
-        Intent intent = new Intent(v.getContext(), LocationView.class);
-        intent.putExtra("idUser", user.idUser);
-        startActivity(intent);
+        rooterService.changeActivity(new Intent(v.getContext(), LocationView.class), MainPage.this, user.idUser);
     }
 
     protected void goToHistoric(View v) {
 
-        Intent intent = new Intent(v.getContext(), UserHistoricView.class);
-        intent.putExtra("idUser", user.idUser);
-        startActivity(intent);
+        rooterService.changeActivity(new Intent(v.getContext(), UserHistoricView.class), MainPage.this, user.idUser);
     }
 
     protected void goToAdminMenu(View v) {
 
-        Intent intent = new Intent(v.getContext(), AdminMenu.class);
-        intent.putExtra("idUser", user.idUser);
-        startActivity(intent);
+        rooterService.changeActivity(new Intent(v.getContext(), AdminMenu.class), MainPage.this, user.idUser);
+    }
+
+    protected void goToEvent(View v) {
+
+        rooterService.changeActivity(new Intent(v.getContext(), EventMenu.class), MainPage.this, user.idUser);
     }
 
     protected void goToLevelUp(View v) {
@@ -283,36 +293,31 @@ public class MainPage extends Activity {
         OkHttpClient client = new OkHttpClient();
         String stringBody = "{}";
 
-        MediaType JSON
-                = MediaType.get("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(JSON, stringBody);
-
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/user/levelUp/" + user.idUser)
-                .patch(body)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderPatch("user/levelUp", user.idUser, "{}")
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                Log.e("MainPage", "fail", e);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(MainPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                Intent intent = new Intent(v.getContext(), levelUpView.class);
-                intent.putExtra("idUser", user.idUser);
-                startActivity(intent);
+                rooterService.changeActivity(new Intent(v.getContext(), levelUpView.class), MainPage.this, user.idUser);
             }
         });
     }
 
     protected void logOut(View v) {
 
-        Intent intent = new Intent(v.getContext(), LoginPage.class);
-        startActivity(intent);
+        rooterService.changeActivity(new Intent(v.getContext(), LoginPage.class), MainPage.this);
         finish();
     }
 }

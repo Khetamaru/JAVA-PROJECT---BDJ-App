@@ -34,8 +34,10 @@ class LoaningAddNext : Activity() {
         val context = this
         var intent = intent
 
-        var mapper: ObjectMapper = ObjectMapper()
-        val client: OkHttpClient = OkHttpClient()
+        var mapper = ObjectMapper()
+
+        var rooterService = RooterService()
+        var requestService = RequestService()
 
         val intentUser = intent.getIntExtra("idUser", 0)
         val intentEquipment = intent.getIntExtra("idEquipment", 0)
@@ -45,30 +47,24 @@ class LoaningAddNext : Activity() {
 
         setContentView(layout.loaning_add_next)
 
-        val request: Request = Request.Builder()
-                .url("http://192.168.43.110:8080/user/$intentUser")
-                .get()
-                .build()
+        requestService.requestBuilderGet("user", intentUser)
+                .enqueue(object : Callback {
 
-        client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
 
-                Log.e("LocationAdd", "fail", e)
+                Toast.makeText(this@LoaningAddNext, "Conversation with server fail", Toast.LENGTH_LONG).show()
             }
 
             override fun onResponse(call: Call, response: Response) {
 
                 user = mapper.readValue(response.body!!.string(), User::class.java)
 
-                val request: Request = Request.Builder()
-                        .url("http://192.168.43.110:8080/equipment/$intentEquipment")
-                        .get()
-                        .build()
+                requestService.requestBuilderGet("equipment", intentEquipment)
+                        .enqueue(object : Callback {
 
-                client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
 
-                        Log.e("LocationAdd", "fail", e)
+                        Toast.makeText(this@LoaningAddNext, "Conversation with server fail", Toast.LENGTH_LONG).show()
                     }
 
                     override fun onResponse(call: Call, response: Response) {
@@ -122,9 +118,7 @@ class LoaningAddNext : Activity() {
 
                         back.setOnClickListener(View.OnClickListener {
 
-                            val intent = Intent(context, LoaningAddEquipment::class.java)
-                            intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
-                            startActivity(intent)
+                            rooterService.changeActivity(Intent(context, LoaningAddEquipment::class.java), context, intentUser)
                         })
 
                         validation.setOnClickListener { v ->
@@ -137,33 +131,21 @@ class LoaningAddNext : Activity() {
                                     endDate = temp
                                 }
 
-                                val loaning = Loaning(user, equipment, startDate, endDate, "no")
+                                val loaning = Loaning(user, equipment, startDate, endDate, "In Progress")
 
                                 mapper = ObjectMapper()
 
-                                val client = OkHttpClient()
+                                requestService.requestBuilderPut("loaning", loaning.toStringWithoutId())
+                                        .enqueue(object : Callback {
 
-                                val rq = loaning.toStringWithoutId()
-
-                                val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), rq)
-
-                                val request = Request.Builder()
-                                        .url("http://192.168.43.110:8080/loaning")
-                                        .put(body)
-                                        .build()
-
-                                client.newCall(request).enqueue(object : Callback {
                                     override fun onFailure(call: Call, e: IOException) {
-                                        Log.e("LoaningAddNext", "fail", e)
+                                        Toast.makeText(this@LoaningAddNext, "Conversation with server fail", Toast.LENGTH_LONG).show()
                                     }
 
                                     @Throws(IOException::class)
                                     override fun onResponse(call: Call, response: Response) {
 
-                                        val intent: Intent
-                                        intent = Intent(v.context, LoaningPage::class.java)
-                                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
-                                        startActivity(intent)
+                                        rooterService.changeActivity(Intent(v.context, LoaningPage::class.java), context, intentUser)
                                     }
                                 })
                             } else {

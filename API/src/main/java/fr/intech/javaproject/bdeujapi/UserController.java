@@ -1,11 +1,13 @@
 package fr.intech.javaproject.bdeujapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Optional;
 
@@ -23,11 +25,27 @@ public class UserController {
     LoaningRepository loaningRepository;
     @Autowired
     LocationRepository locationRepository;
+    @Autowired
+    TeamRepository teamRepository;
 
     /////////////////////////////// PUT //////////////////////////////////
 
     @PutMapping
     public void saveUser(@RequestBody String data) throws Exception {
+
+        User user = new ObjectMapper().readValue(data, User.class);
+        user.setPassword(Hashing.sha256()
+                .hashString(user.getPassword(), StandardCharsets.UTF_8)
+                .toString());
+        userRepository.save(user);
+
+        Date date = new Date();
+        UserHistoric userHistoric = new UserHistoric(user.getIdUser(), user.getLevel(), user.getSurname(), user.getLogin(), user.getPassword(), user.getMail(), date);
+        userHistoricRepository.save(userHistoric);
+    }
+
+    @PutMapping("/noHash")
+    public void saveUserNoHash(@RequestBody String data) throws Exception {
 
         User user = new ObjectMapper().readValue(data, User.class);
         userRepository.save(user);
@@ -110,16 +128,7 @@ public class UserController {
 
             User user = optionalUser.get();
 
-            String userString = "{" +
-                                    "\"idUser\" : \"" + user.getIdUser() + "\"," +
-                                    "\"surname\" : \"" + user.getSurname() + "\"," +
-                                    "\"login\" : \"" + user.getLogin() + "\"," +
-                                    "\"password\" : \"" + user.getPassword() + "\"," +
-                                    "\"mail\" : \"" + user.getMail() + "\"," +
-                                    "\"level\" : \"admin\""  +
-                                "}";
-
-            saveUser(userString);
+            saveUser(user.toString());
         }
         else {
 
@@ -148,6 +157,7 @@ public class UserController {
 
         loaningRepository.deleteByUser(user);
         locationRepository.deleteByUser(user);
+        //teamRepository.deleteByUser(user);
 
         userRepository.deleteById(id);
     }
@@ -158,13 +168,17 @@ public class UserController {
     public User login(@RequestBody String data) throws Exception {
 
         Login login = new ObjectMapper().readValue(data, Login.class);
+
+        login.setPassword(Hashing.sha256()
+                .hashString(login.getPassword(), StandardCharsets.UTF_8)
+                .toString());
         
         Optional<User> user = userRepository.findByLoginAndPassword(login.getLog(), login.getPassword());
 
 
         if (user.isPresent()) {
 
-            System.out.println("User is ok");
+            System.out.println("User \"" + user.get().getSurname() + "\" is ok");
             return user.get();
         }
         else {

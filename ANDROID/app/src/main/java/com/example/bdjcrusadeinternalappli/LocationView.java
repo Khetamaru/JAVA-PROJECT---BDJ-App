@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -19,6 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import kotlinClass.LocationAdd;
+import kotlinClass.RequestService;
+import kotlinClass.RooterService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -35,6 +38,9 @@ public class LocationView extends Activity {
     Button add;
     Button back;
 
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,17 +51,17 @@ public class LocationView extends Activity {
 
         mapper = new ObjectMapper();
 
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/user/" + getIntent().getIntExtra("idUser",0))
-                .get()
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderGet("user", getIntent().getIntExtra("idUser",0))
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("LoginPage", "fail", e);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(LocationView.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -69,40 +75,31 @@ public class LocationView extends Activity {
 
                         setContentView(R.layout.location_view);
 
-                        String url;
-
                         if (user.getLevel().equals("admin") || user.getLevel().equals("bdjMember")) {
 
                             setContentView(R.layout.location_view_all);
-
-                            url = "http://192.168.43.110:8080/location";
-
 
                             add = findViewById(R.id.fullLocation);
                             add.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
 
-                                    Intent intent = new Intent(v.getContext(), LocationAdd.class);
-                                    intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                                    startActivity(intent);
+                                    rooterService.changeActivity(new Intent(v.getContext(), LocationAdd.class), LocationView.this, getIntent().getIntExtra("idUser",0));
                                 }
                             });
                         }
-                        else {
 
-                            url = "http://192.168.43.110:8080/location";
-                        }
-
-                        Request request = new Request.Builder()
-                                .url(url)
-                                .get()
-                                .build();
-
-                        client.newCall(request).enqueue(new Callback() {
+                        requestService.requestBuilderGet("location")
+                                .enqueue(new Callback() {
                             @Override
                             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                                Log.e("LoginPage", "fail", e);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        Toast.makeText(LocationView.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
 
                             @Override
@@ -123,11 +120,9 @@ public class LocationView extends Activity {
                                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+
                                                 Location location = (Location) listView.getItemAtPosition(position);
-                                                Intent intent = new Intent(v.getContext(), LocationDetail.class);
-                                                intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                                                intent.putExtra("idLocation", location.getIdLocation());
-                                                startActivity(intent);
+                                                rooterService.changeActivity(new Intent(v.getContext(), LocationDetail.class), LocationView.this, getIntent().getIntExtra("idUser",0), location.getIdLocation(), "idLocation");
                                             }
                                         });
 
@@ -137,10 +132,7 @@ public class LocationView extends Activity {
                                             @Override
                                             public void onClick(View v) {
 
-                                                Intent intent;
-                                                intent = new Intent(v.getContext(), MainPage.class);
-                                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                                startActivity(intent);
+                                                rooterService.changeActivity(new Intent(v.getContext(), MainPage.class), LocationView.this, getIntent().getIntExtra("idUser", 0));
                                             }
                                         });
                                     }

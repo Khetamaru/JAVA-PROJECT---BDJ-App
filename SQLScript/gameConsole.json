@@ -1,0 +1,32 @@
+[
+	{
+		"name" : "PS3", 
+		"className" : "gameConsole",
+		"status" : "own",
+		"dateRecup" : 1576228728903,
+		"state" : "neuf",
+		"origin" : "don",
+		"cfDoc" : "./ps3",
+		"ableToBorrow" : "no",
+	    "nbMaxController" : 4,
+	    "videoCable" : "yes",
+	    "powerCable" : "yes",
+	    "realiseDate" : 1576228728903,
+	    "editor" : "sony"
+	},
+	{
+		"name" : "Xbox", 
+		"className" : "gameConsole",
+		"status" : "own",
+		"dateRecup" : 1576228728903,
+		"state" : "neuf",
+		"origin" : "don",
+		"cfDoc" : "./xbox",
+		"ableToBorrow" : "no",
+	    "nbMaxController" : 4,
+	    "videoCable" : "yes",
+	    "powerCable" : "yes",
+	    "realiseDate" : 1576228728903,
+	    "editor" : "microsoft"
+	}
+]

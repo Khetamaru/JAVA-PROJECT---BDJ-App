@@ -46,20 +46,20 @@ class LocationAdd : Activity() {
         val client : OkHttpClient = OkHttpClient()
         val intentUser = intent.getIntExtra("idUser", 0)
 
+        var rooterService = RooterService()
+        var requestService = RequestService()
+
         var validation : Button
         var back : Button
 
         setContentView(layout.location_add)
 
-        val request : Request = Request.Builder()
-                .url("http://192.168.43.110:8080/user/$intentUser")
-                .get()
-                .build()
+        requestService.requestBuilderGet("user", intentUser)
+                .enqueue(object : Callback {
 
-        client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
 
-                Log.e("LocationAdd", "fail", e)
+                Toast.makeText(this@LocationAdd, "Conversation with server fail", Toast.LENGTH_LONG).show()
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -82,11 +82,8 @@ class LocationAdd : Activity() {
                     back = findViewById(id.back)
                     back.setOnClickListener(View.OnClickListener {
 
-                        val intent = Intent(context, LocationView::class.java)
-                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
-                        startActivity(intent)
+                        rooterService.changeActivity(Intent(context, LocationView::class.java), context, intentUser)
                     })
-
 
                     setDate.setOnClickListener(View.OnClickListener {
 
@@ -178,29 +175,17 @@ class LocationAdd : Activity() {
 
                             mapper = ObjectMapper()
 
-                            val client = OkHttpClient()
+                            requestService.requestBuilderPut("location", location.toStringWithoutId())
+                                    .enqueue(object : Callback {
 
-                            val rq = location.toStringWithoutId()
-
-                            val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), rq)
-
-                            val request = Request.Builder()
-                                    .url("http://192.168.43.110:8080/location")
-                                    .put(body)
-                                    .build()
-
-                            client.newCall(request).enqueue(object : Callback {
                                 override fun onFailure(call: Call, e: IOException) {
-                                    Log.e("LocationAdd", "fail", e)
+                                    Toast.makeText(this@LocationAdd, "Conversation with server fail", Toast.LENGTH_LONG).show()
                                 }
 
                                 @Throws(IOException::class)
                                 override fun onResponse(call: Call, response: Response) {
 
-                                    val intent: Intent
-                                    intent = Intent(v.context, LocationView::class.java)
-                                    intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
-                                    startActivity(intent)
+                                    rooterService.changeActivity(Intent(v.context, LocationView::class.java), context, intentUser)
                                 }
                             })
                         } else {

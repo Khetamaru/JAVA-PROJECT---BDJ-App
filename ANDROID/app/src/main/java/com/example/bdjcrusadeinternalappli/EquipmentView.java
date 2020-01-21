@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import kotlinClass.RequestService;
+import kotlinClass.RooterService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -32,6 +35,9 @@ public class EquipmentView extends Activity {
     Context context;
     Button back;
 
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,18 +48,18 @@ public class EquipmentView extends Activity {
 
         mapper = new ObjectMapper();
 
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/equipment")
-                .get()
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderGet("equipment")
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                Log.e("EquipmentView", "fail", e);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(EquipmentView.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -76,11 +82,9 @@ public class EquipmentView extends Activity {
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+
                                 Equipment equipment = (Equipment) listView.getItemAtPosition(position);
-                                Intent intent = new Intent(v.getContext(), EquipmentDetail.class);
-                                intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                                intent.putExtra("idEquipment", equipment.idEquipment);
-                                startActivity(intent);
+                                rooterService.changeActivity(new Intent(v.getContext(), EquipmentDetail.class), EquipmentView.this, getIntent().getIntExtra("idUser",0), equipment.idEquipment, "idEquipment");
                             }
                         });
 
@@ -90,10 +94,7 @@ public class EquipmentView extends Activity {
                             @Override
                             public void onClick(View v) {
 
-                                Intent intent;
-                                intent = new Intent(v.getContext(), MainPage.class);
-                                intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                startActivity(intent);
+                                rooterService.changeActivity(new Intent(v.getContext(), MainPage.class), EquipmentView.this, getIntent().getIntExtra("idUser", 0));
                             }
                         });
                     }

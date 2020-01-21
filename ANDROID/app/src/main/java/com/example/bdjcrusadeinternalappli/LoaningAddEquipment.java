@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,6 +19,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import kotlinClass.LoaningAddNext;
+import kotlinClass.RequestService;
+import kotlinClass.RooterService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -35,6 +38,9 @@ public class LoaningAddEquipment extends Activity {
 
     Button back;
 
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,17 +51,17 @@ public class LoaningAddEquipment extends Activity {
 
         mapper = new ObjectMapper();
 
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/user/" + getIntent().getIntExtra("idUser", 0))
-                .get()
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderGet("user", getIntent().getIntExtra("idUser", 0))
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("LoaningAddEquipment", "fail", e);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(LoaningAddEquipment.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -63,19 +69,18 @@ public class LoaningAddEquipment extends Activity {
 
                 user = mapper.readValue(response.body().string(), User.class);
 
-                MediaType JSON
-                        = MediaType.get("application/json; charset=utf-8");
-
-                Request request = new Request.Builder()
-                        .url("http://192.168.43.110:8080/equipment/validated")
-                        .get()
-                        .build();
-
-                client.newCall(request).enqueue(new Callback() {
+                requestService.requestBuilderGet("equipment/validated")
+                        .enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                        Log.e("LoaningAddEquipment", "fail", e);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Toast.makeText(LoaningAddEquipment.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
 
                     @Override
@@ -99,10 +104,7 @@ public class LoaningAddEquipment extends Activity {
                                     @Override
                                     public void onItemClick(AdapterView<?> a, View v, int position, long textView_id) {
                                         Equipment equipment = (Equipment) listView.getItemAtPosition(position);
-                                        Intent intent = new Intent(v.getContext(), LoaningAddNext.class);
-                                        intent.putExtra("idUser", getIntent().getIntExtra("idUser",0));
-                                        intent.putExtra("idEquipment", equipment.getIdEquipment());
-                                        startActivity(intent);
+                                        rooterService.changeActivity(new Intent(v.getContext(), LoaningAddNext.class), LoaningAddEquipment.this, getIntent().getIntExtra("idUser",0), equipment.getIdEquipment(), "idEquipment");
                                     }
                                 });
 
@@ -112,10 +114,7 @@ public class LoaningAddEquipment extends Activity {
                                     @Override
                                     public void onClick(View v) {
 
-                                        Intent intent;
-                                        intent = new Intent(v.getContext(), LoaningPage.class);
-                                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                        startActivity(intent);
+                                        rooterService.changeActivity(new Intent(v.getContext(), LoaningPage.class), LoaningAddEquipment.this, getIntent().getIntExtra("idUser", 0));
                                     }
                                 });
                             }

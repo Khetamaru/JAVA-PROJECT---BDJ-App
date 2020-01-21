@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4b6574"
+    >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/back"
+        android:text="RETURN"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        android:background="@drawable/border_button"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/otherInfo"
+        android:text="OTHER INFOS"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        android:background="@drawable/border_button"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:padding="15dp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameBar"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toBottomOf="@id/back"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintBottom_toTopOf="@id/nbMaxControllerBar"
+        >
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="NAME"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name"
+            android:text="dindons et dragons"
+            android:textSize="20dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nbMaxControllerBar"
+        app:layout_constraintTop_toBottomOf="@id/nameBar"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintBottom_toTopOf="@id/videoCableBar"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginRight="8dp"
+        >
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="NB MAX CONTROLLER"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nbMaxController"
+            android:text="décomposé"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/videoCableBar"
+        app:layout_constraintTop_toBottomOf="@id/nbMaxControllerBar"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintBottom_toTopOf="@id/powerCableBar"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginLeft="8dp"
+        >
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VIDEO CABLE"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/videoCable"
+            android:text="tomorrow"
+            android:textSize="20dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/powerCableBar"
+        app:layout_constraintTop_toBottomOf="@id/videoCableBar"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintBottom_toTopOf="@id/realiseDateBar"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginRight="8dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="POWER CABLE"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/powerCable"
+            android:text="RAS"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/realiseDateBar"
+        app:layout_constraintTop_toBottomOf="@id/powerCableBar"
+        app:layout_constraintLeft_toLeftOf="@id/parent"
+        app:layout_constraintBottom_toTopOf="@id/editorBar"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginLeft="8dp"
+        >
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REALISE DATE"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/realiseDate"
+            android:text="my ass"
+            android:textSize="20dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editorBar"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintBottom_toBottomOf="@id/parent"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="15dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        >
+
+        <TextView
+            android:layout_width="20px"
+            android:layout_height="20px"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EDITOR"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editor"
+            android:text="my ass"
+            android:textSize="20dp"
+            />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

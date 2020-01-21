@@ -10,11 +10,13 @@ import android.widget.*
 import com.example.bdjcrusadeinternalappli.*
 import com.example.bdjcrusadeinternalappli.R.*
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.common.hash.Hashing
 import kotlinx.android.synthetic.main.change_password_page.*
 import okhttp3.*
 import java.io.IOException
 import java.util.*
 import okhttp3.MediaType.Companion.toMediaType
+import java.nio.charset.StandardCharsets
 
 class ChangePasswordPage : Activity() {
 
@@ -31,24 +33,27 @@ class ChangePasswordPage : Activity() {
         var intent = intent
 
         var mapper: ObjectMapper = ObjectMapper()
-        val client: OkHttpClient = OkHttpClient()
 
         val intentUser = intent.getIntExtra("idUser", 0)
+        var rooterService = RooterService()
+        var requestService = RequestService()
 
         var validation: Button
         var back: Button
 
-        setContentView(R.layout.loading_page)
+        var password: String;
 
-        val request: Request = Request.Builder()
-                .url("http://192.168.43.110:8080/user/$intentUser")
-                .get()
-                .build()
+        setContentView(layout.loading_page)
 
-        client.newCall(request).enqueue(object : Callback {
+        requestService.requestBuilderGet("user", intentUser)
+                .enqueue(object : Callback {
+
             override fun onFailure(call: Call, e: IOException) {
 
-                Log.e("LocationAdd", "fail", e)
+                runOnUiThread {
+
+                    Toast.makeText(this@ChangePasswordPage, "Conversation with server fail", Toast.LENGTH_LONG).show()
+                }
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -68,14 +73,16 @@ class ChangePasswordPage : Activity() {
 
                     back.setOnClickListener(View.OnClickListener {
 
-                        val intent = Intent(context, PersonnalPage::class.java)
-                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
-                        startActivity(intent)
+                        rooterService.changeActivity(Intent(context, PersonnalPage::class.java), context, intentUser)
                     })
 
                     validation.setOnClickListener(View.OnClickListener {
 
-                        if (oldPassword.text.toString() == user.password) {
+                        password = Hashing.sha256()
+                                .hashString(oldPassword.text.toString(), StandardCharsets.UTF_8)
+                                .toString()
+
+                        if (password == user.password) {
 
                             if (newPasswordEditText.text.toString() != "") {
 
@@ -91,27 +98,20 @@ class ChangePasswordPage : Activity() {
 
                                             val client = OkHttpClient()
 
-                                            val rq = user.toString()
+                                            requestService.requestBuilderPut("user", user.toString())
+                                                    .enqueue(object : Callback {
 
-                                            val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), rq)
-
-                                            val request = Request.Builder()
-                                                    .url("http://192.168.43.110:8080/user")
-                                                    .put(body)
-                                                    .build()
-
-                                            client.newCall(request).enqueue(object : Callback {
                                                 override fun onFailure(call: Call, e: IOException) {
-                                                    Log.e("LoaningAddNext", "fail", e)
+                                                    runOnUiThread {
+
+                                                        Toast.makeText(this@ChangePasswordPage, "Conversation with server fail", Toast.LENGTH_LONG).show()
+                                                    }
                                                 }
 
                                                 @Throws(IOException::class)
                                                 override fun onResponse(call: Call, response: Response) {
 
-                                                    val intent: Intent
-                                                    intent = Intent(context, PersonnalPage::class.java)
-                                                    intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
-                                                    startActivity(intent)
+                                                    rooterService.changeActivity(Intent(context, PersonnalPage::class.java), context, intentUser)
                                                 }
                                             })
                                         } else {

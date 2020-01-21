@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4b6574"
+    android:id="@+id/parent"
+    >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/back"
+        android:text="RETURN"
+        app:layout_constraintRight_toRightOf="@id/parent"
+        app:layout_constraintTop_toTopOf="@id/parent"
+        android:background="@drawable/border_button"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        app:layout_constraintTop_toBottomOf="@id/back"
+        app:layout_constraintBottom_toTopOf="@id/placeTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:hint="NAME"
+        android:backgroundTint="@android:color/holo_red_dark"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/placeTextView"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintBottom_toTopOf="@id/loansTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"
+        android:hint="PLACE"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SELECT PLACE"
+        android:id="@+id/placeButton"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintBottom_toTopOf="@id/loansTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:background="@drawable/border_button"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:layout_marginRight="4dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loansTextView"
+        app:layout_constraintTop_toBottomOf="@id/placeTextView"
+        app:layout_constraintBottom_toTopOf="@id/startDateTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"
+        android:hint="NUMBER OF LOANS"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SELECT LOANS"
+        android:id="@+id/loansButton"
+        app:layout_constraintTop_toBottomOf="@id/placeTextView"
+        app:layout_constraintBottom_toTopOf="@id/startDateTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:background="@drawable/border_button"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:layout_marginRight="4dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startDateTextView"
+        app:layout_constraintTop_toBottomOf="@id/loansTextView"
+        app:layout_constraintBottom_toTopOf="@id/startHourTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"
+        android:hint="START DATE"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SELECT START DATE"
+        android:id="@+id/startDateButton"
+        app:layout_constraintTop_toBottomOf="@id/loansTextView"
+        app:layout_constraintBottom_toTopOf="@id/startHourTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:background="@drawable/border_button"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:layout_marginRight="4dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startHourTextView"
+        app:layout_constraintTop_toBottomOf="@id/startDateTextView"
+        app:layout_constraintBottom_toTopOf="@id/endDateTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"
+        android:hint="START HOUR"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SELECT START HOUR"
+        android:id="@+id/startHourButton"
+        app:layout_constraintTop_toBottomOf="@id/startDateTextView"
+        app:layout_constraintBottom_toTopOf="@id/endDateTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:background="@drawable/border_button"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:layout_marginRight="4dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/endDateTextView"
+        app:layout_constraintTop_toBottomOf="@id/startHourTextView"
+        app:layout_constraintBottom_toTopOf="@id/endHourTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"
+        android:hint="END DATE"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SELECT END DATE"
+        android:id="@+id/endDateButton"
+        app:layout_constraintTop_toBottomOf="@id/startHourTextView"
+        app:layout_constraintBottom_toTopOf="@id/endHourTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:background="@drawable/border_button"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:layout_marginRight="4dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/endHourTextView"
+        app:layout_constraintTop_toBottomOf="@id/endDateTextView"
+        app:layout_constraintBottom_toTopOf="@id/teamTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"
+        android:hint="END HOUR"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SELECT END HOUR"
+        android:id="@+id/endHourButton"
+        app:layout_constraintTop_toBottomOf="@id/endDateTextView"
+        app:layout_constraintBottom_toTopOf="@id/teamTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:background="@drawable/border_button"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:layout_marginRight="4dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/teamTextView"
+        app:layout_constraintTop_toBottomOf="@id/endHourTextView"
+        app:layout_constraintBottom_toTopOf="@id/submit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"
+        android:hint="TEAM"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SELECT TEAM"
+        android:id="@+id/teamButton"
+        app:layout_constraintTop_toBottomOf="@id/endHourTextView"
+        app:layout_constraintBottom_toTopOf="@id/submit"
+        app:layout_constraintRight_toRightOf="parent"
+        android:inputType="text"
+        android:background="@drawable/border_button"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:layout_marginRight="4dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" SUBMIT"
+        android:id="@+id/submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/border_button"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

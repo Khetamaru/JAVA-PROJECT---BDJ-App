@@ -1,0 +1,20 @@
+[
+	{
+		"name" : "Tekken 5", 
+		"className" : "videoGame",
+		"status" : "own",
+		"dateRecup" : 1576228728903,
+		"state" : "neuf",
+		"origin" : "don",
+		"cfDoc" : "",
+        "ableToBorrow" : "yes",
+        "gameConsole" : 
+        {
+            "idEquipment": 13
+        },
+        "nbMaxPlayer" : "4",
+        "lan" : "no",
+        "realiseDate" : 1576228728903,
+        "editor" : "sony"
+    }
+]

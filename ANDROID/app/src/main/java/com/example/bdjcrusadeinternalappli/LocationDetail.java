@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,6 +16,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
+import kotlinClass.RequestService;
+import kotlinClass.RooterService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -37,6 +40,9 @@ public class LocationDetail extends Activity {
 
     Button back;
 
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,17 +53,17 @@ public class LocationDetail extends Activity {
 
         mapper = new ObjectMapper();
 
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/user/" + getIntent().getIntExtra("idUser",0))
-                .get()
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderGet("user", getIntent().getIntExtra("idUser",0))
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("LoginPage", "fail", e);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(LocationDetail.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -67,17 +73,17 @@ public class LocationDetail extends Activity {
 
                 mapper = new ObjectMapper();
 
-                OkHttpClient client = new OkHttpClient();
-
-                Request request = new Request.Builder()
-                        .url("http://192.168.43.110:8080/location/" + getIntent().getIntExtra("idLocation", 0))
-                        .get()
-                        .build();
-
-                client.newCall(request).enqueue(new Callback() {
+                requestService.requestBuilderGet("location", getIntent().getIntExtra("idLocation", 0))
+                        .enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        Log.e("LoginPage", "fail", e);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Toast.makeText(LocationDetail.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
 
                     @Override
@@ -115,10 +121,7 @@ public class LocationDetail extends Activity {
                                     @Override
                                     public void onClick(View v) {
 
-                                        Intent intent;
-                                        intent = new Intent(v.getContext(), LocationView.class);
-                                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0));
-                                        startActivity(intent);
+                                        rooterService.changeActivity(new Intent(v.getContext(), LocationView.class), LocationDetail.this, getIntent().getIntExtra("idUser", 0));
                                     }
                                 });
                             }

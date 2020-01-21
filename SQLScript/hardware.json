@@ -1,0 +1,17 @@
+[
+	{
+		"name" : "diabloPC", 
+		"className" : "hardware",
+		"status" : "own",
+		"dateRecup" : 1576228728903,
+		"state" : "neuf",
+		"origin" : "don",
+		"cfDoc" : "",
+        "ableToBorrow" : "no",
+        "cpu" : "cpu",
+        "ram" : "ram",
+        "hdd" : "hdd",
+        "gpu" : "gpu",
+        "os" : "windows"
+    }
+]

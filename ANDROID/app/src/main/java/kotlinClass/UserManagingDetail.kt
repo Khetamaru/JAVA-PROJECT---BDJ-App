@@ -29,16 +29,14 @@ class UserManagingDetail : Activity() {
         val intentUser = intent.getIntExtra("idUser", 0)
         val intentClient = intent.getIntExtra("idUserManaging", 0)
         val mapper: ObjectMapper = ObjectMapper()
-        val client: OkHttpClient = OkHttpClient()
+        var rooterService = RooterService()
+        var requestService = RequestService()
 
-        val request = Request.Builder()
-                .url("http://192.168.43.110:8080/user/$intentClient")
-                .get()
-                .build()
+        requestService.requestBuilderGet("user", intentClient)
+                .enqueue(object : Callback {
 
-        client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.e("UserManagingDetail", "fail", e)
+                Toast.makeText(this@UserManagingDetail, "Conversation with server fail", Toast.LENGTH_LONG).show()
             }
 
             @Throws(IOException::class)
@@ -51,15 +49,13 @@ class UserManagingDetail : Activity() {
                     when(user.level) {
                         "admin" -> adminView(user)
 
-                        else -> noneAdminView(user, client, context, intentUser, intentClient)
+                        else -> noneAdminView(user, context, intentUser, intentClient)
                     }
 
                     var back : Button = findViewById(id.back)
                     back.setOnClickListener(View.OnClickListener {
 
-                        val intent = Intent(context, UserManagingView::class.java)
-                        intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
-                        startActivity(intent)
+                        rooterService.changeActivity(Intent(context, UserManagingView::class.java), context, intentUser)
                     })
                 }
             }
@@ -83,29 +79,28 @@ class UserManagingDetail : Activity() {
         levelView.setText(user.getLevel())
     }
 
-    fun noneAdminView(user : User, client: OkHttpClient, context: Context, intentUser: Int, intentClient: Int) {
+    fun noneAdminView(user : User, context: Context, intentUser: Int, intentClient: Int) {
 
         setContentView(R.layout.user_managing_none_admin)
+
+        var requestService = RequestService()
+        var rooterService = RooterService()
 
         var deleteButton : Button = findViewById(id.delete)
         deleteButton.setOnClickListener(View.OnClickListener {
 
-            val request = Request.Builder()
-                    .url("http://192.168.43.110:8080/user/${user.idUser}")
-                    .delete()
-                    .build()
 
-            client.newCall(request).enqueue(object : Callback {
+            requestService.requestBuilderDelete("user", user.idUser)
+                    .enqueue(object : Callback {
+
                 override fun onFailure(call: Call, e: IOException) {
-                    Log.e("UserManagingDetail", "fail", e)
+                    Toast.makeText(this@UserManagingDetail, "Conversation with server fail", Toast.LENGTH_LONG).show()
                 }
 
                 @Throws(IOException::class)
                 override fun onResponse(call: Call, response: Response) {
 
-                    val intent = Intent(context, UserManagingView::class.java)
-                    intent.putExtra("idUser", getIntent().getIntExtra("idUser", 0))
-                    startActivity(intent)
+                    rooterService.changeActivity(Intent(context, UserManagingView::class.java), context, intentUser)
                 }
             })
         })
@@ -113,31 +108,17 @@ class UserManagingDetail : Activity() {
         var saveButton : Button = findViewById(id.save)
         saveButton.setOnClickListener(View.OnClickListener {
 
-            val rq = user.toString()
+            requestService.requestBuilderPut("user", user.toString())
+                    .enqueue(object : Callback {
 
-            val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), rq)
-
-            val request = Request.Builder()
-                    .url("http://192.168.43.110:8080/user")
-                    .put(body)
-                    .build()
-
-            client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
-                    Log.e("UserManagingDetail", "fail", e)
+                    Toast.makeText(this@UserManagingDetail, "Conversation with server fail", Toast.LENGTH_LONG).show()
                 }
 
                 @Throws(IOException::class)
                 override fun onResponse(call: Call, response: Response) {
 
-                    val intent = Intent(context, UserManagingDetail::class.java)
-                    intent.putExtra("idUser", intentUser)
-                    intent.putExtra("idUserManaging", intentClient)
-
-                    /*Toast.makeText(this@UserManagingDetail, "New Information(s) saved !", Toast.LENGTH_LONG).show()
-                    Log.i("UserManagingDetail", "New Information(s) saved !")*/
-
-                    startActivity(intent)
+                    rooterService.changeActivity(Intent(context, UserManagingDetail::class.java), context, intentUser, intentClient, "idUserManaging")
                 }
             })
         })

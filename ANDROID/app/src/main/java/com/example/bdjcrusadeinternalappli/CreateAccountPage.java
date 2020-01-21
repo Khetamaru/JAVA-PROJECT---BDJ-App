@@ -15,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
+import kotlinClass.RequestService;
+import kotlinClass.RooterService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -34,17 +36,14 @@ public class CreateAccountPage extends Activity {
 
     ObjectMapper mapper;
 
-    OkHttpClient client;
-    MediaType JSON;
+    RequestService requestService = new RequestService();
+    RooterService rooterService = new RooterService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Log.i("CreateAccountPage", "creation");
-
-        client = new OkHttpClient();
-        JSON = MediaType.get("application/json; charset=utf-8");
 
         mapper = new ObjectMapper();
 
@@ -115,19 +114,18 @@ public class CreateAccountPage extends Activity {
 
             if (editText_login.length() < 15) {
 
-                System.out.println(editText_login.getText().toString());
-
-                OkHttpClient client = new OkHttpClient();
-
-                Request request = new Request.Builder()
-                        .url("http://192.168.43.110:8080/user/byLogin/" + editText_login.getText().toString())
-                        .build();
-
-                client.newCall(request).enqueue(new Callback() {
+                requestService.requestBuilderGet("user/byLogin", editText_login.getText().toString())
+                        .enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                        Log.e("CreateAccountPage", "fail", e);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Toast.makeText(CreateAccountPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
 
                     @Override
@@ -198,9 +196,6 @@ public class CreateAccountPage extends Activity {
 
     protected boolean verificationConfirmPassword() {
 
-        System.out.println(editText_password.getText());
-        System.out.println(editText_confirm_password.getText());
-
         if (editText_password.getText().toString().equals(editText_confirm_password.getText().toString())) {
 
             return true;
@@ -222,20 +217,18 @@ public class CreateAccountPage extends Activity {
                 "\"level\" : \"student\"" +
                 "}";
 
-        RequestBody body = RequestBody.create(JSON, req);
-
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/user")
-                .put(body)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderPut("user", req)
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                Log.e("CreateAccountPage", "fail",e);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(CreateAccountPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -256,21 +249,18 @@ public class CreateAccountPage extends Activity {
 
     protected void goToMainPage(View v) {
 
-        String req = "{\"login\" : \"" + editText_login.getText().toString() + "\"";
-
-        RequestBody body = RequestBody.create(JSON, req);
-
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://192.168.43.110:8080/user/byLogin/" + editText_login.getText().toString())
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        requestService.requestBuilderGet("user/byLogin", editText_login.getText().toString())
+                .enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                Log.e("CreateAccountPage", "fail", e);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(CreateAccountPage.this, "Conversation with server fail", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -286,9 +276,7 @@ public class CreateAccountPage extends Activity {
                         @Override
                         public void run() {
 
-                            Intent intent = new Intent(v.getContext(), MainPage.class);
-                            intent.putExtra("idUser", user.idUser);
-                            startActivity(intent);
+                            rooterService.changeActivity(new Intent(v.getContext(), MainPage.class), CreateAccountPage.this, user.idUser);
                         }
                     });
                 }

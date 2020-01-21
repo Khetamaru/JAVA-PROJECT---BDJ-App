@@ -3,6 +3,7 @@
 
     <application
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -73,6 +74,66 @@
         </activity>
 
         <activity android:name="kotlinClass.ChangePasswordPage">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentSelectTypeMenu">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentInheritedView">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentInheritedDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.VideoGameConsoleDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentFullInfoDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentAddForm">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentManagingDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentManagingView">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentManagingSelect">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentAddFormNext">
+        </activity>
+
+        <activity android:name="kotlinClass.EquipmentManagingFullInfoDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.LoaningManagingView">
+        </activity>
+
+        <activity android:name="kotlinClass.LoaningManagingDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.EventMenu">
+        </activity>
+
+        <activity android:name="kotlinClass.EventView">
+        </activity>
+
+        <activity android:name="kotlinClass.TeamView">
+        </activity>
+
+        <activity android:name="kotlinClass.TeamDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.TeamAdd">
+        </activity>
+
+        <activity android:name="kotlinClass.EventDetail">
+        </activity>
+
+        <activity android:name="kotlinClass.EventAdd">
         </activity>
 
     </application>
