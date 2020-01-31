@@ -6,7 +6,7 @@
         },
         "equipment" : 
         {
-            "idEquipment": 15
+            "idEquipment": 13
         },
         "startDate" : 1576228728903,
         "endDate" : 1576228728903,
@@ -15,11 +15,11 @@
     {
         "user" : 
         {
-            "idUser": 1
+            "idUser": 2
         },
         "equipment" : 
         {
-            "idEquipment": 18
+            "idEquipment": 13
         },
         "startDate" : 1576228728903,
         "endDate" : 1576228728903,

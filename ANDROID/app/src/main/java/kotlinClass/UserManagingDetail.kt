@@ -108,7 +108,7 @@ class UserManagingDetail : Activity() {
         var saveButton : Button = findViewById(id.save)
         saveButton.setOnClickListener(View.OnClickListener {
 
-            requestService.requestBuilderPut("user", user.toString())
+            requestService.requestBuilderPut("user/noHash", user.toString())
                     .enqueue(object : Callback {
 
                 override fun onFailure(call: Call, e: IOException) {

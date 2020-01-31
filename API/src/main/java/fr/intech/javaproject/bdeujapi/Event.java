@@ -15,8 +15,8 @@ public class Event {
     private String place;
     private Date startDate;
     private Date endDate;
-    protected Time startHour;
-    protected Time endHour;
+    private Time startHour;
+    private Time endHour;
     @OneToOne
     private Team team;
 
